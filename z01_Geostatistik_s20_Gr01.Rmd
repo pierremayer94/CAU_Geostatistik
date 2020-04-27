@@ -15,14 +15,27 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Hier können sie Aufgabe 1 beantworten. Bei Erläuterungen achten Sie natürlich auf korrekte Zitation wie etwa [@akin1988]. 
 
-a) Recherchieren sie Pakete, die für geostatistische Aufgabenstellungen relevant sein könnten. Nennen sie dabei mindestens zwei 
-und beschreiben sie kurz deren wesentliche Ziele.
+a) Recherchieren sie Pakete, die für geostatistische Aufgabenstellungen relevant sein könnten. Nennen sie dabei mindestens zwei und beschreiben sie
+kurz deren wesentliche Ziele. (2 Punkte)
 Nutzen sie die R-Homepage http://cran.r-project.org/ für ihre Suche aus.
 
+- ggmap: extends the plotting package ggplot2 for maps
+- rgdal: R’s interface to the popular C/C++ spatial data processing library gdal
+- rgeos: R’s interface to the powerful vector processing library geos
+- maptools: provides various mapping functions
+- dplyr and tidyr: fast and concise data manipulation packages
+- tmap: a new packages for rapidly creating beautiful maps
 
+https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf 
 
-b) Erforschen sie selbständig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, 
-was die Methode macht und auf welche Einstellungsmöglichkeiten (Argumente) besonders zu achten ist.
+b) Erforschen sie selbständig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, was die Methode macht und auf welche Einstellungsmöglichkeiten (Argumente) besonders zu achten ist. (2 Punkte)
+
+Die read_delim-Funktion im readr-Packet ermöglicht das Einlesen von Tabellen aus
+Textdokumenten als tibble (tidyverse data.frame).
+Dazu müssen die einzelnen Spalten als solche erkannt werden,
+was in der Regel durch das erkennen von Trennzeichen wie Tab, Komma oder Semikolon erfolgt.
+
+https://cran.r-project.org/web/packages/readr/readr.pdf S. 25, 26
 
 
 ```{r aufgabe1}
@@ -50,8 +63,9 @@ getwd();
 list=ls()
 print(list);
 rm(list=ls())
-setwd("C:\docs\wd")
-load("C:\docs\wd\z01_Geostatistik_s20_Gr01.rmd")
+setwd("C:/docs/wd")
+#load("C:/docs/wd/z01_Geostatistik_s20_Gr01.Rmd")
+file.edit("C:/docs/wd/z01_Geostatistik_s20_Gr01.Rmd")
 
 ```
 
@@ -112,8 +126,10 @@ print(M3);
 
 rm(v1);
 
-#save(list = ls(all=TRUE) or save.image()
-#quit() q()
+#save(list = ls(all.names = TRUE), file = ".RData", envir = .GlobalEnv)
+save.image()
+quit()
+
 
 
 ```
