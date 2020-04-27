@@ -19,45 +19,25 @@ Recherchieren sie Pakete, die fuer geostatistische Aufgabenstellungen relevant s
 Nennen sie dabei mindestens zwei und beschreiben sie kurz deren wesentliche Ziele.
 Nutzen sie die R-Homepage http://cran.r-project.org/ fuer ihre Suche aus.
 
-- gstat:
-
-  Das gstat-Paket beinhaltet Funktionen mit denen verschiedene Modellierungen, das Erstellen von Variogrammen und Kriging moeglich sind.
-  
+- gstat: Das gstat-Paket beinhaltet Funktionen mit denen verschiedene Modellierungen, das Erstellen von Variogrammen und Kriging moeglich sind.
   https://cran.r-project.org/web/packages/gstat/gstat.pdf
 
-- spANOVA:
-
-  ermoeglicht eine Varianzanalyse von korrelierenden Rasterdatensaetzen
-  
+- spANOVA: ermoeglicht eine Varianzanalyse von korrelierenden Rasterdatensaetzen
   https://cran.r-project.org/web/packages/spANOVA/spANOVA.pdf 
 
-- ggmap:
-
-  Erweitert das  Plotting-Paket ggplot2 um Kartendarstellungen
-  
+- ggmap: Erweitert das  Plotting-Paket ggplot2 um Kartendarstellungen
   https://cran.r-project.org/web/packages/ggmap/ggmap.pdf
   
-- rgdal:
-
-  R’s Schnitstelle zur C/C++ Bibliothek gdal
-  
+- rgdal: R’s Schnitstelle zur C/C++ Bibliothek gdal
   https://cran.r-project.org/web/packages/rgdal/rgdal.pdf
 
-- rgeos:
-  R’s Schnittstelle Vektor Bibliothek geos
-  
+- rgeos: R’s Schnittstelle Vektor Bibliothek geos
   https://cran.r-project.org/web/packages/rgeos/rgeos.pdf
 
-- maptools:
-
-  Bietet diverse Funktionen zurm manipulieren von Geodaten und Erstellung von Kartengraphiken
-  
+- maptools: Bietet diverse Funktionen zurm manipulieren von Geodaten und Erstellung von Kartengraphiken
   https://cran.r-project.org/web/packages/maptools/maptools.pdf
 
-- tmap:
-
-  Paket zum schnellen erstellen von thematischen Karten.
-  
+- tmap: Paket zum schnellen erstellen von thematischen Karten.
   https://cran.r-project.org/web/packages/tmap/tmap.pdf
 
 
@@ -173,24 +153,20 @@ rm(v1);
    dessen Einzelwahrscheinlichkeiten 1 ergibt. Andernfalls ist sie stetig.
    
 - Zufallsfunktion (random function): 
-
   Definiert alle Punkte einer Region mithilfe von einfachen, charakterisierbaren Eigenschaften [@Wackernagel.2003]
   Eine Zufallsfunktion Z wird durch die Verteilung der einzelnen Zufallsvariablen Z(x) an jeder Stelle x und die gegenseitigen
   Abhaengigkeiten charakterisiert [@Dutter.1985]
    
 - Regionalisierte Variable (regionalized variable):
-
   Realisation einer Zufallsfunktion. Die Variable z(x) ist von einem Ort x in einer bestimmten Region abhaengig [@Dutter.1985].
   Eine Variable z(x̰), die Werte in Abhaengigkeit vom Ort x̰ in einem bestimmten Bereich (Region) angibt, 
   bezeichnet man als regionalisierte Variable [@Dutter.1985]
 
 - Stationaritaet (stationarity):
-
   Wenn Erwartungswert, Mittelwert und Varianz invariant gegen Veraenderungen der Datengrundlage sind,
   ist eine Zufallsvariable stationaer. Die Variable waere dann "unabhaengig von der absoluten Lage und konstant im Beobachtungsraum" [@Akin.1988].
 
 - Semivarianz (semivariance): 
-
   Als Semivarianz bezeichnet man in der Statistik die halbe, mittlere, quadrierte euklidische Distanz zwischen den Messwerten z(xi) und
   z(xi+h) an den Orten xi und xi+h fuer den Abstand bzw. Vektor h. [@Shine.1999]
   Beschreibt zwei Pixel in Relation zu einander in Bezug auf ihre Distanz unter der Annahme,
