@@ -185,3 +185,4 @@ Hedderich, J.; Sachs, L. (2018): Angewandte Statistik. Springer. Berlin, Heidelb
 Shine, J.A., Wakefield, G.I. (1999): A comparison of supervised imagery classification using analyst-chosen and geostatistically-chosen training sets.
 
 Wackernagel H. (2003): Regionalized Variable and Random Function. In: Multivariate Geostatistics. Springer, Berlin, Heidelberg. DOI: https://doi.org/10.1007/978-3-662-05294-5_5 .
+
