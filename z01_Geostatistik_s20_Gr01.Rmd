@@ -146,17 +146,17 @@ quit()
    dessen Einzelwahrscheinlichkeiten 1 ergibt. Andernfalls ist sie stetig.
    
 - Zufallsfunktion (random function): Definiert alle Punkte einer Region mithilfe von einfachen, 
-charakterisierbaren Eigenschaften [Wackernagel 2003]
+  charakterisierbaren Eigenschaften [Wackernagel 2003]
    
 - Regionalisierte Variable (regionalized variable): Realisation einer Zufallsfunktion. 
-Die Variable z(x) ist von einem Ort x in einer bestimmten Region abhängig [Dutter 1985].
+  Die Variable z(x) ist von einem Ort x in einer bestimmten Region abhängig [Dutter 1985].
 
 - Stationarität (stationarity): Wenn Erwartungswert, Mittelwert und Varianz invariant gegen Veränderungen der Datengrundlage sind,
-ist eine Zufallsvariable stationär. Die Variable wäre dann "unabhängig von der absoluten Lage und konstant im Beobachtungsraum" [Akin, Siemens 1988].
+  ist eine Zufallsvariable stationär. Die Variable wäre dann "unabhängig von der absoluten Lage und konstant im Beobachtungsraum" [Akin, Siemens 1988].
 
 - Semivarianz (semivariance): Beschreibt zwei Pixel in Relation zu einander in Bezug auf ihre Distanz unter der Annahme,
-dass je größer die Entfernung ist, desto geringer ist ihre Ähnlichkeit. 
-Dabei wird von einem Pixel ausgehend der Zusammenhang zu den umliegenden Pixeln beschrieben[Curran 1988].
+  dass je größer die Entfernung ist, desto geringer ist ihre Ähnlichkeit. 
+  Dabei wird von einem Pixel ausgehend der Zusammenhang zu den umliegenden Pixeln beschrieben[Curran 1988].
 
 
 ## Literatur
