@@ -24,7 +24,7 @@ Nutzen sie die R-Homepage http://cran.r-project.org/ für ihre Suche aus.
 - 2. spANOVA: Das Paket spANOVA ermöglicht eine Varianzanalyse von korrelierenden Rasterdatensätzen.
 https://cran.r-project.org/web/packages/spANOVA/spANOVA.pdf
 
-- ggmap: Erweitert das  Plotting Paket ggplot2 um Kartendarstellungen
+- ggmap: Erweitert das  Plotting-Paket ggplot2 um Kartendarstellungen
 - rgdal: R’s interface to the popular C/C++ spatial data processing library gdal
 - rgeos: R’s interface to the powerful vector processing library geos
 - maptools: provides various mapping functions
