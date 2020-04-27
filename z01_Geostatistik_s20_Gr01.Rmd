@@ -131,6 +131,7 @@ rm(v1);
 
 #save(list = ls(all.names = TRUE), file = ".RData", envir = .GlobalEnv) gleichbedeutend wie save.image()
 #save.image()
+#save(mein_datensatz, file="zwischenstand_mein_datensatz.Rdata")
 #savehistory(".Rhistory")
 #quit()  schließt das R-Skript
 
@@ -144,27 +145,27 @@ rm(v1);
 
 - Zufallsvariable (random variable):
    "Eine Abbildung oder Funktion, die den Elementen der Ergebnis- oder Ereignismenge eines Zufallsexperimentes reelle Zahlen zuordnet,
-   heißt Zufallsvariable" [Hedderich, Sachs 2008]. Sie ist nicht zufaellig oder variabel, sondern durch reelle Zahlen festgelegt.
+   heißt Zufallsvariable" [@Hedderich, Sachs 2008]. Sie ist nicht zufaellig oder variabel, sondern durch reelle Zahlen festgelegt.
    Sie kann diskret oder stetig sein. Wenn die Zufallsvariable diskret ist, kann sie nur bestimmte Werte annehmen, 
    dessen Einzelwahrscheinlichkeiten 1 ergibt. Andernfalls ist sie stetig.
    
 - Zufallsfunktion (random function): 
   Definiert alle Punkte einer Region mithilfe von einfachen, charakterisierbaren Eigenschaften [Wackernagel 2003]
   Eine Zufallsfunktion Z wird durch die Verteilung der einzelnen Zufallsvariablen Z(x) an jeder Stelle x und die gegenseitigen
-  Abhaengigkeiten charakterisiert [Dutter 1985]
+  Abhaengigkeiten charakterisiert [@Dutter 1985]
    
 - Regionalisierte Variable (regionalized variable):
   Realisation einer Zufallsfunktion. Die Variable z(x) ist von einem Ort x in einer bestimmten Region abhaengig [Dutter 1985].
   Eine Variable z(x̰), die Werte in Abhaengigkeit vom Ort x̰ in einem bestimmten Bereich (Region) angibt, 
-  bezeichnet man als regionalisierte Variable [Dutter 1985]
+  bezeichnet man als regionalisierte Variable [@Dutter 1985]
 
 - Stationaritaet (stationarity):
   Wenn Erwartungswert, Mittelwert und Varianz invariant gegen Veraenderungen der Datengrundlage sind,
-  ist eine Zufallsvariable stationaer. Die Variable waere dann "unabhaengig von der absoluten Lage und konstant im Beobachtungsraum" [Akin, Siemens 1988].
+  ist eine Zufallsvariable stationaer. Die Variable waere dann "unabhaengig von der absoluten Lage und konstant im Beobachtungsraum" [@Akin, Siemens 1988].
 
 - Semivarianz (semivariance): 
   Als Semivarianz bezeichnet man in der Statistik die halbe, mittlere, quadrierte euklidische Distanz zwischen den Messwerten z(xi) und
-  z(xi+h) an den Orten xi und xi+h fuer den Abstand bzw. Vektor h. [Shine, Wakefield 1999]
+  z(xi+h) an den Orten xi und xi+h fuer den Abstand bzw. Vektor h. [@Shine, Wakefield 1999]
   
   Beschreibt zwei Pixel in Relation zu einander in Bezug auf ihre Distanz unter der Annahme,
   dass je groeßer die Entfernung ist, desto geringer ist ihre Aehnlichkeit. 
