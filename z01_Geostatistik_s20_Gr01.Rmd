@@ -151,14 +151,12 @@ rm(v1);
 - Zufallsfunktion (random function): 
   Definiert alle Punkte einer Region mithilfe von einfachen, charakterisierbaren Eigenschaften [Wackernagel 2003]
   Eine Zufallsfunktion Z wird durch die Verteilung der einzelnen Zufallsvariablen Z(x) an jeder Stelle x und die gegenseitigen
-  Abhaengigkeiten charakterisiert
-  (Dutter R. (1985) Regionalisierte Variable. In: Geostatistik. Mathematische Methoden in der Technik. Vieweg+Teubner Verlag, Wiesbaden )
+  Abhaengigkeiten charakterisiert [Dutter 1985]
    
 - Regionalisierte Variable (regionalized variable):
   Realisation einer Zufallsfunktion. Die Variable z(x) ist von einem Ort x in einer bestimmten Region abhaengig [Dutter 1985].
   Eine Variable z(x̰), die Werte in Abhaengigkeit vom Ort x̰ in einem bestimmten Bereich (Region) angibt, 
-  bezeichnet man als regionalisierte Variable 
-  (Dutter R. (1985) Regionalisierte Variable. In: Geostatistik. Mathematische Methoden in der Technik. Vieweg+Teubner Verlag, Wiesbaden )
+  bezeichnet man als regionalisierte Variable [Dutter 1985]
 
 - Stationaritaet (stationarity):
   Wenn Erwartungswert, Mittelwert und Varianz invariant gegen Veraenderungen der Datengrundlage sind,
@@ -166,8 +164,8 @@ rm(v1);
 
 - Semivarianz (semivariance): 
   Als Semivarianz bezeichnet man in der Statistik die halbe, mittlere, quadrierte euklidische Distanz zwischen den Messwerten z(xi) und
-  z(xi+h) an den Orten xi und xi+h fuer den Abstand bzw. Vektor h.
-  (Shine, J.A., Wakefield, G.I.: A comparison of supervised imagery classification using analyst-chosen and geostatistically-chosen training sets, 1999)
+  z(xi+h) an den Orten xi und xi+h fuer den Abstand bzw. Vektor h. [Shine, Wakefield 1999]
+  
   Beschreibt zwei Pixel in Relation zu einander in Bezug auf ihre Distanz unter der Annahme,
   dass je groeßer die Entfernung ist, desto geringer ist ihre Aehnlichkeit. 
   Dabei wird von einem Pixel ausgehend der Zusammenhang zu den umliegenden Pixeln beschrieben[Curran 1988].
@@ -182,5 +180,7 @@ Curran, P. J. (1988): The semivariogram in remote sensing: An introduction. In: 
 Dutter, R. (1985): Regionalisierte Variable. In: Geostatistik. Mathematische Methoden in der Technik. Vieweg+Teubner Verlag, Wiesbaden. DOI: https://doi.org/10.1007/978-3-322-99493-6_3 .
 
 Hedderich, J.; Sachs, L. (2018): Angewandte Statistik. Springer. Berlin, Heidelberg. DOI: 10.1007/978-3-662-56657-2 .
+
+Shine, J.A., Wakefield, G.I. (1999): A comparison of supervised imagery classification using analyst-chosen and geostatistically-chosen training sets.
 
 Wackernagel H. (2003): Regionalized Variable and Random Function. In: Multivariate Geostatistics. Springer, Berlin, Heidelberg. DOI: https://doi.org/10.1007/978-3-662-05294-5_5 .
