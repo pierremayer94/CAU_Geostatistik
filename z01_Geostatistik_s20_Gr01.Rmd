@@ -15,13 +15,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Hier können sie Aufgabe 1 beantworten. Bei Erläuterungen achten Sie natürlich auf korrekte Zitation wie etwa [@akin1988]. 
 
-a) Recherchieren sie Pakete, die für geostatistische Aufgabenstellungen relevant sein könnten. Nennen sie dabei mindestens zwei und beschreiben sie
-kurz deren wesentliche Ziele. (2 Punkte)
+a) Recherchieren sie Pakete, die für geostatistische Aufgabenstellungen relevant sein könnten. Nennen sie dabei mindestens zwei 
+und beschreiben sie kurz deren wesentliche Ziele.
 Nutzen sie die R-Homepage http://cran.r-project.org/ für ihre Suche aus.
 
 
 
-b) Erforschen sie selbständig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, was die Methode macht und auf welche Einstellungsmöglichkeiten (Argumente) besonders zu achten ist. (2 Punkte)
+b) Erforschen sie selbständig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, 
+was die Methode macht und auf welche Einstellungsmöglichkeiten (Argumente) besonders zu achten ist.
 
 
 ```{r aufgabe1}
