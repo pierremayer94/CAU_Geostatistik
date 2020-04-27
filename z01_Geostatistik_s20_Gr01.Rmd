@@ -17,7 +17,7 @@ Hier koennen sie Aufgabe 1 beantworten. Bei Erlaeuterungen achten Sie natuerlich
 
 ## 1 a) 
 
-Recherchieren sie Pakete, die fuer geostatistische Aufgabenstellungen relevant sein könnten. Nennen sie dabei mindestens zwei und beschreiben sie kurz deren wesentliche Ziele. (2 Punkte)
+Recherchieren sie Pakete, die fuer geostatistische Aufgabenstellungen relevant sein koennten. Nennen sie dabei mindestens zwei und beschreiben sie kurz deren wesentliche Ziele. (2 Punkte)
 Nutzen sie die R-Homepage http://cran.r-project.org/ fuer ihre Suche aus.
 
 
@@ -151,7 +151,7 @@ rm(v1);
 - Zufallsfunktion (random function): 
   Definiert alle Punkte einer Region mithilfe von einfachen, charakterisierbaren Eigenschaften [Wackernagel 2003]
   Eine Zufallsfunktion Z wird durch die Verteilung der einzelnen Zufallsvariablen Z(x) an jeder Stelle x und die gegenseitigen
-  Abhängigkeiten charakterisiert
+  Abhaengigkeiten charakterisiert
   (Dutter R. (1985) Regionalisierte Variable. In: Geostatistik. Mathematische Methoden in der Technik. Vieweg+Teubner Verlag, Wiesbaden )
    
 - Regionalisierte Variable (regionalized variable):
