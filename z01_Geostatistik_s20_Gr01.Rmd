@@ -64,12 +64,12 @@ Ist dies nicht der Fall wechseln sie in das Verzeichnis.
 
 ```{r}
 
-getwd();
+getwd()
 list=ls()
-print(list);
+print(list)
 rm(list=ls())
 setwd("C:/docs/wd")
-#load("C:/docs/wd/z01_Geostatistik_s20_Gr01.Rmd")
+#load("C:/docs/wd/z01_Geostatistik_s20_Gr01.Rmd") oeffnet Datei, wenn diese zuvor mit save.image() gespeichert worden ist
 file.edit("C:/docs/wd/z01_Geostatistik_s20_Gr01.Rmd")
 
 ```
