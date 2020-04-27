@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Hier koennen sie Aufgabe 1 beantworten. Bei Erläuterungen achten Sie natuerlich auf korrekte Zitation wie etwa [@akin1988]. 
 
-# 1 a) 
+## 1 a) 
 
 Recherchieren sie Pakete, die fuer geostatistische Aufgabenstellungen relevant sein könnten. Nennen sie dabei mindestens zwei und beschreiben sie kurz deren wesentliche Ziele. (2 Punkte)
 Nutzen sie die R-Homepage http://cran.r-project.org/ fuer ihre Suche aus.
@@ -56,7 +56,7 @@ https://cran.r-project.org/web/packages/readr/readr.pdf S. 25, 26
 
 # Aufgabe 2 Vektor und Matrizen
 
-# 2 a) working directory
+## 2 a) working directory
 
 Oeffnen Sie die .rmd mit RStudio und ueberpruefen Sie in der Konsole, 
 ob Sie sich im neu eingerichteten Verzeichnis befinden. 
@@ -75,7 +75,7 @@ file.edit("C:/docs/wd/z01_Geostatistik_s20_Gr01.Rmd")
 ```
 
 
-# 2 b) 
+## 2 b) 
 
 Vektor v1 der Länge 15 mit einer Schrittweite von 0.5, beginnend bei 0 
 
@@ -85,7 +85,7 @@ print(v1);
 ```
 
 
-# 2 c)
+## 2 c)
 
 Bestimmen sie die Funktionswerte fuer f(v1) = 3 * v1 + ihre_gruppen_id
 und fassen sie v1 sowie f(v1) in einer Matrix (15 x 2) M1 zusammen (cbind)
@@ -107,7 +107,7 @@ print(M1);
 ```
 
 
-# 2 d)
+## 2 d)
 
 Erzeugen sie die transponierte Matrix M1t und multiplizieren sie diese
 mit M1 zu M3. Lassen sie sich das resultierende Objekt M3 anzeigen.
@@ -134,7 +134,7 @@ rm(v1);
 #savehistory(".Rhistory")
 #quit()  schließt das R-Skript
 
-#Der Befehl savehistory(".Rhistory") lässt sich im R-Code ausführen, führt aber zu Fehlermeldungen beim Knit. Dieser wird daher vor dem Knitvorgang auskommentiert. Das gleiche Problem liegt bei quit() vor. 
+#Der Befehl savehistory(".Rhistory") lässt sich im R-Code ausfuehren, fuehrt aber zu Fehlermeldungen beim Knit. Dieser wird daher vor dem Knitvorgang auskommentiert. Das gleiche Problem liegt bei quit() vor. 
 
 
 ```
