@@ -1,0 +1,133 @@
+---
+title: "Aufgabenzettel 01"
+author: "Gruppe 01"
+date: "27.04.2020"
+bibliography: bibliography.bib
+output:
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aufgabe 1 Funktion read_delim des readr Paketes
+
+Hier können sie Aufgabe 1 beantworten. Bei Erläuterungen achten Sie natürlich auf korrekte Zitation wie etwa [@akin1988]. 
+
+a) Recherchieren sie Pakete, die für geostatistische Aufgabenstellungen relevant sein könnten. Nennen sie dabei mindestens zwei und beschreiben sie
+kurz deren wesentliche Ziele. (2 Punkte)
+Nutzen sie die R-Homepage http://cran.r-project.org/ für ihre Suche aus.
+
+
+
+b) Erforschen sie selbständig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, was die Methode macht und auf welche Einstellungsmöglichkeiten (Argumente) besonders zu achten ist. (2 Punkte)
+
+
+```{r aufgabe1}
+library(dplyr)
+meindatensatz = tibble(Spalte1 = c(1,2,3,4,5,6), 
+                       Spalte2 = c(23,24,35,45,45,56))
+
+knitr::kable(meindatensatz) # Mit kable kann man die Tabellen "schöner" darstellen
+
+plot(meindatensatz,
+     main = "Mein schöner Datensatz")
+```
+
+## Aufgabe 2 Vektor und Matrizen
+
+#a) working directory
+
+# Oeffnen Sie die .rmd mit RStudio und ueberpruefen Sie in der Konsole, 
+# ob Sie sich im neu eingerichteten Verzeichnis befinden. 
+# Ist dies nicht der Fall wechseln sie in das Verzeichnis.
+
+```{r}
+
+getwd();
+list=ls()
+print(list);
+rm(list=ls())
+setwd("C:\docs\wd")
+load("C:\docs\wd\z01_Geostatistik_s20_Gr01.rmd")
+
+```
+
+
+#b) Vektor v1 der Länge 15 mit einer Schrittweite von 0.5, beginnend bei 0 
+```{r}
+v1 = seq(from=0, by=0.5 , length.out=15)
+print(v1);
+```
+
+
+#c)Bestimmen sie die Funktionswerte für f(v1) = 3 * v1 + ihre_gruppen_id
+#und fassen sie v1 sowie f(v1) in einer Matrix (15 x 2) M1 zusammen (cbind)
+
+```{r}
+ #f(v1) = 3 * v1 + 01
+
+# fahrenheit_to_celsius <- function(temp_F) {
+#  temp_C <- (temp_F - 32) * 5 / 9
+#  return(temp_C)
+#}
+#
+#fahrenheit_to_celsius();
+
+#Funktion f, die f(v1) = 3 * v1 + 01 erfuellt
+
+f <- function(a) {
+  f <- 3.0*a+1.0
+  return(f)
+}
+
+v2 = f(v1)
+
+M1 = cbind(v1, v2)
+
+print(M1);
+
+```
+
+
+#d) Erzeugen sie die transponierte Matrix M1t und multiplizieren sie diese
+#mit M1 zu M3. Lassen sie sich das resultierende Objekt M3 anzeigen.
+#Löschen sie anschließend das Objekt v1 und speichern sie den aktuellen
+#Workspace sowie die R-History in ihrem Kursordner ab.
+
+```{r}
+
+M1t = t(M1)
+
+print(M1t)
+
+M3 = M1%*%M1t
+
+print(M3);
+
+#Löschen sie anschließend das Objekt v1 und speichern sie den aktuellen
+#Workspace sowie die R-History in ihrem Kursordner ab
+
+rm(v1);
+
+#save(list = ls(all=TRUE) or save.image()
+#quit() q()
+
+
+```
+
+
+## Aufgabe 3
+
+Zufallsvariable (random variable)
+
+Zufallsfunktion (random function)
+
+Regionalisierte Variable (regionalized variable)
+
+Stationarität (stationarity)
+
+Semivarianz (semivariance)
+
+## Literatur
