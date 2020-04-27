@@ -139,14 +139,26 @@ quit()
 
 ## Aufgabe 3
 
-Zufallsvariable (random variable)
+- Zufallsvariable (random variable):
+   "Eine Abbildung oder Funktion, die den Elementen der Ergebnis- oder Ereignismenge eines Zufallsexperimentes reelle Zahlen zuordnet, heißt Zufallsvariable" [Hedderich, Sachs 2008]. Sie ist nicht zufällig oder variabel, sondern durch reelle Zahlen festgelegt. Sie kann diskret oder stetig sein. Wenn die Zufallsvariable diskret ist, kann sie nur bestimmte Werte annehmen, dessen Einzelwahrscheinlichkeiten 1 ergibt. Andernfalls ist sie stetig.
+   
+- Zufallsfunktion (random function): Definiert alle Punkte einer Region mithilfe von einfachen, charakterisierbaren Eigenschaften [Wackernagel 2003]
+   
+- Regionalisierte Variable (regionalized variable): Realisation einer Zufallsfunktion. Die Variable z(x) ist von einem Ort x in einer bestimmten Region abhängig [Dutter 1985].
 
-Zufallsfunktion (random function)
+- Stationarität (stationarity): Wenn Erwartungswert, Mittelwert und Varianz invariant gegen Veränderungen der Datengrundlage sind, ist eine Zufallsvariable stationär. Die Variable wäre dann "unabhängig von der absoluten Lage und konstant im Beobachtungsraum" [Akin, Siemens 1988].
 
-Regionalisierte Variable (regionalized variable)
+- Semivarianz (semivariance): Beschreibt zwei Pixel in Relation zu einander in Bezug auf ihre Distanz unter der Annahme, dass je größer die Entfernung ist, desto geringer ist ihre Ähnlichkeit. Dabei wird von einem Pixel ausgehend der Zusammenhang zu den umliegenden Pixeln beschrieben[Curran 1988].
 
-Stationarität (stationarity)
-
-Semivarianz (semivariance)
 
 ## Literatur
+
+Akin, H.; Siemes, H. (1988): Praktische Geostatistik: eine Einführung für den Bergbau und die Geowissenschaften. Springer. Berlin.
+
+Curran, P. J. (1988): The semivariogram in remote sensing: An introduction. In: Remote Sensing of Environment (1988). Vol. 24, issue 3. S. 493-507. ElSevier.
+
+Dutter, R. (1985): Regionalisierte Variable. In: Geostatistik. Mathematische Methoden in der Technik. Vieweg+Teubner Verlag, Wiesbaden. DOI: https://doi.org/10.1007/978-3-322-99493-6_3 .
+
+Hedderich, J.; Sachs, L. (2018): Angewandte Statistik. Springer. Berlin, Heidelberg. DOI: 10.1007/978-3-662-56657-2 .
+
+Wackernagel H. (2003): Regionalized Variable and Random Function. In: Multivariate Geostatistics. Springer, Berlin, Heidelberg. DOI: https://doi.org/10.1007/978-3-662-05294-5_5 .
