@@ -55,9 +55,9 @@ https://cran.r-project.org/web/packages/readr/readr.pdf S. 25, 26
 
 #a) working directory
 
-# Oeffnen Sie die .rmd mit RStudio und ueberpruefen Sie in der Konsole, 
-# ob Sie sich im neu eingerichteten Verzeichnis befinden. 
-# Ist dies nicht der Fall wechseln sie in das Verzeichnis.
+Oeffnen Sie die .rmd mit RStudio und ueberpruefen Sie in der Konsole, 
+ob Sie sich im neu eingerichteten Verzeichnis befinden. 
+Ist dies nicht der Fall wechseln sie in das Verzeichnis.
 
 ```{r}
 
@@ -83,15 +83,6 @@ print(v1);
 #und fassen sie v1 sowie f(v1) in einer Matrix (15 x 2) M1 zusammen (cbind)
 
 ```{r}
- #f(v1) = 3 * v1 + 01
-
-# fahrenheit_to_celsius <- function(temp_F) {
-#  temp_C <- (temp_F - 32) * 5 / 9
-#  return(temp_C)
-#}
-#
-#fahrenheit_to_celsius();
-
 #Funktion f, die f(v1) = 3 * v1 + 01 erfuellt
 
 f <- function(a) {
@@ -164,7 +155,8 @@ rm(v1);
   ist eine Zufallsvariable stationär. Die Variable wäre dann "unabhängig von der absoluten Lage und konstant im Beobachtungsraum" [Akin, Siemens 1988].
 
 - Semivarianz (semivariance): 
-  Als Semivarianz bezeichnet man in der Statistik die halbe, mittlere, quadrierte euklidische Distanz zwischen den Messwerten z(xi) und     z(xi+h) an den Orten xi und xi+h für den Abstand bzw. Vektor h.
+  Als Semivarianz bezeichnet man in der Statistik die halbe, mittlere, quadrierte euklidische Distanz zwischen den Messwerten z(xi) und
+  z(xi+h) an den Orten xi und xi+h für den Abstand bzw. Vektor h.
   (Shine, J.A., Wakefield, G.I.: A comparison of supervised imagery classification using analyst-chosen and geostatistically-chosen training sets, 1999)
   Beschreibt zwei Pixel in Relation zu einander in Bezug auf ihre Distanz unter der Annahme,
   dass je größer die Entfernung ist, desto geringer ist ihre Ähnlichkeit. 
