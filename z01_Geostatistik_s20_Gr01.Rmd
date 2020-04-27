@@ -33,14 +33,6 @@ https://cran.r-project.org/web/packages/spANOVA/spANOVA.pdf
 
 https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf 
 
-- ggmap: extends the plotting package ggplot2 for maps
-- rgdal: R’s interface to the popular C/C++ spatial data processing library gdal
-- rgeos: R’s interface to the powerful vector processing library geos
-- maptools: provides various mapping functions
-- dplyr and tidyr: fast and concise data manipulation packages
-- tmap: a new packages for rapidly creating beautiful maps
-
-https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf 
 
 b) Erforschen sie selbständig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, was die Methode macht und auf welche Einstellungsmöglichkeiten (Argumente) besonders zu achten ist. (2 Punkte)
 
