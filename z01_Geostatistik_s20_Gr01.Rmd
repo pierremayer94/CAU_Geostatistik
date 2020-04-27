@@ -21,8 +21,8 @@ Recherchieren sie Pakete, die fuer geostatistische Aufgabenstellungen relevant s
 Nutzen sie die R-Homepage http://cran.r-project.org/ fuer ihre Suche aus.
 
 
-- 1. gstat: Das gstat-Paket beinhaltet Funktionen mit denen verschiedene Modellierungen, das Erstellen von Variogrammen und Kriging möglich sind.
-- 2. spANOVA: Das Paket spANOVA ermöglicht eine Varianzanalyse von korrelierenden Rasterdatensaetzen.
+- 1. gstat: Das gstat-Paket beinhaltet Funktionen mit denen verschiedene Modellierungen, das Erstellen von Variogrammen und Kriging moeglich sind.
+- 2. spANOVA: Das Paket spANOVA ermoeglicht eine Varianzanalyse von korrelierenden Rasterdatensaetzen.
 https://cran.r-project.org/web/packages/spANOVA/spANOVA.pdf
 
 - ggmap: Erweitert das  Plotting-Paket ggplot2 um Kartendarstellungen
@@ -37,9 +37,9 @@ https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf
 
 ## 1 b) 
 
-Erforschen sie selbstaendig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, was die Methode macht und auf welche Einstellungsmöglichkeiten (Argumente) besonders zu achten ist. (2 Punkte)
+Erforschen sie selbstaendig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, was die Methode macht und auf welche Einstellungsmoeglichkeiten (Argumente) besonders zu achten ist. (2 Punkte)
 
-Die read_delim-Funktion im readr-Packet ermöglicht das Einlesen von Tabellen aus
+Die read_delim-Funktion im readr-Packet ermoeglicht das Einlesen von Tabellen aus
 Textdokumenten als tibble (tidyverse data.frame).
 Dazu muessen die einzelnen Spalten als solche erkannt werden,
 was in der Regel durch das erkennen von Trennzeichen wie Tab, Komma oder Semikolon erfolgt.
@@ -111,7 +111,7 @@ print(M1);
 
 Erzeugen sie die transponierte Matrix M1t und multiplizieren sie diese
 mit M1 zu M3. Lassen sie sich das resultierende Objekt M3 anzeigen.
-Löschen sie anschließend das Objekt v1 und speichern sie den aktuellen
+Loeschen sie anschließend das Objekt v1 und speichern sie den aktuellen
 Workspace sowie die R-History in ihrem Kursordner ab.
 
 ```{r}
@@ -124,7 +124,7 @@ M3 = M1%*%M1t
 
 print(M3);
 
-#Löschen sie anschließend das Objekt v1 und speichern sie den aktuellen
+#Loeschen sie anschließend das Objekt v1 und speichern sie den aktuellen
 #Workspace sowie die R-History in ihrem Kursordner ab
 
 rm(v1);
@@ -155,7 +155,7 @@ rm(v1);
   (Dutter R. (1985) Regionalisierte Variable. In: Geostatistik. Mathematische Methoden in der Technik. Vieweg+Teubner Verlag, Wiesbaden )
    
 - Regionalisierte Variable (regionalized variable):
-  Realisation einer Zufallsfunktion. Die Variable z(x) ist von einem Ort x in einer bestimmten Region abhängig [Dutter 1985].
+  Realisation einer Zufallsfunktion. Die Variable z(x) ist von einem Ort x in einer bestimmten Region abhaengig [Dutter 1985].
   Eine Variable z(x̰), die Werte in Abhaengigkeit vom Ort x̰ in einem bestimmten Bereich (Region) angibt, 
   bezeichnet man als regionalisierte Variable 
   (Dutter R. (1985) Regionalisierte Variable. In: Geostatistik. Mathematische Methoden in der Technik. Vieweg+Teubner Verlag, Wiesbaden )
@@ -166,16 +166,16 @@ rm(v1);
 
 - Semivarianz (semivariance): 
   Als Semivarianz bezeichnet man in der Statistik die halbe, mittlere, quadrierte euklidische Distanz zwischen den Messwerten z(xi) und
-  z(xi+h) an den Orten xi und xi+h für den Abstand bzw. Vektor h.
+  z(xi+h) an den Orten xi und xi+h fuer den Abstand bzw. Vektor h.
   (Shine, J.A., Wakefield, G.I.: A comparison of supervised imagery classification using analyst-chosen and geostatistically-chosen training sets, 1999)
   Beschreibt zwei Pixel in Relation zu einander in Bezug auf ihre Distanz unter der Annahme,
-  dass je größer die Entfernung ist, desto geringer ist ihre Aehnlichkeit. 
+  dass je groeßer die Entfernung ist, desto geringer ist ihre Aehnlichkeit. 
   Dabei wird von einem Pixel ausgehend der Zusammenhang zu den umliegenden Pixeln beschrieben[Curran 1988].
   
 
 # Literatur
 
-Akin, H.; Siemes, H. (1988): Praktische Geostatistik: eine Einführung für den Bergbau und die Geowissenschaften. Springer. Berlin.
+Akin, H.; Siemes, H. (1988): Praktische Geostatistik: eine Einfuehrung fuer den Bergbau und die Geowissenschaften. Springer. Berlin.
 
 Curran, P. J. (1988): The semivariogram in remote sensing: An introduction. In: Remote Sensing of Environment (1988). Vol. 24, issue 3. S. 493-507. ElSevier.
 
