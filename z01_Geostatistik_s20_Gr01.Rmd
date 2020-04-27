@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Aufgabe 1 Funktion read_delim des readr Paketes
 
-Hier koennen sie Aufgabe 1 beantworten. Bei Erläuterungen achten Sie natuerlich auf korrekte Zitation wie etwa [@akin1988]. 
+Hier koennen sie Aufgabe 1 beantworten. Bei Erlaeuterungen achten Sie natuerlich auf korrekte Zitation wie etwa [@akin1988]. 
 
 ## 1 a) 
 
@@ -22,7 +22,7 @@ Nutzen sie die R-Homepage http://cran.r-project.org/ fuer ihre Suche aus.
 
 
 - 1. gstat: Das gstat-Paket beinhaltet Funktionen mit denen verschiedene Modellierungen, das Erstellen von Variogrammen und Kriging möglich sind.
-- 2. spANOVA: Das Paket spANOVA ermöglicht eine Varianzanalyse von korrelierenden Rasterdatensätzen.
+- 2. spANOVA: Das Paket spANOVA ermöglicht eine Varianzanalyse von korrelierenden Rasterdatensaetzen.
 https://cran.r-project.org/web/packages/spANOVA/spANOVA.pdf
 
 - ggmap: Erweitert das  Plotting-Paket ggplot2 um Kartendarstellungen
@@ -37,7 +37,7 @@ https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf
 
 ## 1 b) 
 
-Erforschen sie selbständig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, was die Methode macht und auf welche Einstellungsmöglichkeiten (Argumente) besonders zu achten ist. (2 Punkte)
+Erforschen sie selbstaendig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, was die Methode macht und auf welche Einstellungsmöglichkeiten (Argumente) besonders zu achten ist. (2 Punkte)
 
 Die read_delim-Funktion im readr-Packet ermöglicht das Einlesen von Tabellen aus
 Textdokumenten als tibble (tidyverse data.frame).
@@ -77,7 +77,7 @@ file.edit("C:/docs/wd/z01_Geostatistik_s20_Gr01.Rmd")
 
 ## 2 b) 
 
-Vektor v1 der Länge 15 mit einer Schrittweite von 0.5, beginnend bei 0 
+Vektor v1 der Laenge 15 mit einer Schrittweite von 0.5, beginnend bei 0 
 
 ```{r}
 v1 = seq(from=0, by=0.5 , length.out=15)
@@ -134,7 +134,7 @@ rm(v1);
 #savehistory(".Rhistory")
 #quit()  schließt das R-Skript
 
-#Der Befehl savehistory(".Rhistory") lässt sich im R-Code ausfuehren, fuehrt aber zu Fehlermeldungen beim Knit. Dieser wird daher vor dem Knitvorgang auskommentiert. Das gleiche Problem liegt bei quit() vor. 
+#Der Befehl savehistory(".Rhistory") laesst sich im R-Code ausfuehren, fuehrt aber zu Fehlermeldungen beim Knit. Dieser wird daher vor dem Knitvorgang auskommentiert. Das gleiche Problem liegt bei quit() vor. 
 
 
 ```
@@ -144,7 +144,7 @@ rm(v1);
 
 - Zufallsvariable (random variable):
    "Eine Abbildung oder Funktion, die den Elementen der Ergebnis- oder Ereignismenge eines Zufallsexperimentes reelle Zahlen zuordnet,
-   heißt Zufallsvariable" [Hedderich, Sachs 2008]. Sie ist nicht zufällig oder variabel, sondern durch reelle Zahlen festgelegt.
+   heißt Zufallsvariable" [Hedderich, Sachs 2008]. Sie ist nicht zufaellig oder variabel, sondern durch reelle Zahlen festgelegt.
    Sie kann diskret oder stetig sein. Wenn die Zufallsvariable diskret ist, kann sie nur bestimmte Werte annehmen, 
    dessen Einzelwahrscheinlichkeiten 1 ergibt. Andernfalls ist sie stetig.
    
@@ -156,20 +156,20 @@ rm(v1);
    
 - Regionalisierte Variable (regionalized variable):
   Realisation einer Zufallsfunktion. Die Variable z(x) ist von einem Ort x in einer bestimmten Region abhängig [Dutter 1985].
-  Eine Variable z(x̰), die Werte in Abhängigkeit vom Ort x̰ in einem bestimmten Bereich (Region) angibt, 
+  Eine Variable z(x̰), die Werte in Abhaengigkeit vom Ort x̰ in einem bestimmten Bereich (Region) angibt, 
   bezeichnet man als regionalisierte Variable 
   (Dutter R. (1985) Regionalisierte Variable. In: Geostatistik. Mathematische Methoden in der Technik. Vieweg+Teubner Verlag, Wiesbaden )
 
-- Stationarität (stationarity):
-  Wenn Erwartungswert, Mittelwert und Varianz invariant gegen Veränderungen der Datengrundlage sind,
-  ist eine Zufallsvariable stationär. Die Variable wäre dann "unabhängig von der absoluten Lage und konstant im Beobachtungsraum" [Akin, Siemens 1988].
+- Stationaritaet (stationarity):
+  Wenn Erwartungswert, Mittelwert und Varianz invariant gegen Veraenderungen der Datengrundlage sind,
+  ist eine Zufallsvariable stationaer. Die Variable waere dann "unabhaengig von der absoluten Lage und konstant im Beobachtungsraum" [Akin, Siemens 1988].
 
 - Semivarianz (semivariance): 
   Als Semivarianz bezeichnet man in der Statistik die halbe, mittlere, quadrierte euklidische Distanz zwischen den Messwerten z(xi) und
   z(xi+h) an den Orten xi und xi+h für den Abstand bzw. Vektor h.
   (Shine, J.A., Wakefield, G.I.: A comparison of supervised imagery classification using analyst-chosen and geostatistically-chosen training sets, 1999)
   Beschreibt zwei Pixel in Relation zu einander in Bezug auf ihre Distanz unter der Annahme,
-  dass je größer die Entfernung ist, desto geringer ist ihre Ähnlichkeit. 
+  dass je größer die Entfernung ist, desto geringer ist ihre Aehnlichkeit. 
   Dabei wird von einem Pixel ausgehend der Zusammenhang zu den umliegenden Pixeln beschrieben[Curran 1988].
   
 
