@@ -147,9 +147,17 @@ quit()
    
 - Zufallsfunktion (random function): Definiert alle Punkte einer Region mithilfe von einfachen, 
   charakterisierbaren Eigenschaften [Wackernagel 2003]
+  
+- Eine Zufallsfunktion Z wird durch die Verteilung der einzelnen Zufallsvariablen Z(x) an jeder Stelle x und die gegenseitigen
+  Abhängigkeiten charakterisiert
+  (Dutter R. (1985) Regionalisierte Variable. In: Geostatistik. Mathematische Methoden in der Technik. Vieweg+Teubner Verlag, Wiesbaden )
    
 - Regionalisierte Variable (regionalized variable): Realisation einer Zufallsfunktion. 
   Die Variable z(x) ist von einem Ort x in einer bestimmten Region abhängig [Dutter 1985].
+  
+- Eine Variable z(x̰), die Werte in Abhängigkeit vom Ort x̰ in einem bestimmten Bereich (Region) angibt, 
+  bezeichnet man als regionalisierte Variable 
+  (Dutter R. (1985) Regionalisierte Variable. In: Geostatistik. Mathematische Methoden in der Technik. Vieweg+Teubner Verlag, Wiesbaden )
 
 - Stationarität (stationarity): Wenn Erwartungswert, Mittelwert und Varianz invariant gegen Veränderungen der Datengrundlage sind,
   ist eine Zufallsvariable stationär. Die Variable wäre dann "unabhängig von der absoluten Lage und konstant im Beobachtungsraum" [Akin, Siemens 1988].
@@ -157,6 +165,9 @@ quit()
 - Semivarianz (semivariance): Beschreibt zwei Pixel in Relation zu einander in Bezug auf ihre Distanz unter der Annahme,
   dass je größer die Entfernung ist, desto geringer ist ihre Ähnlichkeit. 
   Dabei wird von einem Pixel ausgehend der Zusammenhang zu den umliegenden Pixeln beschrieben[Curran 1988].
+  
+- Als Semivarianz bezeichnet man in der Statistik die halbe, mittlere, quadrierte euklidische Distanz zwischen den Messwerten z(xi) und     z(xi+h) an den Orten xi und xi+h für den Abstand bzw. Vektor h.
+  (Shine, J.A., Wakefield, G.I.: A comparison of supervised imagery classification using analyst-chosen and geostatistically-chosen training sets, 1999)
 
 
 ## Literatur
