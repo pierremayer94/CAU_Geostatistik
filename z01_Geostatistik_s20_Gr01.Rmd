@@ -41,19 +41,15 @@ Textdokumenten als tibble (tidyverse data.frame).
 Dazu müssen die einzelnen Spalten als solche erkannt werden,
 was in der Regel durch das erkennen von Trennzeichen wie Tab, Komma oder Semikolon erfolgt.
 
+Im wesentlichen wird zuerst für das Argument file der Dateipfad zur gewüschten Datei angegeben. 
+Für das Argument delim beschreibt, wodurch oder mit welchem Zeichen einzelne Felder mit Inhalt getrennt werden und quote mit welchem Zeichen strings, also Text, markiert wird. 
+Darüber hinaus wird mit dem Argument col_names=True/False festgelegt, ob die erste Zeile der Datei Spaltennamen darstellen oder nicht. Mit weiteren Argumenten, kann festgelegt werden, ob Zeilen beim einlesen übersprungen werden sollen, Min- und Maxwerte beschrieben oder ob leere Zeilen übersprungen werden sollen.
+
+
 https://cran.r-project.org/web/packages/readr/readr.pdf S. 25, 26
 
 
-```{r aufgabe1}
-library(dplyr)
-meindatensatz = tibble(Spalte1 = c(1,2,3,4,5,6), 
-                       Spalte2 = c(23,24,35,45,45,56))
 
-knitr::kable(meindatensatz) # Mit kable kann man die Tabellen "schöner" darstellen
-
-plot(meindatensatz,
-     main = "Mein schöner Datensatz")
-```
 
 ## Aufgabe 2 Vektor und Matrizen
 
