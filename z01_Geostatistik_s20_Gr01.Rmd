@@ -145,21 +145,20 @@ quit()
    Sie kann diskret oder stetig sein. Wenn die Zufallsvariable diskret ist, kann sie nur bestimmte Werte annehmen, 
    dessen Einzelwahrscheinlichkeiten 1 ergibt. Andernfalls ist sie stetig.
    
-- Zufallsfunktion (random function): Definiert alle Punkte einer Region mithilfe von einfachen, 
-  charakterisierbaren Eigenschaften [Wackernagel 2003]
-  
-- Eine Zufallsfunktion Z wird durch die Verteilung der einzelnen Zufallsvariablen Z(x) an jeder Stelle x und die gegenseitigen
+- Zufallsfunktion (random function): 
+  Definiert alle Punkte einer Region mithilfe von einfachen, charakterisierbaren Eigenschaften [Wackernagel 2003]
+  Eine Zufallsfunktion Z wird durch die Verteilung der einzelnen Zufallsvariablen Z(x) an jeder Stelle x und die gegenseitigen
   Abhängigkeiten charakterisiert
   (Dutter R. (1985) Regionalisierte Variable. In: Geostatistik. Mathematische Methoden in der Technik. Vieweg+Teubner Verlag, Wiesbaden )
    
-- Regionalisierte Variable (regionalized variable): Realisation einer Zufallsfunktion. 
-  Die Variable z(x) ist von einem Ort x in einer bestimmten Region abhängig [Dutter 1985].
-  
-- Eine Variable z(x̰), die Werte in Abhängigkeit vom Ort x̰ in einem bestimmten Bereich (Region) angibt, 
+- Regionalisierte Variable (regionalized variable):
+  Realisation einer Zufallsfunktion. Die Variable z(x) ist von einem Ort x in einer bestimmten Region abhängig [Dutter 1985].
+  Eine Variable z(x̰), die Werte in Abhängigkeit vom Ort x̰ in einem bestimmten Bereich (Region) angibt, 
   bezeichnet man als regionalisierte Variable 
   (Dutter R. (1985) Regionalisierte Variable. In: Geostatistik. Mathematische Methoden in der Technik. Vieweg+Teubner Verlag, Wiesbaden )
 
-- Stationarität (stationarity): Wenn Erwartungswert, Mittelwert und Varianz invariant gegen Veränderungen der Datengrundlage sind,
+- Stationarität (stationarity):
+  Wenn Erwartungswert, Mittelwert und Varianz invariant gegen Veränderungen der Datengrundlage sind,
   ist eine Zufallsvariable stationär. Die Variable wäre dann "unabhängig von der absoluten Lage und konstant im Beobachtungsraum" [Akin, Siemens 1988].
 
 - Semivarianz (semivariance): 
