@@ -13,11 +13,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Aufgabe 1 Funktion read_delim des readr Paketes
 
-Hier können sie Aufgabe 1 beantworten. Bei Erläuterungen achten Sie natürlich auf korrekte Zitation wie etwa [@akin1988]. 
+Hier koennen sie Aufgabe 1 beantworten. Bei Erläuterungen achten Sie natuerlich auf korrekte Zitation wie etwa [@akin1988]. 
 
-a) Recherchieren sie Pakete, die für geostatistische Aufgabenstellungen relevant sein könnten. Nennen sie dabei mindestens zwei und beschreiben sie
+a) Recherchieren sie Pakete, die fuer geostatistische Aufgabenstellungen relevant sein könnten. Nennen sie dabei mindestens zwei und beschreiben sie
 kurz deren wesentliche Ziele. (2 Punkte)
-Nutzen sie die R-Homepage http://cran.r-project.org/ für ihre Suche aus.
+Nutzen sie die R-Homepage http://cran.r-project.org/ fuer ihre Suche aus.
 
 
 - 1. gstat: Das gstat-Paket beinhaltet Funktionen mit denen verschiedene Modellierungen, das Erstellen von Variogrammen und Kriging möglich sind.
@@ -38,12 +38,12 @@ b) Erforschen sie selbständig die Funktion read_delim des readr Paketes. Beschr
 
 Die read_delim-Funktion im readr-Packet ermöglicht das Einlesen von Tabellen aus
 Textdokumenten als tibble (tidyverse data.frame).
-Dazu müssen die einzelnen Spalten als solche erkannt werden,
+Dazu muessen die einzelnen Spalten als solche erkannt werden,
 was in der Regel durch das erkennen von Trennzeichen wie Tab, Komma oder Semikolon erfolgt.
 
-Im wesentlichen wird zuerst für das Argument file der Dateipfad zur gewüschten Datei angegeben. 
-Für das Argument delim beschreibt, wodurch oder mit welchem Zeichen einzelne Felder mit Inhalt getrennt werden und quote mit welchem Zeichen strings, also Text, markiert wird. 
-Darüber hinaus wird mit dem Argument col_names=True/False festgelegt, ob die erste Zeile der Datei Spaltennamen darstellen oder nicht. Mit weiteren Argumenten, kann festgelegt werden, ob Zeilen beim einlesen übersprungen werden sollen, Min- und Maxwerte beschrieben oder ob leere Zeilen übersprungen werden sollen.
+Im wesentlichen wird zuerst fuer das Argument file der Dateipfad zur gewuenschten Datei angegeben. 
+Fuer das Argument delim beschreibt, wodurch oder mit welchem Zeichen einzelne Felder mit Inhalt getrennt werden und quote mit welchem Zeichen strings, also Text, markiert wird. 
+Darueber hinaus wird mit dem Argument col_names=True/False festgelegt, ob die erste Zeile der Datei Spaltennamen darstellen oder nicht. Mit weiteren Argumenten, kann festgelegt werden, ob Zeilen beim einlesen uebersprungen werden sollen, Min- und Maxwerte beschrieben oder ob leere Zeilen uebersprungen werden sollen.
 
 
 https://cran.r-project.org/web/packages/readr/readr.pdf S. 25, 26
@@ -79,7 +79,7 @@ print(v1);
 ```
 
 
-#c)Bestimmen sie die Funktionswerte für f(v1) = 3 * v1 + ihre_gruppen_id
+#c)Bestimmen sie die Funktionswerte fuer f(v1) = 3 * v1 + ihre_gruppen_id
 #und fassen sie v1 sowie f(v1) in einer Matrix (15 x 2) M1 zusammen (cbind)
 
 ```{r}
@@ -129,9 +129,9 @@ print(M3);
 rm(v1);
 
 #save(list = ls(all.names = TRUE), file = ".RData", envir = .GlobalEnv)
-save.image()
-savehistory(".Rhistory")
-quit()
+#save.image()
+#savehistory(".Rhistory")
+#quit()
 
 
 ```
