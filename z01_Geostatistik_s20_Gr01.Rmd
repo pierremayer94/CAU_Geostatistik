@@ -24,7 +24,7 @@ Nutzen sie die R-Homepage http://cran.r-project.org/ für ihre Suche aus.
 - 2. spANOVA: Das Paket spANOVA ermöglicht eine Varianzanalyse von korrelierenden Rasterdatensätzen.
 https://cran.r-project.org/web/packages/spANOVA/spANOVA.pdf
 
-- ggmap: extends the plotting package ggplot2 for maps
+- ggmap: Erweitert das  Plotting Paket ggplot2 um Kartendarstellungen
 - rgdal: R’s interface to the popular C/C++ spatial data processing library gdal
 - rgeos: R’s interface to the powerful vector processing library geos
 - maptools: provides various mapping functions
@@ -162,13 +162,13 @@ quit()
 - Stationarität (stationarity): Wenn Erwartungswert, Mittelwert und Varianz invariant gegen Veränderungen der Datengrundlage sind,
   ist eine Zufallsvariable stationär. Die Variable wäre dann "unabhängig von der absoluten Lage und konstant im Beobachtungsraum" [Akin, Siemens 1988].
 
-- Semivarianz (semivariance): Beschreibt zwei Pixel in Relation zu einander in Bezug auf ihre Distanz unter der Annahme,
+- Semivarianz (semivariance): 
+  Als Semivarianz bezeichnet man in der Statistik die halbe, mittlere, quadrierte euklidische Distanz zwischen den Messwerten z(xi) und     z(xi+h) an den Orten xi und xi+h für den Abstand bzw. Vektor h.
+  (Shine, J.A., Wakefield, G.I.: A comparison of supervised imagery classification using analyst-chosen and geostatistically-chosen training sets, 1999)
+  Beschreibt zwei Pixel in Relation zu einander in Bezug auf ihre Distanz unter der Annahme,
   dass je größer die Entfernung ist, desto geringer ist ihre Ähnlichkeit. 
   Dabei wird von einem Pixel ausgehend der Zusammenhang zu den umliegenden Pixeln beschrieben[Curran 1988].
   
-- Als Semivarianz bezeichnet man in der Statistik die halbe, mittlere, quadrierte euklidische Distanz zwischen den Messwerten z(xi) und     z(xi+h) an den Orten xi und xi+h für den Abstand bzw. Vektor h.
-  (Shine, J.A., Wakefield, G.I.: A comparison of supervised imagery classification using analyst-chosen and geostatistically-chosen training sets, 1999)
-
 
 ## Literatur
 
