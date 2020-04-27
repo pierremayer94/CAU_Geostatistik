@@ -11,12 +11,13 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Aufgabe 1 Funktion read_delim des readr Paketes
+# Aufgabe 1 Funktion read_delim des readr Paketes
 
 Hier koennen sie Aufgabe 1 beantworten. Bei Erläuterungen achten Sie natuerlich auf korrekte Zitation wie etwa [@akin1988]. 
 
-a) Recherchieren sie Pakete, die fuer geostatistische Aufgabenstellungen relevant sein könnten. Nennen sie dabei mindestens zwei und beschreiben sie
-kurz deren wesentliche Ziele. (2 Punkte)
+# 1 a) 
+
+Recherchieren sie Pakete, die fuer geostatistische Aufgabenstellungen relevant sein könnten. Nennen sie dabei mindestens zwei und beschreiben sie kurz deren wesentliche Ziele. (2 Punkte)
 Nutzen sie die R-Homepage http://cran.r-project.org/ fuer ihre Suche aus.
 
 
@@ -34,7 +35,9 @@ https://cran.r-project.org/web/packages/spANOVA/spANOVA.pdf
 https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf 
 
 
-b) Erforschen sie selbständig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, was die Methode macht und auf welche Einstellungsmöglichkeiten (Argumente) besonders zu achten ist. (2 Punkte)
+## 1 b) 
+
+Erforschen sie selbständig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, was die Methode macht und auf welche Einstellungsmöglichkeiten (Argumente) besonders zu achten ist. (2 Punkte)
 
 Die read_delim-Funktion im readr-Packet ermöglicht das Einlesen von Tabellen aus
 Textdokumenten als tibble (tidyverse data.frame).
@@ -51,9 +54,9 @@ https://cran.r-project.org/web/packages/readr/readr.pdf S. 25, 26
 
 
 
-## Aufgabe 2 Vektor und Matrizen
+# Aufgabe 2 Vektor und Matrizen
 
-#a) working directory
+# 2 a) working directory
 
 Oeffnen Sie die .rmd mit RStudio und ueberpruefen Sie in der Konsole, 
 ob Sie sich im neu eingerichteten Verzeichnis befinden. 
@@ -72,15 +75,20 @@ file.edit("C:/docs/wd/z01_Geostatistik_s20_Gr01.Rmd")
 ```
 
 
-#b) Vektor v1 der Länge 15 mit einer Schrittweite von 0.5, beginnend bei 0 
+# 2 b) 
+
+Vektor v1 der Länge 15 mit einer Schrittweite von 0.5, beginnend bei 0 
+
 ```{r}
 v1 = seq(from=0, by=0.5 , length.out=15)
 print(v1);
 ```
 
 
-#c)Bestimmen sie die Funktionswerte fuer f(v1) = 3 * v1 + ihre_gruppen_id
-#und fassen sie v1 sowie f(v1) in einer Matrix (15 x 2) M1 zusammen (cbind)
+# 2 c)
+
+Bestimmen sie die Funktionswerte fuer f(v1) = 3 * v1 + ihre_gruppen_id
+und fassen sie v1 sowie f(v1) in einer Matrix (15 x 2) M1 zusammen (cbind)
 
 ```{r}
 #Funktion f, die f(v1) = 3 * v1 + 01 erfuellt
@@ -99,10 +107,12 @@ print(M1);
 ```
 
 
-#d) Erzeugen sie die transponierte Matrix M1t und multiplizieren sie diese
-#mit M1 zu M3. Lassen sie sich das resultierende Objekt M3 anzeigen.
-#Löschen sie anschließend das Objekt v1 und speichern sie den aktuellen
-#Workspace sowie die R-History in ihrem Kursordner ab.
+# 2 d)
+
+Erzeugen sie die transponierte Matrix M1t und multiplizieren sie diese
+mit M1 zu M3. Lassen sie sich das resultierende Objekt M3 anzeigen.
+Löschen sie anschließend das Objekt v1 und speichern sie den aktuellen
+Workspace sowie die R-History in ihrem Kursordner ab.
 
 ```{r}
 
@@ -130,7 +140,7 @@ rm(v1);
 ```
 
 
-## Aufgabe 3
+# Aufgabe 3
 
 - Zufallsvariable (random variable):
    "Eine Abbildung oder Funktion, die den Elementen der Ergebnis- oder Ereignismenge eines Zufallsexperimentes reelle Zahlen zuordnet,
@@ -163,7 +173,7 @@ rm(v1);
   Dabei wird von einem Pixel ausgehend der Zusammenhang zu den umliegenden Pixeln beschrieben[Curran 1988].
   
 
-## Literatur
+# Literatur
 
 Akin, H.; Siemes, H. (1988): Praktische Geostatistik: eine Einführung für den Bergbau und die Geowissenschaften. Springer. Berlin.
 
