@@ -11,9 +11,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Aufgabe 1
+# Aufgabe 1 CRAN
 
-## 1 a) 
+## 1 a)
 
 Recherchieren sie Pakete, die fuer geostatistische Aufgabenstellungen relevant sein koennten.
 Nennen sie dabei mindestens zwei und beschreiben sie kurz deren wesentliche Ziele.
@@ -149,7 +149,7 @@ rm(v1);
 
 
 
-# Aufgabe 3
+# Aufgabe 3 Geostatistik
 
 - Zufallsvariable (random variable):
    "Eine Abbildung oder Funktion, die den Elementen der Ergebnis- oder Ereignismenge eines Zufallsexperimentes reelle Zahlen zuordnet,
