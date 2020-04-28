@@ -17,28 +17,28 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Recherchieren sie Pakete, die fuer geostatistische Aufgabenstellungen relevant sein koennten.
 Nennen sie dabei mindestens zwei und beschreiben sie kurz deren wesentliche Ziele.
-Nutzen sie die R-Homepage http://cran.r-project.org/ fuer ihre Suche aus.
+Nutzen sie die R-Homepage <http://cran.r-project.org/> fuer ihre Suche aus.
 
 - gstat: Das gstat-Paket beinhaltet Funktionen mit denen verschiedene Modellierungen, das Erstellen von Variogrammen und Kriging moeglich sind.
-  https://cran.r-project.org/web/packages/gstat/gstat.pdf
+  <https://cran.r-project.org/web/packages/gstat/gstat.pdf>
 
 - spANOVA: ermoeglicht eine Varianzanalyse von korrelierenden Rasterdatensaetzen
-  https://cran.r-project.org/web/packages/spANOVA/spANOVA.pdf 
+  <https://cran.r-project.org/web/packages/spANOVA/spANOVA.pdf>
 
 - ggmap: Erweitert das  Plotting-Paket ggplot2 um Kartendarstellungen
-  https://cran.r-project.org/web/packages/ggmap/ggmap.pdf
+  <https://cran.r-project.org/web/packages/ggmap/ggmap.pdf>
   
 - rgdal: R’s Schnitstelle zur C/C++ Bibliothek gdal
-  https://cran.r-project.org/web/packages/rgdal/rgdal.pdf
+  <https://cran.r-project.org/web/packages/rgdal/rgdal.pdf>
 
 - rgeos: R’s Schnittstelle Vektor Bibliothek geos
-  https://cran.r-project.org/web/packages/rgeos/rgeos.pdf
+  <https://cran.r-project.org/web/packages/rgeos/rgeos.pdf>
 
 - maptools: Bietet diverse Funktionen zurm manipulieren von Geodaten und Erstellung von Kartengraphiken
-  https://cran.r-project.org/web/packages/maptools/maptools.pdf
+  <https://cran.r-project.org/web/packages/maptools/maptools.pdf>
 
 - tmap: Paket zum schnellen erstellen von thematischen Karten.
-  https://cran.r-project.org/web/packages/tmap/tmap.pdf
+  <https://cran.r-project.org/web/packages/tmap/tmap.pdf>
 
 
 ## 1 b) 
@@ -54,7 +54,7 @@ Im wesentlichen wird zuerst fuer das Argument file der Dateipfad zur gewuenschte
 Fuer das Argument delim beschreibt, wodurch oder mit welchem Zeichen einzelne Felder mit Inhalt getrennt werden und quote mit welchem Zeichen strings, also Text, markiert wird. 
 Darueber hinaus wird mit dem Argument col_names=True/False festgelegt, ob die erste Zeile der Datei Spaltennamen darstellen oder nicht. Mit weiteren Argumenten, kann festgelegt werden, ob Zeilen beim einlesen uebersprungen werden sollen, Min- und Maxwerte beschrieben oder ob leere Zeilen uebersprungen werden sollen.
 
-https://cran.r-project.org/web/packages/readr/readr.pdf S. 25, 26
+<https://cran.r-project.org/web/packages/readr/readr.pdf> S. 25, 26
 
 
 
