@@ -25,16 +25,16 @@ Nutzen sie die R-Homepage <http://cran.r-project.org/> fuer ihre Suche aus.
 - spANOVA: ermoeglicht eine Varianzanalyse von korrelierenden Rasterdatensaetzen
   <https://cran.r-project.org/web/packages/spANOVA/spANOVA.pdf>
 
-- ggmap: Erweitert das  Plotting-Paket ggplot2 um Kartendarstellungen
+- ggmap: Erweitert das Plotting-Paket ggplot2 um Kartendarstellungen
   <https://cran.r-project.org/web/packages/ggmap/ggmap.pdf>
   
 - rgdal: R’s Schnitstelle zur C/C++ Bibliothek gdal
   <https://cran.r-project.org/web/packages/rgdal/rgdal.pdf>
 
-- rgeos: R’s Schnittstelle Vektor Bibliothek geos
+- rgeos: R’s Schnittstelle zur Vektor Bibliothek geos
   <https://cran.r-project.org/web/packages/rgeos/rgeos.pdf>
 
-- maptools: Bietet diverse Funktionen zurm manipulieren von Geodaten und Erstellung von Kartengraphiken
+- maptools: Bietet diverse Funktionen zum manipulieren von Geodaten und Erstellung von Kartengraphiken
   <https://cran.r-project.org/web/packages/maptools/maptools.pdf>
 
 - tmap: Paket zum schnellen erstellen von thematischen Karten.
@@ -43,22 +43,22 @@ Nutzen sie die R-Homepage <http://cran.r-project.org/> fuer ihre Suche aus.
 
 ## 1 b) 
 
-Erforschen sie selbstaendig die Funktion read_delim des readr Paketes. Beschreiben sie kurz, was die Methode macht und auf welche Einstellungsmoeglichkeiten (Argumente) besonders zu achten ist.
+Erforschen sie selbstaendig die Funktion read_delim des readr-Paketes. Beschreiben sie kurz, was die Methode macht und auf welche Einstellungsmoeglichkeiten (Argumente) besonders zu achten ist.
 
 - Die read_delim-Funktion im readr-Packet ermoeglicht das Einlesen von Tabellen aus
   Textdokumenten als tibble (tidyverse data.frame).
   Dazu muessen die einzelnen Spalten als solche erkannt werden,
   was in der Regel durch das erkennen von Trennzeichen wie Tab, Komma oder Semikolon erfolgt.
 
-- Im wesentlichen wird zuerst fuer das Argument file der Dateipfad zur gewuenschten Datei angegeben. 
-  Fuer das Argument delim beschreibt, wodurch oder mit welchem Zeichen einzelne Felder mit Inhalt getrennt werden und quote mit welchem Zeichen strings, also Text, markiert wird. 
-  Darueber hinaus wird mit dem Argument col_names=True/False festgelegt, ob die erste Zeile der Datei Spaltennamen darstellen oder nicht. Mit weiteren Argumenten, kann festgelegt werden, ob Zeilen beim einlesen uebersprungen werden sollen, Min- und Maxwerte beschrieben oder ob leere Zeilen uebersprungen werden sollen.
+- Im wesentlichen wird zuerst fuer das Argument *file* der Dateipfad zur gewuenschten Datei angegeben. 
+  Das Argument *delim* beschreibt, wodurch oder mit welchem Zeichen einzelne Felder mit Inhalt getrennt werden und *quote* mit welchem Zeichen strings, also Text, markiert wird. 
+  Darueber hinaus wird mit dem Argument *col_names=True/False* festgelegt, ob die erste Zeile der Datei Spaltennamen darstellen oder nicht. Mit weiteren Argumenten, kann festgelegt werden, ob Zeilen beim einlesen uebersprungen werden sollen, Min- und Maxwerte beschrieben oder ob leere Zeilen uebersprungen werden sollen.
 
 <https://cran.r-project.org/web/packages/readr/readr.pdf> S. 25, 26
 
 
 
-# Aufgabe 2 Vektor und Matrizen
+# Aufgabe 2 Vektoren und Matrizen
 
 ## 2 a) working directory
 
