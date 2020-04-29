@@ -131,9 +131,14 @@ print(M3);
 
 rm(v1);
 
-save(list = ls(all.names = TRUE), file = ".RData", envir = .GlobalEnv) #gleichbedeutend wie save.image()
-savehistory(".Rhistory")
-#quit()  schließt das R-Skript und RStudio wobei auch save.image() und savehistory mit ausgefuehrt werden
+save(list = ls(all.names = TRUE), file = "z01_Geostatistik_s20_Gr01.RData", 
+     envir = .GlobalEnv) #gleichbedeutend wie save.image()
+
+# savehistory("z01_Geostatistik_s20_Gr01.Rhistory")
+# quit()  schließt das R-Skript und RStudio wobei auch save.image()
+# und savehistory mit ausgefuehrt werden
+# 
+# savehistory() und quit() fuehren zu Fehlern Knit und sind deshalb auskommentiert.
 
 ```
 
