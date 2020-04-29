@@ -133,17 +133,9 @@ print(M3);
 
 rm(v1);
 
-#save(list = ls(all.names = TRUE), file = ".RData", envir = .GlobalEnv)
-#gleichbedeutend wie save.image()
-
-#save(mein_datensatz, file="zwischenstand_mein_datensatz.Rdata")
-#savehistory(".Rhistory")
+save(list = ls(all.names = TRUE), file = ".RData", envir = .GlobalEnv) #gleichbedeutend wie save.image()
+savehistory(".Rhistory")
 #quit()  schließt das R-Skript
-
-#Der Befehl savehistory(".Rhistory") laesst sich im R-Code ausfuehren,
-#fuehrt aber zu Fehlermeldungen beim Knit.
-#Dieser wird daher vor dem Knitvorgang auskommentiert. 
-#Das gleiche Problem liegt bei quit() vor. 
 
 ```
 
