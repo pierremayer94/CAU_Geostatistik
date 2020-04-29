@@ -1,0 +1,21 @@
+#
+#
+##### Attribute des Yingtan-Datensatzes (Jiangxi Province, China)
+#
+#
+
+Standortdaten
+-----------------------------
+
+EAST	Rechtswert
+NORTH	Hochwert (Referenzsystem: UTM, WGS84, Zone 50N; EPSG: 32650)
+
+
+A-Horizont (Oberboden)
+-----------------------------
+
+C			org. Kohlenstoffgehalt [%]
+Ca_exch		Gehalt an austauschbaren Ca-Ionen [µmol/g]
+Mg_exch		Gehalt an austauschbaren Mg-Ionen [µmol/g]
+K_exch		Gehalt an austauschbaren K-Ionen [µmol/g]
+Na_exch		Gehalt an austauschbaren Na-Ionen [µmol/g]
