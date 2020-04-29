@@ -54,7 +54,7 @@ Erforschen sie selbstaendig die Funktion read_delim des readr-Paketes. Beschreib
   Das Argument *delim* beschreibt, wodurch oder mit welchem Zeichen einzelne Felder mit Inhalt getrennt werden und *quote* mit welchem Zeichen strings, also Text, markiert wird. 
   Darueber hinaus wird mit dem Argument *col_names=True/False* festgelegt, ob die erste Zeile der Datei Spaltennamen darstellen oder nicht. Mit weiteren Argumenten, kann festgelegt werden, ob Zeilen beim einlesen uebersprungen werden sollen, Min- und Maxwerte beschrieben oder ob leere Zeilen uebersprungen werden sollen.
 
-<https://cran.r-project.org/web/packages/readr/readr.pdf> S. 25, 26
+  <https://cran.r-project.org/web/packages/readr/readr.pdf> S. 25, 26
 
 
 
@@ -73,8 +73,6 @@ list=ls()
 print(list)
 rm(list=ls())
 setwd("C:/docs/wd")
-#load("C:/docs/wd/z01_Geostatistik_s20_Gr01.Rmd") wuerde Datei oeffnen, 
-#wenn diese zuvor mit save.image() gespeichert worden ist
 file.edit("C:/docs/wd/z01_Geostatistik_s20_Gr01.Rmd")
 
 ```
@@ -135,7 +133,7 @@ rm(v1);
 
 save(list = ls(all.names = TRUE), file = ".RData", envir = .GlobalEnv) #gleichbedeutend wie save.image()
 savehistory(".Rhistory")
-#quit()  schließt das R-Skript
+#quit()  schließt das R-Skript und RStudio wobei auch save.image() und savehistory mit ausgefuehrt werden
 
 ```
 
