@@ -21,6 +21,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 # Aufgabe 5 Übungsdatensatz
+Laden Sie die Datei 'yingtan_20_v1.csv' (read_delim, readr-Pakets)
+und machen Sie sich mit ihrem Aufbau vertraut.
+
+```{r}
+
+```
 
 ## 5 a)
 In was für einer Datenstruktur wurde die geladene Datei in R abgelegt?
