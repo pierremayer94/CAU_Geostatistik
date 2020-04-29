@@ -26,17 +26,20 @@ Laden Sie die Datei 'yingtan_20_v1.csv' (read_delim, readr-Pakets)
 und machen Sie sich mit ihrem Aufbau vertraut.
 
 ```{r}
-
+#?read_delim zeigt Hilfe fuer Funktion
+read_delim("yingtan_20_v1.csv", ";")
+#print(read_delim("yingtan_20_v1.csv", ";")) zum Anzeigen
 ```
 
 ## 5 a)
 In was für einer Datenstruktur wurde die geladene Datei in R abgelegt?
+- tibble, tidyverse Aequivalent zu data.frame
+
 Wie viele Beobachtungen und Variablen enthält sie?
+Das tibble enthält 337 Beobachtungen mit 9 Variablen
+
 Von welchem Datentyp ist die Variable 'Ca_exch'?
-
-```{r}
-
-```
+- Die Variable 'Ca_exch' hat den Datentyp "<dbl>" , also ein double
 
 
 ## 5 b)
