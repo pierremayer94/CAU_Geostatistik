@@ -1,0 +1,18 @@
+---
+title: "Aufgabenzettel 03"
+author: "Gruppe 01"
+date: "11.05.2020"
+bibliography: bibliography.bib
+output:
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Aufgabe 7
+
+
+# Literatur
+

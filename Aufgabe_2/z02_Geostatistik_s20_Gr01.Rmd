@@ -1,0 +1,106 @@
+---
+title: "Aufgabenzettel 02"
+author: "Gruppe 01"
+date: "04.05.2020"
+bibliography: bibliography.bib
+output:
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Aufgabe 4 Wahrscheinlichkeiten
+
+## 4 a)
+
+## 4 b)
+
+## 4 c)
+
+
+# Aufgabe 5 Übungsdatensatz
+
+## 5 a)
+In was für einer Datenstruktur wurde die geladene Datei in R abgelegt?
+Wie viele Beobachtungen und Variablen enthält sie?
+Von welchem Datentyp ist die Variable 'Ca_exch'?
+
+```{r}
+
+```
+
+
+## 5 b)
+neues Objekt ljz, in dem die zwei Standorte ohne Messwerte nicht mehr auftauchen.
+
+```{r}
+
+```
+
+
+## 5 c)
+Na-Ionen. fehlerhaften Wert durch NA ersetzen
+
+```{r}
+
+```
+
+
+zusätzliche Werte, die bei möglichen Rechenoperationen zu Problemen führen könnten? Begründen Sie ihre Wahl
+
+
+und beheben Sie das Problem auf angemessene Weise.
+
+```{r}
+
+```
+
+
+
+# Aufgabe 6 Tinn-R
+
+## 6 a)
+aus dem ursprünglichen Datensatz nur die Standorte der Catena A extrahieren. 
+
+```{r}
+
+```
+
+
+## 6 b)
+die Reihenfolge der Standorte nach abnehmender Ca-Ionenkonzentration sortieren
+
+```{r}
+
+```
+
+
+## 6 c) 
+Ergebnis in eine sinnvoll benannte CSV-Datei schreiben
+
+```{r}
+
+```
+
+
+Führen Sie die Schritte 6 a bis c in einer Pipe aus und binden Sie diese in ihr
+Protokoll ein.
+
+```{r}
+
+```
+
+
+Speichern Sie die Pipe zusätzlich als .R-Skript in ihrem Kursordner ab
+und geben Sie im Protokoll den Befehl an, 
+mit dem es sich in der Konsole ausführen lässt. 
+
+```{r}
+
+```
+
+
+# Literatur
+
