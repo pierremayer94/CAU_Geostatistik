@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Aufgabe 4 Wahrscheinlichkeiten
+<https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject> #Tex Cheat Sheet
 
 ## 4 a)
 
