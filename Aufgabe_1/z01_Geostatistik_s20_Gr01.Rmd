@@ -122,7 +122,7 @@ M1t = t(M1)
 
 print(M1t)
 
-M3 = M1%*%M1t
+M3 = M1t%*%M1 #Achung Vektormultiplikation gibt je nach Richtung anderes Ergebnis M1t%*%M1 != M1%*%M1t
 
 print(M3);
 
