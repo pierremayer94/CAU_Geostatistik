@@ -15,7 +15,7 @@ A-Horizont (Oberboden)
 -----------------------------
 
 C			org. Kohlenstoffgehalt [%]
-Ca_exch		Gehalt an austauschbaren Ca-Ionen [µmol/g]
-Mg_exch		Gehalt an austauschbaren Mg-Ionen [µmol/g]
-K_exch		Gehalt an austauschbaren K-Ionen [µmol/g]
-Na_exch		Gehalt an austauschbaren Na-Ionen [µmol/g]
+Ca_exch		Gehalt an austauschbaren Ca-Ionen [Âµmol/g]
+Mg_exch		Gehalt an austauschbaren Mg-Ionen [Âµmol/g]
+K_exch		Gehalt an austauschbaren K-Ionen [Âµmol/g]
+Na_exch		Gehalt an austauschbaren Na-Ionen [Âµmol/g]
