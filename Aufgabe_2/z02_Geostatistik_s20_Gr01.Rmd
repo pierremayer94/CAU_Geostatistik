@@ -37,11 +37,13 @@ Wie aus der Abbildung daher zu erkennen ist folgt
 ${P}(A \cup B \cup C) = {P}(A) + {P}(B) + {P}(C) - {P}(A \cap B) - {P}(A \cap C) - {P}(B \cap C) + {P}(A \cap B \cap C)$
 
 ## 4 b)
-Bedingte Wahrscheinlichkeiten: Bestimmen Sie die Eintrittswahrscheinlichkeit von Ereignis A unter der Bedingung, dass B bereits eingetreten ist
-${P}(A \mid B)$
-für die Fälle
-A und B sind unabhängig von einander
-A und B schließen einander aus
+Bedingte Wahrscheinlichkeiten: Bestimmen Sie die Eintrittswahrscheinlichkeit von Ereignis A unter der Bedingung, dass B bereits eingetreten ist: ${P}(A \mid B)$ für die Fälle...
+
+- A und B sind unabhängig von einander.
+  ${P}(A \mid B) = {P}(A)$ da bei Unabhängigkeit
+
+- A und B schließen einander aus.
+  
 
 ## 4 c)
 Multiplikationssatz
