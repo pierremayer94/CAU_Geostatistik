@@ -26,6 +26,16 @@ Verallgemeinern Sie den Additionssatz
 ${P}(A\cup B) = {P}(A) + {P}(B) - {P}(A\cap B)$
 für drei einander nicht ausschließende Ereignisse ${P}(A \cup B \cup C)$.
 
+![Inklusion/Exklusion dreier Mengen. Quelle: Wikimedia, URL: <https://de.wikipedia.org/wiki/Datei:Inclusion-exclusion.svg> (2020.04.30)](C:/docs/wd/300px-Inclusion-exclusion.png)
+
+
+```{r}
+#knitr::include_graphics("C:/docs/wd/300px-Inclusion-exclusion.png")
+# alternative Bild-Dateieinbindung
+```
+Wie aus der Abbildung daher zu erkennen ist folgt
+${P}(A \cup B \cup C) = {P}(A) + {P}(B) + {P}(C) - {P}(A \cap B) - {P}(A \cap C) - {P}(B \cap C) + {P}(A \cap B \cap C)$
+
 ## 4 b)
 Bedingte Wahrscheinlichkeiten: Bestimmen Sie die Eintrittswahrscheinlichkeit von Ereignis A unter der Bedingung, dass B bereits eingetreten ist
 ${P}(A \mid B)$
