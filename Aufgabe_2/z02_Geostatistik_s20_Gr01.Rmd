@@ -27,8 +27,11 @@ und machen Sie sich mit ihrem Aufbau vertraut.
 
 ```{r}
 #?read_delim zeigt Hilfe fuer Funktion
-read_delim("yingtan_20_v1.csv", ";")
-#print(read_delim("yingtan_20_v1.csv", ";")) zum Anzeigen
+yingtan <- read_delim("yingtan_20_v1.csv", ";")
+print(yingtan)
+summary(yingtan)
+str(yingtan)
+
 ```
 
 ## 5 a)
