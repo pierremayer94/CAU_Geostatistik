@@ -2,7 +2,6 @@
 title: "Aufgabenzettel 02"
 author: "Gruppe 01"
 date: "04.05.2020"
-bibliography: bibliography.bib
 output:
   pdf_document: default
 ---
@@ -20,10 +19,22 @@ knitr::opts_chunk$set(echo = TRUE)
 <https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject> #Tex Cheat Sheet
 
 ## 4 a)
+Verallgemeinern Sie den Additionssatz ${P}(A\cup B) = \{P}(A) + \{P}(B) - \{P}(A\cap B)$ für drei einander nicht ausschließende Ereignisse ${P}(A \cup B \cup C)$.
 
 ## 4 b)
+Bedingte Wahrscheinlichkeiten: Bestimmen Sie die Eintrittswahrscheinlichkeit von Ereignis A unter der Bedingung, dass B bereits eingetreten ist
+${P}(A \mid B)$
+für die Fälle
+A und B sind unabhängig von einander
+A und B schließen einander aus
 
 ## 4 c)
+Multiplikationssatz
+${P}(A \cap B \cap C) = {P}(A) * {P}(B \mid A) * P(C \mid A \cap B)$
+Während eines Fußballspiels zweier Mannschaften X und Y,
+schickt der Schiedsrichter im Abstand von jeweils 5 Minuten zufällig 
+und völlig willkürlich drei Spieler mit der roten Karte vorzeitig vom Platz. 
+Wie hoch ist die Wahrscheinlichkeit, dass bloß eine Mannschaft betroffen ist? 
 
 
 # Aufgabe 5 Übungsdatensatz
