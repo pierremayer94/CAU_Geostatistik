@@ -6,14 +6,15 @@ output:
   pdf_document: default
 ---
 
-#header-includes:
-#   - \usepackage{bbm}
-#<https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown>
-#<https://bookdown.org/yihui/rmarkdown/pdf-document.html>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+#<https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown>
+#<https://en.wikibooks.org/wiki/LaTeX/Mathematics>
+#<http://tug.ctan.org/info/short-math-guide/short-math-guide.pdf>
+
 
 # Aufgabe 4 Wahrscheinlichkeiten
 <https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject> #Tex Cheat Sheet
