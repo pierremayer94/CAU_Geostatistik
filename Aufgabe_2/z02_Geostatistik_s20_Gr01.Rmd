@@ -10,6 +10,7 @@ output:
 #header-includes:
 #   - \usepackage{bbm}
 #<https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown>
+#<https://bookdown.org/yihui/rmarkdown/pdf-document.html>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
