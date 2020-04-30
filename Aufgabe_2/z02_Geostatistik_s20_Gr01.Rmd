@@ -22,7 +22,9 @@ library(tinytex)
 <https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject> #Tex Cheat Sheet
 
 ## 4 a)
-Verallgemeinern Sie den Additionssatz ${P}(A\cup B) = \{P}(A) + \{P}(B) - \{P}(A\cap B)$ für drei einander nicht ausschließende Ereignisse ${P}(A \cup B \cup C)$.
+Verallgemeinern Sie den Additionssatz
+${P}(A\cup B) = {P}(A) + {P}(B) - {P}(A\cap B)$
+für drei einander nicht ausschließende Ereignisse ${P}(A \cup B \cup C)$.
 
 ## 4 b)
 Bedingte Wahrscheinlichkeiten: Bestimmen Sie die Eintrittswahrscheinlichkeit von Ereignis A unter der Bedingung, dass B bereits eingetreten ist
