@@ -119,6 +119,11 @@ neues Objekt ljz, in dem die zwei Standorte ohne Messwerte nicht mehr auftauchen
 ```{r}
 ljz <- filter(yingtan, C > 0)
 print(ljz)
+
+#NA definieren
+is.na(yingtan) <- data == -9999.000
+#Entfernung von NA-Werten
+ljz <- na.omit(data)
 ```
 
 
@@ -126,18 +131,21 @@ print(ljz)
 Na-Ionen. fehlerhaften Wert durch NA ersetzen
 
 ```{r}
-??
-
+#Spalte mit Na-Ionen
+ljz$Na_exch
+#In Zeile 96 ist ein negativer Wert
+#Diesen Wert als NA setzen
+is.na(ljz[, "Na_exch"]) <- ljz$Na_exch < 0
 ```
-
-
 zusätzliche Werte, die bei möglichen Rechenoperationen zu Problemen führen könnten? Begründen Sie ihre Wahl
-
-
 und beheben Sie das Problem auf angemessene Weise.
 
 ```{r}
-??
+#Außerdem gibt es in derselben Spalte einige Werte mit einer 0
+#Da man nicht durch 0 teilen oder die Wurzel aus 0 berechnen kann,
+#kann dies zu Problemen führen
+is.na(ljz[, "Na_exch"]) <- ljz$Na_exch == 0
+ljz$Na_exch
 ```
 
 
