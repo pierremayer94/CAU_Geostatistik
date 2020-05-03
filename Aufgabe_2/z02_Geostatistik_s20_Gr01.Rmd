@@ -4,13 +4,20 @@ author: "Gruppe 01"
 date: "04.05.2020"
 output:
   pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
-library(tinytex)
+#library(tinytex)
+getwd()
+list=ls()
+rm(list=ls())
+setwd("C:/docs/wd")
+#file.edit("C:/docs/wd/z02_Geostatistik_s20_Gr01.Rmd")
 ```
 
 #<https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown>
@@ -26,24 +33,36 @@ Verallgemeinern Sie den Additionssatz
 ${P}(A\cup B) = {P}(A) + {P}(B) - {P}(A\cap B)$
 für drei einander nicht ausschließende Ereignisse ${P}(A \cup B \cup C)$.
 
-![Inklusion/Exklusion dreier Mengen. Quelle: Wikimedia, URL: <https://de.wikipedia.org/wiki/Datei:Inclusion-exclusion.svg> (2020.04.30)](C:/docs/wd/300px-Inclusion-exclusion.png)
+#![Inklusion/Exklusion dreier Mengen. Quelle: Wikimedia, URL: <https://de.wikipedia.org/wiki/Datei:Inclusion-exclusion.svg> (2020.04.30)](C:/docs/wd/300px-Inclusion-exclusion.png)
 
 
 ```{r}
-#knitr::include_graphics("C:/docs/wd/300px-Inclusion-exclusion.png")
+knitr::include_graphics("C:/docs/wd/300px-Inclusion-exclusion.png")
 # alternative Bild-Dateieinbindung
 ```
-Wie aus der Abbildung daher zu erkennen ist folgt
+
 ${P}(A \cup B \cup C) = {P}(A) + {P}(B) + {P}(C) - {P}(A \cap B) - {P}(A \cap C) - {P}(B \cap C) + {P}(A \cap B \cap C)$
 
+
 ## 4 b)
-Bedingte Wahrscheinlichkeiten: Bestimmen Sie die Eintrittswahrscheinlichkeit von Ereignis A unter der Bedingung, dass B bereits eingetreten ist: ${P}(A \mid B)$ für die Fälle...
+Bedingte Wahrscheinlichkeiten:
+Bestimmen Sie die Eintrittswahrscheinlichkeit von Ereignis A unter der Bedingung,
+dass B bereits eingetreten ist
+${P}(A \mid B)$
+für die Fälle
+A und B sind unabhängig von einander: 
 
-- A und B sind unabhängig von einander.
-  ${P}(A \mid B) = {P}(A)$ da bei Unabhängigkeit
+Dann gilt:\
+$$P(A \cap B) = {P}(A) * {P}(B)$$
 
-- A und B schließen einander aus.
-  
+Daraus folgt:
+$$P(A|B)= \frac{P(A\cap B)}{P(B)}=\frac{P(A) * P(B)}{P(B)}=P(A)$$
+
+A und B schließen einander aus
+
+$$P(A \mid B) = \frac{P(A\cap B)}{P(B)} = \frac{0}{P(B)} = 0$$
+
+
 
 ## 4 c)
 Multiplikationssatz
@@ -51,7 +70,23 @@ ${P}(A \cap B \cap C) = {P}(A) * {P}(B \mid A) * P(C \mid A \cap B)$
 Während eines Fußballspiels zweier Mannschaften X und Y,
 schickt der Schiedsrichter im Abstand von jeweils 5 Minuten zufällig 
 und völlig willkürlich drei Spieler mit der roten Karte vorzeitig vom Platz. 
-Wie hoch ist die Wahrscheinlichkeit, dass bloß eine Mannschaft betroffen ist? 
+Wie hoch ist die Wahrscheinlichkeit, dass bloß eine Mannschaft betroffen ist?
+
+- Jede Mannschaft besteht aus 11 Spielern, zu Beginn stehen also 22 Spieler auf dem Feld. Nach der ersten roten Karte 21 Spieler, 20 nach der zweiten etc.
+
+- sind nur Spieler einer Mannschaft betroffen verändert sich das Verhältnis der Mannschaften von 11:11, zu 10:11, zu 9:11, zu 8:11.
+
+Daraus folgt
+
+${P}(Team A \cap Team A \cap Team A) = {P}(11/22) * {P}(10/21) * P(9/20) * 2$
+
+```{r}
+P=(11/22)*(10/21)*(9/20)*2
+print(P)
+
+# Wie Ziehen mit/ohne Zurücklegen in R umsetzen??
+```
+Die Wahrscheinlichkeit, dass ein Team drei rote Karten in Folge bekommt beträgt ~21.42%
 
 
 # Aufgabe 5 Übungsdatensatz
@@ -62,14 +97,14 @@ und machen Sie sich mit ihrem Aufbau vertraut.
 #?read_delim zeigt Hilfe fuer Funktion
 yingtan <- read_delim("yingtan_20_v1.csv", ";")
 print(yingtan)
-summary(yingtan)
-str(yingtan)
+print(summary(yingtan))
+print(str(yingtan))
 
 ```
 
 ## 5 a)
 In was für einer Datenstruktur wurde die geladene Datei in R abgelegt?
-- tibble, tidyverse Aequivalent zu data.frame
+- tibble, tidyverse Äqquivalent zu data.frame
 
 Wie viele Beobachtungen und Variablen enthält sie?
 - Das tibble enthält 337 Beobachtungen mit 9 Variablen
@@ -82,7 +117,8 @@ Von welchem Datentyp ist die Variable 'Ca_exch'?
 neues Objekt ljz, in dem die zwei Standorte ohne Messwerte nicht mehr auftauchen.
 
 ```{r}
-
+ljz <- filter(yingtan, C > 0)
+print(ljz)
 ```
 
 
@@ -90,6 +126,7 @@ neues Objekt ljz, in dem die zwei Standorte ohne Messwerte nicht mehr auftauchen
 Na-Ionen. fehlerhaften Wert durch NA ersetzen
 
 ```{r}
+??
 
 ```
 
@@ -100,7 +137,7 @@ zusätzliche Werte, die bei möglichen Rechenoperationen zu Problemen führen k�
 und beheben Sie das Problem auf angemessene Weise.
 
 ```{r}
-
+??
 ```
 
 
@@ -111,7 +148,7 @@ und beheben Sie das Problem auf angemessene Weise.
 aus dem ursprünglichen Datensatz nur die Standorte der Catena A extrahieren. 
 
 ```{r}
-
+Catena_A <- filter(yingtan, SAMPLING == "catA")
 ```
 
 
@@ -119,7 +156,8 @@ aus dem ursprünglichen Datensatz nur die Standorte der Catena A extrahieren.
 die Reihenfolge der Standorte nach abnehmender Ca-Ionenkonzentration sortieren
 
 ```{r}
-
+arrange(Catena_A, desc(Ca_exch))
+print(Catena_A)
 ```
 
 
@@ -127,7 +165,7 @@ die Reihenfolge der Standorte nach abnehmender Ca-Ionenkonzentration sortieren
 Ergebnis in eine sinnvoll benannte CSV-Datei schreiben
 
 ```{r}
-
+write_csv2(Catena_A, "Catena_A.csv")
 ```
 
 
@@ -135,7 +173,11 @@ Führen Sie die Schritte 6 a bis c in einer Pipe aus und binden Sie diese in ihr
 Protokoll ein.
 
 ```{r}
-
+yingtan %>% 
+  filter(SAMPLING == "catA") %>% 
+    arrange(desc(Ca_exch)) %>% 
+      write_csv2("Catena_A_pipe.csv") 
+      
 ```
 
 
@@ -144,8 +186,19 @@ und geben Sie im Protokoll den Befehl an,
 mit dem es sich in der Konsole ausführen lässt. 
 
 ```{r}
+source("pipe_catena.R")
 
 ```
+
+#Beenden und Speichern
+```{r}
+save(list = ls(all.names = TRUE), file = "z01_Geostatistik_s20_Gr01.RData", 
+     envir = .GlobalEnv) #gleichbedeutend wie save.image()
+#savehistory("z01_Geostatistik_s20_Gr01.Rhistory")
+# alternativ quit()  schließt das R-Skript und RStudio wobei auch save.image()
+# und savehistory mit ausgefuehrt werden
+```
+
 
 
 # Literatur
