@@ -10,6 +10,7 @@ output:
 
 
 ```{r setup, include=FALSE}
+# Einige Einstellungen zur Einrichtung des Workingdirectories
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 #library(tinytex)
@@ -19,7 +20,7 @@ rm(list=ls())
 setwd("C:/docs/wd")
 #file.edit("C:/docs/wd/z02_Geostatistik_s20_Gr01.Rmd")
 ```
-
+# Einige Links zur darstellung von Latex
 #<https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown>
 #<https://en.wikibooks.org/wiki/LaTeX/Mathematics>
 #<http://tug.ctan.org/info/short-math-guide/short-math-guide.pdf>
@@ -117,8 +118,8 @@ Von welchem Datentyp ist die Variable 'Ca_exch'?
 neues Objekt ljz, in dem die zwei Standorte ohne Messwerte nicht mehr auftauchen.
 
 ```{r}
-ljz <- filter(yingtan, C > 0)
-print(ljz)
+#ljz <- filter(yingtan, C > 0)
+#print(ljz)
 
 #NA definieren
 is.na(yingtan) <- data == -9999.000
@@ -194,7 +195,9 @@ und geben Sie im Protokoll den Befehl an,
 mit dem es sich in der Konsole ausführen lässt. 
 
 ```{r}
+#mit
 source("pipe_catena.R")
+kann das im Pfad angegebene Skript geladen werden.
 
 ```
 
