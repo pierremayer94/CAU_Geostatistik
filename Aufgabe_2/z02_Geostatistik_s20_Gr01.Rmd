@@ -10,7 +10,6 @@ output:
 
 
 ```{r setup, include=FALSE}
-# Einige Einstellungen zur Einrichtung des Workingdirectories
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 #library(tinytex)
@@ -20,7 +19,7 @@ rm(list=ls())
 setwd("C:/docs/wd")
 #file.edit("C:/docs/wd/z02_Geostatistik_s20_Gr01.Rmd")
 ```
-# Einige Links zur darstellung von Latex
+
 #<https://tex.stackexchange.com/questions/171711/how-to-include-latex-package-in-r-markdown>
 #<https://en.wikibooks.org/wiki/LaTeX/Mathematics>
 #<http://tug.ctan.org/info/short-math-guide/short-math-guide.pdf>
@@ -31,10 +30,12 @@ setwd("C:/docs/wd")
 
 ## 4 a)
 Verallgemeinern Sie den Additionssatz
-$P(A\cup B) = P(A) + P(B) - P(A\cap B)$
-für drei einander nicht ausschließende Ereignisse $P(A \cup B \cup C)$.
+${P}(A\cup B) = {P}(A) + {P}(B) - {P}(A\cap B)$
+für drei einander nicht ausschließende Ereignisse ${P}(A \cup B \cup C)$.
 
-#![Inklusion/Exklusion dreier Mengen. Quelle: Wikimedia, URL: <https://de.wikipedia.org/wiki/Datei:Inclusion-exclusion.svg> (2020.04.30)](C:/docs/wd/300px-Inclusion-exclusion.png)
+![Inklusion/Exklusion dreier Mengen. Quelle: Wikimedia, URL: <https://de.wikipedia.org/wiki/Datei:Inclusion-exclusion.svg> (2020.04.30)](C:/docs/wd/300px-Inclusion-exclusion.png)
+
+
 
 
 ```{r}
@@ -42,7 +43,7 @@ knitr::include_graphics("C:/docs/wd/300px-Inclusion-exclusion.png")
 # alternative Bild-Dateieinbindung
 ```
 
-$P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)$
+${P}(A \cup B \cup C) = {P}(A) + {P}(B) + {P}(C) - {P}(A \cap B) - {P}(A \cap C) - {P}(B \cap C) + {P}(A \cap B \cap C)$
 
 
 ## 4 b)
@@ -51,7 +52,7 @@ Bestimmen Sie die Eintrittswahrscheinlichkeit von Ereignis A unter der Bedingung
 dass B bereits eingetreten ist
 $P(A|B)$
 für die Fälle
-1.) A und B sind unabhängig von einander: 
+A und B sind unabhängig von einander: 
 
 Dann gilt:\
 $$P(A \cap B) = {P}(A) * {P}(B)$$
@@ -59,32 +60,32 @@ $$P(A \cap B) = {P}(A) * {P}(B)$$
 Daraus folgt:
 $$P(A|B)= \frac{P(A\cap B)}{P(B)}=\frac{P(A) * P(B)}{P(B)}=P(A)$$
 
-2.) A und B schließen einander aus
+A und B schließen einander aus
 
-Dann gilt
+dann gilt:
+
 $$P(A\cap B) = 0$$
-
-
 Daraus folgt:
-$$P(A|B) = \frac{P(A\cap B)}{P(B)} = \frac{0}{P(B)} = 0$$
+
+$$P(A B) = \frac{P(A\cap B)}{P(B)} = \frac{0}{P(B)} = 0$$
 
 
 
 ## 4 c)
 Multiplikationssatz
-$P(A \cap B \cap C) = P(A) * P(B|A) * P(C | A \cap B)$
+$$P(A \cap B \cap C) = {P}(A) * {P}(B \mid A) * P(C | A \cap B)$$
 Während eines Fußballspiels zweier Mannschaften X und Y,
 schickt der Schiedsrichter im Abstand von jeweils 5 Minuten zufällig 
 und völlig willkürlich drei Spieler mit der roten Karte vorzeitig vom Platz. 
 Wie hoch ist die Wahrscheinlichkeit, dass bloß eine Mannschaft betroffen ist?
 
 - Jede Mannschaft besteht aus 11 Spielern, zu Beginn stehen also 22 Spieler auf dem Feld. Nach der ersten roten Karte 21 Spieler, 20 nach der zweiten etc.
+
 - sind nur Spieler einer Mannschaft betroffen verändert sich das Verhältnis der Mannschaften von 11:11, zu 10:11, zu 9:11, zu 8:11.
-- Da nicht spezifiziert wird ob Mannschaft X oder Y drei Rote Karten erhält, lediglich eine Mannschaft alle, gibt es zwei mögliche Pfade, die die Bedingung erfüllen, wenn man sich ein enttsprechendes Baumdiagramm erstellt.
 
 Daraus folgt
 
-$P(Team A \cap Team A \cap Team A) = P(11/22) * P(10/21) * P(9/20) * 2$
+${P}(Team A \cap Team A \cap Team A) = {P}(11/22) * {P}(10/21) * P(9/20) * 2$
 
 ```{r}
 P=(11/22)*(10/21)*(9/20)*2
@@ -105,6 +106,7 @@ yingtan <- read_delim("yingtan_20_v1.csv", ";")
 print(yingtan)
 print(summary(yingtan))
 print(str(yingtan))
+?print()
 
 ```
 
@@ -137,8 +139,27 @@ nrow(ljz)
 Na-Ionen. fehlerhaften Wert durch NA ersetzen
 
 ```{r}
-1+1
+#Spalte mit Na-Ionen
+#ljz$Na_exch
+#In Zeile 96 ist ein negativer Wert
+#Diesen Wert als NA setzen
+#is.na(ljz[, "Na_exch"]) <- ljz$Na_exch < 0
+
+ljz[ljz<=0] <- NA
+print(slice(ljz, 96))
+
 ```
+zusätzliche Werte, die bei möglichen Rechenoperationen zu Problemen führen könnten? Begründen Sie ihre Wahl
+und beheben Sie das Problem auf angemessene Weise.
+
+```{r}
+#Außerdem gibt es in derselben Spalte einige Werte mit einer 0
+#Da man nicht durch 0 teilen oder die Wurzel aus 0 berechnen kann,
+#kann dies zu Problemen führen
+ljz <- na_if(ljz, '0,000')
+print(slice(ljz, 8:9))
+```
+
 
 
 # Aufgabe 6 Tinn-R
@@ -185,9 +206,7 @@ und geben Sie im Protokoll den Befehl an,
 mit dem es sich in der Konsole ausführen lässt. 
 
 ```{r}
-#mit
 source("pipe_catena.R")
-kann das im Pfad angegebene Skript geladen werden.
 
 ```
 
@@ -204,3 +223,4 @@ save(list = ls(all.names = TRUE), file = "z01_Geostatistik_s20_Gr01.RData",
 
 # Literatur
 
+q()
