@@ -1,18 +1,309 @@
 ---
 title: "Aufgabenzettel 03"
 author: "Gruppe 01"
-date: "11.05.2020"
-bibliography: bibliography.bib
+date: "09.04.2020"
 output:
+  html_document:
+    df_print: paged
   pdf_document: default
 ---
 
+#bibliography: bibliography.bib
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+#library(tinytex)
+getwd()
+list=ls()
+rm(list=ls())
+setwd("C:/docs/wd")
+#file.edit("C:/docs/wd/z03_Geostatistik_s20_Gr01.Rmd")
 ```
 
-# Aufgabe 7
+# Aufgabe 7 Deskriptive Statistik
+Laden Sie den Workspace yingtan_20_ueb3.Rdata und arbeiten Sie im Folgenden mit dem Objekt ljz weiter. Einheiten mit Angeben!
+
+```{r aufgabe1}
+load("yingtan_20_ueb3.RData")
+print(ljz)
+```
+
+## 7 a)
+Methode Summary auf austauschbaren Ca-Ionen anwenden und aus Funktion gewonnene Parameter erläutern.
+```{r}
+print(summary(ljz$Ca_exch))
+```
+
+Min. 
+1st Qu.
+Median
+Mean 
+3rd Qu.
+Max.
+
+## 7 b)
+Varianz, Sandardabweichung, sowie Schiefe und Kurtosis (bezogen auf NV mit kurtosis = 0)
+füraustauschbaren Ca-Ionen ermitteln.
+
+```{r}
+var(ljz$Ca_exch)
+sd(ljz$Ca_exch)
+
+#skewness als Funktion
+
+skewness <- function(x) {
+  a <- (1/length(x))*sum((((x)-mean(x))/sd(x))^3)
+  return(a)
+}
+
+skewness(ljz$Ca_exch)
+
+#Skewness als Magrittr Pipe
+
+library(magrittr)
+
+b <- (ljz$Ca_exch-mean(ljz$Ca_exch)) %>%
+     divide_by(sd(ljz$Ca_exch)) %>% 
+        raise_to_power(3) %>%
+          sum() %>% 
+            multiply_by(1/length(ljz$Ca_exch))
+ 
+b;
+    
+
+#Kurtosis als Funktion
+kurtosis <- function(x) {
+a <- ((1/length(x))*sum((((x)-mean(x))/sd(x))^4))-3
+return(a)
+}
+
+kurtosis(ljz$Ca_exch)
+
+#Kurtosis als Magrittr Pipe
+c <- (ljz$Ca_exch-mean(ljz$Ca_exch)) %>%
+     divide_by(sd(ljz$Ca_exch)) %>% 
+        raise_to_power(4) %>%
+          sum() %>% 
+            multiply_by(1/length(ljz$Ca_exch)) %>%
+              -3
+ 
+c;
+
+```
+
+
+
+# Aufgabe 8 Dichte-Histogramme und Box-Whisker-Plots in R
+
+# 8 a)
+Dichte-Histogramm für austauschbare Ca-Ionen erstellen.
+Aussagekräftige Klassenweiten.
+Titel und Achsenbeschriftungen sinnvoll ändern und Balken grau einfärben.
+
+```{r}
+# The Freedman-Diaconis rule is very robust and works well in practice. The bin-width is set to h=2×IQR×n−1/3. So the number of bins is (max−min)/h, where n is the number of observations, max is the maximum value and min is the minimum value.
+# 
+# In base R, you can use:
+# 
+# hist(x, breaks="FD")
+# For other plotting libraries without this option (e.g., ggplot2), you can calculate binwidth as:
+# 
+# bw <- 2 * IQR(x) / length(x)^(1/3)
+# 
+# ### for example #####
+# ggplot() + geom_histogram(aes(x), binwidth = bw)
+
+# alternative Formel nacj Hedderich für 
+
+
+#?hist()
+hist(ljz$Ca_exch, 
+     breaks="FD", #Bin-Weite nach Freedman-Diaconis
+     freq=FALSE, #Wahrscheinlichkeitsdichte statt Häufigkeit, alternative prob=TRUE
+     col="grey",
+     main="main", 
+     xlab="xlab", 
+     ylab="ylab",
+     ylim=c(0, 0.05),
+     las=1
+     )
+
+#lines(density(ljz$Ca_exch)))
+
+```
+
+
+# 8 b)
+Um welche Verteilung handelt es sich bei der Ca-Ionenkonzentration dem visuellen Eindruck nach? Setzen Sie ihre Vermutung in Bezug zu den in Aufgabe 7b) errechneten Formparametern.
+
+
+# 8 c)
+Für die austauschbaren Ca-Ionen...
+
+Box-Whisker-Plot erstellen. Randverhalten der Verteilung untersuchen.
+
+Mögliche Ausreißer angeben (range = 1,5)
+
+Sinvoller Titel und passende Achsenbeschriftungen.
+
+Balkenbreite verkleinern um eine ansprechende Grafik zu erzeugen.
+
+```{r}
+?boxplot()
+?plot()
+#legend()
+#box()
+boxplot(ljz$Ca_exch
+        ,range = 1.5
+        #,width = 1
+        ,boxwex= 0.2
+        ,varwidth=TRUE
+        ,col="grey"
+        ,main= "Main"
+        ,xlab="xlab"
+        ,ylab="ylab"
+        ,pch = 8
+        ,las=1 #Orientierung der Zahlen an X-Achse 
+        #, aspect= 0.2,
+        #box.ratio= 1
+        )
+
+```
+
+
+
+# Aufgabe 9 Plotten in R
+'base graphics', 'lattice' und 'ggplot2'...
+
+jeweils einen ansehnlichen Box-Whisker-Plot: 'base graphics' (boxplot), lattice (bwplot) und ggplot2 (geom_boxplot).
+
+In jeder dieser Abbildungen stellen Sie im Prinzip das gleiche dar, nämlich
+die austauschbaren Ca-Ionen für drei unterschiedliche Datensätze: regular,
+catA und catQ. Das heißt, Sie müssen den ursprünglichen Datensatz vorab
+entsprechend reduzieren.
+
+```{r}
+
+```
+
+
+sinnvolle Titel sowie passende Achsenbeschriftungen
+
+verkleinern Sie die Balkenbreite, sodass ansprechend formatierte Graphiken entstehen. 
+
+Färben Sie außerdem die Box-Elemente grau ein 
+
+und ändern Sie die Symbolik möglicher Ausreißer zu schwarzen Sternchen (Asterisk). 
+
+Wie heißen die Argumente, die die Auswahl auffällig hoher (oder tiefer) Messwerte in den unterschiedlichen Boxplot-Umgebungen definieren?
+
+Was sind die Default-Einstellungen dieses kritischen Parameters?
+
+## 9 base graphic
+
+```{r}
+#base grahpics: boxplot()
+
+par(bty="n")  #kein Rahmen um Inhalt
+boxplot(ljz$Ca_exch,
+        range = 1.5,
+        #width = 1,
+        boxwex= 0.2,
+        varwidth=TRUE,
+        col="grey",
+        main= "Main",
+        xlab="xlab",
+        ylab="ylab",
+        #asp=1, #plot.window
+        pch = 8, #Outlier/Punkte als Sternchen
+        las=1,
+        pars=list(outcol="black") #?pars
+          )
+boxplot.stats(ljz$Ca_exch) # u.a. Liste der Ausreißer
+
+```
+
+
+## 9 Lattice
+
+```{r}
+#lattice, bwplot()
+#install.packages("lattice")
+library(lattice)
+
+#show.settings(bwplot) #gibt die optionen dot rectangle, umbrella
+#trellis.par.get()
+#str(trellis.par.get())
+#str(trellis.par.get(), max.level = 1)
+
+# https://www.rdocumentation.org/packages/lattice/versions/0.10-10/topics/xyplot 
+# https://moc.online.uni-marburg.de/gitbooks/publicationQualityGraphics/_book/chapters/02_data_visualisation/box_lattice.html
+# https://www.stat.ubc.ca/~jenny/STAT545A/block16_colorsLattice.html
+
+
+bw <- bwplot(ljz$Ca_exch,
+        main= "Main",
+         xlab="xlab",
+         ylab="ylab",
+         range=1.5
+        # box.ratio= 0.7,
+        # aspect= 1,
+        # pch=8,
+        # col="grey"
+        #horizontal=FALSE
+       )
+
+bw_theme <- trellis.par.get()
+bw_theme$box.dot$pch <- "|"
+bw_theme$box.rectangle$col <- "black"
+bw_theme$box.rectangle$lwd <- 2
+bw_theme$box.rectangle$fill <- "grey90"
+bw_theme$box.umbrella$lty <- 1
+bw_theme$box.umbrella$col <- "black"
+bw_theme$plot.symbol$col <- "black"
+bw_theme$plot.symbol$pch <- "*"
+bw_theme$plot.symbol$cex <- 2
+bw_theme$strip.background$col <- "grey80"
+
+
+update(bw, par.settings = bw_theme)
+
+```
+
+## 9 ggplot
+
+```{r}
+#ggplot(),geom_boxplot
+
+#https://moc.online.uni-marburg.de/gitbooks/publicationQualityGraphics/_book/chapters/02_data_visualisation/box_ggplot2.html
+box_plot <- ggplot(ljz, aes(x=factor(ljz$SAMPLE), y=ljz$SAMPLECa_exch)) #x als sample der richitge weg?
+
+box_plot + 
+  geom_boxplot(
+  outlier.colour = "black"
+        ,outlier.shape = 8
+        ,outlier.size = 3
+        ,color = "black"
+        , fill = "grey"
+        #, bg = "White"
+        #, alpha = 0.2
+        ) + 
+  xlab("xlab") +
+  ylab("ylab")
+
+#https://moc.online.uni-marburg.de/gitbooks/publicationQualityGraphics/_book/chapters/02_data_visualisation/box_ggplot2.html
+```
+
+
+# Beenden und Speichern
+```{r}
+save(list = ls(all.names = TRUE), file = "z01_Geostatistik_s20_Gr01.RData", 
+     envir = .GlobalEnv) #gleichbedeutend wie save.image()
+#savehistory("z01_Geostatistik_s20_Gr01.Rhistory")
+# alternativ quit()  schließt das R-Skript und RStudio wobei auch save.image()
+# und savehistory mit ausgefuehrt werden
+```
 
 
 # Literatur
-
