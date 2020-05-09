@@ -13,6 +13,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(magrittr)
 #library(tinytex)
 getwd()
 list=ls()
@@ -47,6 +48,8 @@ Varianz, Sandardabweichung, sowie Schiefe und Kurtosis (bezogen auf NV mit kurto
 füraustauschbaren Ca-Ionen ermitteln.
 
 ```{r}
+
+
 var(ljz$Ca_exch)
 sd(ljz$Ca_exch)
 
@@ -60,8 +63,6 @@ skewness <- function(x) {
 skewness(ljz$Ca_exch)
 
 #Skewness als Magrittr Pipe
-
-library(magrittr)
 
 b <- (ljz$Ca_exch-mean(ljz$Ca_exch)) %>%
      divide_by(sd(ljz$Ca_exch)) %>% 
@@ -129,8 +130,6 @@ hist(ljz$Ca_exch,
      las=1
      )
 
-#lines(density(ljz$Ca_exch)))
-
 ```
 
 
@@ -169,6 +168,8 @@ boxplot(ljz$Ca_exch
         #box.ratio= 1
         )
 
+x <- boxplot.stats(ljz$Ca_exch)$out #Vektor der Outlier
+filter(ljz, ljz$Ca_exch >= min(x))
 ```
 
 
@@ -184,6 +185,15 @@ catA und catQ. Das heißt, Sie müssen den ursprünglichen Datensatz vorab
 entsprechend reduzieren.
 
 ```{r}
+
+levels(ljz$SAMPLING)
+f <- c("catA" , "catQ" , "regular")
+ljz2 <- filter(ljz, f == ljz$SAMPLING)
+ljz2$SAMPLING <- factor(ljz2$SAMPLING) #alternativ droplevels(). Entferne übrige Faktoren
+levels(ljz2$SAMPLING)
+print(ljz2)
+
+
 
 ```
 
@@ -206,7 +216,7 @@ Was sind die Default-Einstellungen dieses kritischen Parameters?
 #base grahpics: boxplot()
 
 par(bty="n")  #kein Rahmen um Inhalt
-boxplot(ljz$Ca_exch,
+boxplot(ljz2$Ca_exch ~ ljz2$SAMPLING,
         range = 1.5,
         #width = 1,
         boxwex= 0.2,
@@ -220,7 +230,6 @@ boxplot(ljz$Ca_exch,
         las=1,
         pars=list(outcol="black") #?pars
           )
-boxplot.stats(ljz$Ca_exch) # u.a. Liste der Ausreißer
 
 ```
 
@@ -242,7 +251,7 @@ library(lattice)
 # https://www.stat.ubc.ca/~jenny/STAT545A/block16_colorsLattice.html
 
 
-bw <- bwplot(ljz$Ca_exch,
+bw <- bwplot(ljz2$Ca_exch ~ ljz2$SAMPLING,
         main= "Main",
          xlab="xlab",
          ylab="ylab",
@@ -277,7 +286,7 @@ update(bw, par.settings = bw_theme)
 #ggplot(),geom_boxplot
 
 #https://moc.online.uni-marburg.de/gitbooks/publicationQualityGraphics/_book/chapters/02_data_visualisation/box_ggplot2.html
-box_plot <- ggplot(ljz, aes(x=factor(ljz$SAMPLE), y=ljz$SAMPLECa_exch)) #x als sample der richitge weg?
+box_plot <- ggplot(ljz2, aes(x=SAMPLING, y=Ca_exch))
 
 box_plot + 
   geom_boxplot(
@@ -286,6 +295,7 @@ box_plot +
         ,outlier.size = 3
         ,color = "black"
         , fill = "grey"
+       ,coef = 1.5 # whisker
         #, bg = "White"
         #, alpha = 0.2
         ) + 
