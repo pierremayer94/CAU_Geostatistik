@@ -8,7 +8,7 @@ output:
   pdf_document: default
 ---
 
-#bibliography: bibliography.bib test
+#bibliography: bibliography.bib
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
