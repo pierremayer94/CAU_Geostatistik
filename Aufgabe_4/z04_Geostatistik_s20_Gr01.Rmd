@@ -1,0 +1,97 @@
+---
+title: "Aufgabenzettel 04"
+author: "Gruppe 01"
+date: "19.05.2020"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+#bibliography: bibliography.bib
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(magrittr)
+#library(tinytex)
+getwd()
+list=ls()
+rm(list=ls())
+setwd("C:/docs/github/CAU_Geostatistik/Aufgabe_4")
+#file.edit("C:/docs/github/CAU_Geostatistik/z04_Geostatistik_s20_Gr01.Rmd")
+```
+
+# Aufgabe 10: Normalverteilung und Transformation
+
+## 10 a) 
+Um den visuellen Eindruck aus Aufgabe 8b. mathematisch zu bestätigen,
+untersuchen Sie die Variable Ca_exch mit Hilfe eines gängigen Testverfahrens auf Normalverteilung.
+
+```{r}
+
+```
+
+## 10 b)
+
+Führen Sie eine geeignete Transformation durch und plotten Sie das Dichte-Histogramm der transformierten Variablen. 
+Wiederholen Sie den in 10a verwendeten Test auf Normalverteilung und integrieren Sie die Testparameter ebenso in die Histogramm-Graphik wie die Kurve der zugehörigen
+Normalverteilung (curve und Normal).
+Wählen Sie eine gestrichelte Liniendarstellung doppelter Breite. 
+
+```{r}
+
+```
+
+
+## 10 c)
+
+Beurteilen Sie abschließend in knappen Worten, ob die Transformation erfolgreich war,
+oder ob sich keine entscheidende Annäherung an eine Normalverteilung herstellen ließ.
+
+```{r}
+
+```
+
+
+
+# Aufgabe 11: Räumliche Daten in R
+
+## 11 a)
+
+Überführen Sie das Objekt ljz in eines der Klasse SpatialPointsDataFrame.
+Plotten Sie nun die Daten entsprechend ihrer geographischen Position. Beschriften Sie geschickt und fügen Sie ihrer Graphik ein rechtwinkliges Grid
+hinzu. Was lässt sich über das Sampling-Design sagen? Schätzen Sie die maximale Entfernung zweier Punkte im Untersuchungsgebiet ab. 
+
+```{r}
+
+```
+
+
+## 11 b)
+
+Verschaffen Sie sich anschließend einen Überblick über die Lage der
+Punkte indem Sie diese vor einem Satellitenbild plotten (mapview). Lassen
+sich durch das Satellitenbild weitere Äußerungen über das Sampling-Design
+treffen?
+Hinweis: Um das richtige Satellitenbild zu finden, muss dem Objekt ljz das
+richtige Koordinatensystem zugewiesen werden. Denken Sie dazu an die
+Objektbeschreibung in Übung 2.
+
+```{r}
+
+```
+
+
+## 11 c)
+
+Erstellen Sie mit Hilfe der Methode bubble einen Plot, der Ihnen zusätzlich
+zur geographischen Position jeweils die Größenordnung des Ca-Gehalts
+(untransformiert) vermittelt. Setzen Sie die maximale Kreisstärke auf 1 und
+sorgen Sie dafür, dass die Koordinatenachsen geplottet werden. Gehen Sie
+der Frage nach, ob ein regionaler Trend auszumachen ist. Liegen die Extremwerte konzentriert vor, oder verteilen sie sich auf das gesamte Einzugsgebiet?
+
+```{r}
+
+```
+
