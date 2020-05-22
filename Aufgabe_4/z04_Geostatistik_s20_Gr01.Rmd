@@ -80,6 +80,8 @@ lines(xfit, yfit, col="red")
 
 # <https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/curve>
 # <https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Normal>
+# <://stackoverflow.com/questions/37320018/add-normal-distribution-curve-to-histogram-r>
+# <https://stackoverflow.com/questions/20078107/overlay-normal-curve-to-histogram-in-r>
 
 #x = rnorm(length(ljz$Ca_exch), mean = mean(ljz$Ca_exch), sd= sd(ljz$Ca_exch))
 #curve(dnorm(x), add=TRUE)
