@@ -28,9 +28,19 @@ setwd("C:/docs/github/CAU_Geostatistik/Aufgabe_4")
 Um den visuellen Eindruck aus Aufgabe 8b. mathematisch zu bestätigen,
 untersuchen Sie die Variable Ca_exch mit Hilfe eines gängigen Testverfahrens auf Normalverteilung.
 
-```{r}
+H0: Messwerte sind Normalverteilt.
 
+```{r}
+load("yingtan_20_ueb3.RData")
+print(shapiro.test(ljz$Ca_exch))
+
+# install.packages("nortest")
+#<https://cran.r-project.org/web/packages/nortest/nortest.pdf>
+library(nortest)
+print(ad.test(ljz$Ca_exch))
 ```
+
+Da in beiden Fällen die Prüfgröße kleiner als das Signifikanzniveau 0.05 ausfällt ist die Nullhypothese (Messwerte sind Normalverteilt) abzulehnen. Die daten sollten daher transformiert werden.
 
 ## 10 b)
 
@@ -40,7 +50,50 @@ Normalverteilung (curve und Normal).
 Wählen Sie eine gestrichelte Liniendarstellung doppelter Breite. 
 
 ```{r}
+#transformation
+#ljz$Ca_exch
 
+#plot(ljz$Ca_exch)
+myhist = hist(ljz$Ca_exch, 
+     breaks="FD", #Bin-Weite nach Freedman-Diaconis
+     freq=FALSE, #Wahrscheinlichkeitsdichte statt Häufigkeit, alternative prob=TRUE
+     col="grey",
+     main="main", 
+     xlab="xlab", 
+     ylab="ylab",
+     ylim=c(0, 0.05),
+     las=1
+     )
+
+lines(x=density(ljz$Ca_exch), lwd= 2, lty=2)
+
+norm=rnorm(length(ljz$Ca_exch), mean = mean(ljz$Ca_exch), sd= sd(ljz$Ca_exch))
+lines(x=density(norm, adjust = 2))
+
+xfit <- seq(min(ljz$Ca_exch),max(ljz$Ca_exch),length=length(ljz$Ca_exch))
+yfit <- dnorm(xfit, mean=mean(ljz$Ca_exch) ,sd=sd(ljz$Ca_exch))
+#yfit <- yfit*diff(myhist$mids[1:2])*length(ljz$Ca_exch)
+lines(xfit, yfit, col="red")
+
+
+
+
+# <https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/curve>
+# <https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Normal>
+
+#x = rnorm(length(ljz$Ca_exch), mean = mean(ljz$Ca_exch), sd= sd(ljz$Ca_exch))
+#curve(dnorm(x), add=TRUE)
+
+#x<-seq(min(ljz$Ca_exch),max(ljz$Ca_exch),by=0.02)
+#curve(dnorm(x), add=TRUE)
+
+# x <- mtcars$mpg
+# h<-hist(x, breaks=10, col="red", xlab="Miles Per Gallon",
+#    main="Histogram with Normal Curve")
+# xfit<-seq(min(x),max(x),length=40)
+# yfit<-dnorm(xfit,mean=mean(x),sd=sd(x))
+# yfit <- yfit*diff(h$mids[1:2])*length(x)
+# lines(xfit, yfit, col="blue", lwd=2)
 ```
 
 
