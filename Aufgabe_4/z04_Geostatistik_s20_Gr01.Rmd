@@ -40,7 +40,7 @@ library(nortest)
 print(ad.test(ljz$Ca_exch))
 ```
 
-Da in beiden Fällen die Prüfgröße kleiner als das Signifikanzniveau 0.05 ausfällt ist die Nullhypothese (Messwerte sind Normalverteilt) abzulehnen. Die daten sollten daher transformiert werden.
+Da in beiden Fällen die Prüfgröße kleiner als das Signifikanzniveau p=0.05 ausfällt ist die Nullhypothese (Messwerte sind Normalverteilt) abzulehnen. Die Daten sollten daher transformiert werden.
 
 ## 10 b)
 
@@ -52,30 +52,41 @@ Wählen Sie eine gestrichelte Liniendarstellung doppelter Breite.
 ```{r}
 #transformation
 #ljz$Ca_exch
+ljz_sqrt <- ljz
+ljz_log10<- ljz
+ljz_log <- ljz
+
+ljz_sqrt$Ca_exch <- sqrt(ljz_sqrt$Ca_exch)
+ljz_log10$Ca_exch <- log10(ljz_log10$Ca_exch)
+ljz_log$Ca_exch <- log(ljz_log$Ca_exch)
+
+shapiro.test(ljz_sqrt$Ca_exch)
+shapiro.test(ljz_log10$Ca_exch)
+shapiro.test(ljz_log$Ca_exch)
+
+
 
 #plot(ljz$Ca_exch)
-myhist = hist(ljz$Ca_exch, 
+myhist <- hist(ljz_sqrt$Ca_exch, 
      breaks="FD", #Bin-Weite nach Freedman-Diaconis
      freq=FALSE, #Wahrscheinlichkeitsdichte statt Häufigkeit, alternative prob=TRUE
      col="grey",
      main="main", 
      xlab="xlab", 
      ylab="ylab",
-     ylim=c(0, 0.05),
+     #ylim=c(0, 0.05),
      las=1
      )
 
-lines(x=density(ljz$Ca_exch), lwd= 2, lty=2)
+lines(x=density(ljz_sqrt$Ca_exch), lwd= 2, lty=2)
 
-norm=rnorm(length(ljz$Ca_exch), mean = mean(ljz$Ca_exch), sd= sd(ljz$Ca_exch))
+norm=rnorm(length(ljz_sqrt$Ca_exch), mean = mean(ljz_sqrt$Ca_exch), sd= sd(ljz_sqrt$Ca_exch))
 lines(x=density(norm, adjust = 2))
 
-xfit <- seq(min(ljz$Ca_exch),max(ljz$Ca_exch),length=length(ljz$Ca_exch))
-yfit <- dnorm(xfit, mean=mean(ljz$Ca_exch) ,sd=sd(ljz$Ca_exch))
+xfit <- seq(min(ljz_sqrt$Ca_exch),max(ljz_sqrt$Ca_exch),length=length(ljz_sqrt$Ca_exch))
+yfit <- dnorm(xfit, mean=mean(ljz_sqrt$Ca_exch) ,sd=sd(ljz_sqrt$Ca_exch))
 #yfit <- yfit*diff(myhist$mids[1:2])*length(ljz$Ca_exch)
 lines(xfit, yfit, col="red")
-
-
 
 
 # <https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/curve>
@@ -101,12 +112,7 @@ lines(xfit, yfit, col="red")
 
 ## 10 c)
 
-Beurteilen Sie abschließend in knappen Worten, ob die Transformation erfolgreich war,
-oder ob sich keine entscheidende Annäherung an eine Normalverteilung herstellen ließ.
-
-```{r}
-
-```
+Beurteilen Sie abschließend in knappen Worten, ob die Transformation erfolgreich war, oder ob sich keine entscheidende Annäherung an eine Normalverteilung herstellen ließ.
 
 
 
