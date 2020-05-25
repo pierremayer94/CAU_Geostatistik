@@ -135,8 +135,8 @@ str(ljz_sqrt)
 ?select()
 
 
-x <- data.frame(x=ljz_sqrt$EAST, y=ljz_sqrt$NORTH);
-bbox(x)
+#x <- data.frame(x=ljz_sqrt$EAST, y=ljz_sqrt$NORTH);
+#bbox(x)
 
 # prepare the 3 components: coordinates, data, and proj4string
 coords <- (ljz_sqrt %>% select(3:4)) # coordinates 
@@ -145,10 +145,11 @@ sp = SpatialPoints(coords)
 str(sp)
 bbox(sp)
 #crs    <- CRS("+init=epsg:41001")
+coordsys <- CRS("+proj=utm +zone=50 +ellps=WGS84")
 
 
 spdf = SpatialPointsDataFrame(coords, data)
-spdf = SpatialPointsDataFrame(sp, data)
+spdf = SpatialPointsDataFrame(sp, data, proj4string = coordsys)
 
 
 # https://r-spatial.github.io/mapview/articles/articles/mapview_01-basics.html 
@@ -164,12 +165,12 @@ spdf = SpatialPointsDataFrame(sp, data)
 
 plot(spdf)
 
-spplot(spdf["Ca_exch"],
-col = "red", ## Palette
-cex = sqrt(1:5), ## Size of circles
-edge.col = ’black’, ## Color of border
-scales = list(draw = TRUE), ## Draw scales
-key.space = ’right’) ## Put legend on the right
+# spplot(spdf["Ca_exch"],
+# col = "red", ## Palette
+# cex = sqrt(1:5), ## Size of circles
+# edge.col = ’black’, ## Color of border
+# scales = list(draw = TRUE), ## Draw scales
+# key.space = ’right’) ## Put legend on the right
 ```
 
 
@@ -189,8 +190,7 @@ library(mapview)
 
 #<https://r-spatial.github.io/mapview/articles/articles/mapview_02-advanced.html>
 
-mapview(spdf, zcol = "Ca_exch", legend = TRUE, basemaps="Esri.WorldImagery") 
-
+mapview(spdf, zcol = "Ca_exch", legend = TRUE, basemaps="Esri.WorldImagery")
 
 # basemaps/map.types: CartoDB.Positron, CartoDB.DarkMatter, OpenStreetMap, Esri.WorldImagery, OpenTopoMap
 
