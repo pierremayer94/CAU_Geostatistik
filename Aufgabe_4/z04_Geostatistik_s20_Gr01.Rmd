@@ -130,16 +130,17 @@ hinzu. Was lässt sich über das Sampling-Design sagen? Schätzen Sie die maxima
 #install.packages("sp")
 library(sp)
 
-ljz_sqrt
-str(ljz_sqrt)
-?select()
-
+#ljz_sqrt
+#str(ljz_sqrt)
+#?select()
 
 #x <- data.frame(x=ljz_sqrt$EAST, y=ljz_sqrt$NORTH);
 #bbox(x)
 
 # prepare the 3 components: coordinates, data, and proj4string
-coords <- (ljz_sqrt %>% select(3:4)) # coordinates 
+# coords <- (ljz_sqrt %>% select(3:4)) # coordinates
+coords <- select(ljz_sqrt, long = EAST, lat = NORTH)
+
 data   <- (as.data.frame(cbind(ljz_sqrt[1],ljz_sqrt[5:9])))   # data
 sp = SpatialPoints(coords)
 str(sp)
@@ -163,14 +164,24 @@ spdf = SpatialPointsDataFrame(sp, data, proj4string = coordsys)
 #                               data = data, 
 #                               proj4string = crs)
 
-plot(spdf)
 
-# spplot(spdf["Ca_exch"],
-# col = "red", ## Palette
-# cex = sqrt(1:5), ## Size of circles
-# edge.col = ’black’, ## Color of border
-# scales = list(draw = TRUE), ## Draw scales
-# key.space = ’right’) ## Put legend on the right
+plot(spdf)
+spplot(spdf["Ca_exch"], 
+       key.space = "right", # Put legend on the right
+       cex = sqrt(1:5), # Size of circles
+       edge.col = "black", ## Color of border
+       scales = list(draw = TRUE) # Draw scales
+       #, col = ... #Farbpalette
+       )
+
+grid <- gridlines(spdf, easts = pretty(bbox(spdf)[1,]), norths = pretty(bbox(spdf)[2,]),
+ ndiscr = 100) 
+
+# ?makegrid()
+# grid <- makegrid(spdf) # cellsize = 2) cellsize in map units!
+# grid <- SpatialPoints(grid, proj4string = coordsys)
+plot(grid, pch = ".", add = T) 
+
 ```
 
 
@@ -215,8 +226,12 @@ sorgen Sie dafür, dass die Koordinatenachsen geplottet werden. Gehen Sie
 der Frage nach, ob ein regionaler Trend auszumachen ist. Liegen die Extremwerte konzentriert vor, oder verteilen sie sich auf das gesamte Einzugsgebiet?
 
 ```{r}
-
-bubble(spdf, maxsize = 1)
+## Achtung, noch nicht die untransformierten Werte.
+bubble(spdf, 
+       maxsize = 1,
+       zcol = "Ca_exch",
+       main = "Austauschbare Ca-Kationen"
+       )
 
 ```
 
