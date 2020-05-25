@@ -89,6 +89,8 @@ yfit <- dnorm(xfit, mean=mean(ljz_sqrt$Ca_exch) ,sd=sd(ljz_sqrt$Ca_exch))
 lines(xfit, yfit, col="red")
 
 
+# Anmerkung dichte/normalverteilung mit ggplot: 
+# stat_overlay_normal_density(color = "red", linetype = "dashed")
 # <https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/curve>
 # <https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Normal>
 # <://stackoverflow.com/questions/37320018/add-normal-distribution-curve-to-histogram-r>
@@ -125,7 +127,49 @@ Plotten Sie nun die Daten entsprechend ihrer geographischen Position. Beschrifte
 hinzu. Was lässt sich über das Sampling-Design sagen? Schätzen Sie die maximale Entfernung zweier Punkte im Untersuchungsgebiet ab. 
 
 ```{r}
+#install.packages("sp")
+library(sp)
 
+ljz_sqrt
+str(ljz_sqrt)
+?select()
+
+
+x <- data.frame(x=ljz_sqrt$EAST, y=ljz_sqrt$NORTH);
+bbox(x)
+
+# prepare the 3 components: coordinates, data, and proj4string
+coords <- (ljz_sqrt %>% select(3:4)) # coordinates 
+data   <- (as.data.frame(cbind(ljz_sqrt[1],ljz_sqrt[5:9])))   # data
+sp = SpatialPoints(coords)
+str(sp)
+bbox(sp)
+#crs    <- CRS("+init=epsg:41001")
+
+
+spdf = SpatialPointsDataFrame(coords, data)
+spdf = SpatialPointsDataFrame(sp, data)
+
+
+# https://r-spatial.github.io/mapview/articles/articles/mapview_01-basics.html 
+#coordinates(data) = cbind(coords$x, coords$y)
+# <https://cmerow.github.io/RDataScience/04_Spatial.html>
+#crs    <- CRS("+init=epsg:41001") # proj4string of coords, WGS84 / Simple Mercator
+#proj4string()
+
+# make the spatial points data frame object
+#spdf <- SpatialPointsDataFrame(coords = coords,
+#                               data = data, 
+#                               proj4string = crs)
+
+plot(spdf)
+
+spplot(spdf["Ca_exch"],
+col = "red", ## Palette
+cex = sqrt(1:5), ## Size of circles
+edge.col = ’black’, ## Color of border
+scales = list(draw = TRUE), ## Draw scales
+key.space = ’right’) ## Put legend on the right
 ```
 
 
@@ -140,6 +184,24 @@ richtige Koordinatensystem zugewiesen werden. Denken Sie dazu an die
 Objektbeschreibung in Übung 2.
 
 ```{r}
+#install.packages("mapview")
+library(mapview)
+
+#<https://r-spatial.github.io/mapview/articles/articles/mapview_02-advanced.html>
+
+mapview(spdf, zcol = "Ca_exch", legend = TRUE, basemaps="Esri.WorldImagery") 
+
+
+# basemaps/map.types: CartoDB.Positron, CartoDB.DarkMatter, OpenStreetMap, Esri.WorldImagery, OpenTopoMap
+
+# c("Esri.WorldShadedRelief", "Esri.WorldImagery", "OpenStreetMap"), color = #"grey40")
+
+# library(ggmap)    # loads ggplot2 as well
+# map <- get_map(location=rowMeans(bbox(meuse)), zoom=13)   # get Google map
+# ggmap(map) + 
+#   geom_point(data=as.data.frame(meuse), aes(x,y,fill=lead), 
+#              color="grey70", size=3.5, shape=21)+
+#   scale_fill_gradientn(colours=rev(heat.colors(5)))
 
 ```
 
@@ -153,6 +215,8 @@ sorgen Sie dafür, dass die Koordinatenachsen geplottet werden. Gehen Sie
 der Frage nach, ob ein regionaler Trend auszumachen ist. Liegen die Extremwerte konzentriert vor, oder verteilen sie sich auf das gesamte Einzugsgebiet?
 
 ```{r}
+
+bubble(spdf, maxsize = 1)
 
 ```
 
