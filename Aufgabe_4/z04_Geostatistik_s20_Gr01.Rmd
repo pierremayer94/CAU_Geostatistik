@@ -165,7 +165,7 @@ spdf = SpatialPointsDataFrame(sp, data, proj4string = coordsys)
 #                               proj4string = crs)
 
 
-plot(spdf)
+
 spplot(spdf["Ca_exch"], 
        key.space = "right", # Put legend on the right
        cex = sqrt(1:5), # Size of circles
@@ -174,13 +174,15 @@ spplot(spdf["Ca_exch"],
        #, col = ... #Farbpalette
        )
 
+
 grid <- gridlines(spdf, easts = pretty(bbox(spdf)[1,]), norths = pretty(bbox(spdf)[2,]),
  ndiscr = 100) 
 
 # ?makegrid()
 # grid <- makegrid(spdf) # cellsize = 2) cellsize in map units!
 # grid <- SpatialPoints(grid, proj4string = coordsys)
-plot(grid, pch = ".", add = T) 
+plot(spdf,  pch = ".")
+plot(grid, add = TRUE) 
 
 ```
 
