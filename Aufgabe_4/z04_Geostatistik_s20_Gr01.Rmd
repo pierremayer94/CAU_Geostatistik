@@ -38,6 +38,7 @@ print(shapiro.test(ljz$Ca_exch))
 #<https://cran.r-project.org/web/packages/nortest/nortest.pdf>
 library(nortest)
 print(ad.test(ljz$Ca_exch))
+ljz$SAMPLING
 ```
 
 Da in beiden Fällen die Prüfgröße kleiner als das Signifikanzniveau p=0.05 ausfällt ist die Nullhypothese (Messwerte sind Normalverteilt) abzulehnen. Die Daten sollten daher transformiert werden.
@@ -64,8 +65,6 @@ shapiro.test(ljz_sqrt$Ca_exch)
 shapiro.test(ljz_log10$Ca_exch)
 shapiro.test(ljz_log$Ca_exch)
 
-
-
 #plot(ljz$Ca_exch)
 myhist <- hist(ljz_sqrt$Ca_exch, 
      breaks="FD", #Bin-Weite nach Freedman-Diaconis
@@ -80,14 +79,21 @@ myhist <- hist(ljz_sqrt$Ca_exch,
 
 lines(x=density(ljz_sqrt$Ca_exch), lwd= 2, lty=2)
 
-norm=rnorm(length(ljz_sqrt$Ca_exch), mean = mean(ljz_sqrt$Ca_exch), sd= sd(ljz_sqrt$Ca_exch))
+norm=rnorm(length(ljz_sqrt$Ca_exch), 
+           mean = mean(ljz_sqrt$Ca_exch), 
+           sd= sd(ljz_sqrt$Ca_exch))
 lines(x=density(norm, adjust = 2))
 
-xfit <- seq(min(ljz_sqrt$Ca_exch),max(ljz_sqrt$Ca_exch),length=length(ljz_sqrt$Ca_exch))
-yfit <- dnorm(xfit, mean=mean(ljz_sqrt$Ca_exch) ,sd=sd(ljz_sqrt$Ca_exch))
+xfit <- seq(min(ljz_sqrt$Ca_exch),
+            max(ljz_sqrt$Ca_exch),
+            length=length(ljz_sqrt$Ca_exch))
+yfit <- dnorm(xfit,
+              mean=mean(ljz_sqrt$Ca_exch),
+              sd=sd(ljz_sqrt$Ca_exch))
 #yfit <- yfit*diff(myhist$mids[1:2])*length(ljz$Ca_exch)
 lines(xfit, yfit, col="red")
 
+#legend
 
 # Anmerkung dichte/normalverteilung mit ggplot: 
 # stat_overlay_normal_density(color = "red", linetype = "dashed")
@@ -178,6 +184,8 @@ spplot(spdf["Ca_exch"],
 grid <- gridlines(spdf, easts = pretty(bbox(spdf)[1,]), norths = pretty(bbox(spdf)[2,]),
  ndiscr = 100) 
 
+bbox(spdf)
+
 # ?makegrid()
 # grid <- makegrid(spdf) # cellsize = 2) cellsize in map units!
 # grid <- SpatialPoints(grid, proj4string = coordsys)
@@ -203,9 +211,9 @@ library(mapview)
 
 #<https://r-spatial.github.io/mapview/articles/articles/mapview_02-advanced.html>
 
-mapview(spdf, zcol = "Ca_exch", legend = TRUE, basemaps="Esri.WorldImagery")
+mapview(spdf, zcol = "Ca_exch", legend = TRUE, map.type="Esri.WorldImagery")
 
-# basemaps/map.types: CartoDB.Positron, CartoDB.DarkMatter, OpenStreetMap, Esri.WorldImagery, OpenTopoMap
+# basemaps/map.type: CartoDB.Positron, CartoDB.DarkMatter, OpenStreetMap, Esri.WorldImagery, OpenTopoMap
 
 # c("Esri.WorldShadedRelief", "Esri.WorldImagery", "OpenStreetMap"), color = #"grey40")
 
@@ -230,7 +238,7 @@ der Frage nach, ob ein regionaler Trend auszumachen ist. Liegen die Extremwerte 
 ```{r}
 ## Achtung, noch nicht die untransformierten Werte.
 bubble(spdf, 
-       maxsize = 1,
+       maxsize = 2,
        zcol = "Ca_exch",
        main = "Austauschbare Ca-Kationen"
        )
