@@ -23,7 +23,9 @@ load("C:/docs/github/CAU_Geostatistik/Aufgabe_5/yingtan_20_ueb3.RData")
 
 ## 12 a)
 Laden Sie das Paket gstat und plotten Sie die Variogrammwolke für die
-austauschbaren Ca-Ionen. Beschreiben Sie in ein, zwei Sätzen die Grundstruktur des Plots und erklären Sie ebenso präzise das Zustandekommen
+austauschbaren Ca-Ionen.
+Beschreiben Sie in ein, zwei Sätzen die Grundstruktur des Plots und 
+erklären Sie ebenso präzise das Zustandekommen
 vereinzelter vertikaler Streifen, z.B. bei 300, 600 oder 750m.
 
 ```{r}
@@ -46,8 +48,9 @@ von Punkten.
 
 
 ##12 c)
-Schauen Sie sich das Objekt, welches durch die Methode variogram erzeugt wird, etwas genauer an. Welchen Klassen gehört es an? Wofür stehen
-die ersten drei Variablen des erzeugten Objekts?
+Schauen Sie sich das Objekt, welches durch die Methode variogram erzeugt wird, etwas genauer an.
+Welchen Klassen gehört es an?
+Wofür stehen die ersten drei Variablen des erzeugten Objekts?
 
 ```{r}
 
@@ -56,7 +59,9 @@ die ersten drei Variablen des erzeugten Objekts?
 
 
 ##12 d)
-Fügen Sie ihrem empirischen Variogramm-Plot aus b) ein passendes Modell hinzu. Erläutern Sie kurz, wie Sie vorgegangen sind. Hinweis: Mit dem Befehl show.vgms listen Sie die in gstat verfügbaren, autorisierten Modelle auf.
+Fügen Sie ihrem empirischen Variogramm-Plot aus 12 b) ein passendes Modell hinzu.
+Erläutern Sie kurz, wie Sie vorgegangen sind.
+Hinweis: Mit dem Befehl show.vgms listen Sie die in gstat verfügbaren, autorisierten Modelle auf.
 
 ```{r}
 
@@ -64,6 +69,8 @@ Fügen Sie ihrem empirischen Variogramm-Plot aus b) ein passendes Modell hinzu. 
 
 
 ##12 e)
-Betrachten Sie noch einmal ihre Variogramme aus b) bzw. d) und interpretieren Sie diese. Argumentieren Sie auf Basis der Variogrammcharakteristik und des Nugget-To-Sill-Ratio nach CAMBARDELLA (vgl. S.1508f.). Wie bewerten Sie das autokorrelative Verhalten der Zielvariablen im Raum?
+Betrachten Sie noch einmal ihre Variogramme aus b) bzw. d) und interpretieren Sie diese.
+Argumentieren Sie auf Basis der Variogrammcharakteristik und des Nugget-To-Sill-Ratio nach CAMBARDELLA (vgl. S.1508f.).
+Wie bewerten Sie das autokorrelative Verhalten der Zielvariablen im Raum?
 
 
