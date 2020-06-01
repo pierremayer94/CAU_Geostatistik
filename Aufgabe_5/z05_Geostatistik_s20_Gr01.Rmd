@@ -60,9 +60,8 @@ cloud <- variogram(Ca_exch~1,
                    #width= 1000, 
                    cloud = TRUE) 
 plot(cloud, pch=4, col="black")
-length(cloud$np)
-
 ```
+Die Häufung von Werten gleicher Abstände (150m)lässt sich durch die Beprobung in einem Raster erklären. Dadurch ergeben sich für die Abstände der Punktpaare Häufungen für Distanzen im Variogramm auf der x-Achse. 
 
 
 ## 12 b)
@@ -76,13 +75,19 @@ von Punkten.
 ```{r}
 var1 <- variogram(Ca_exch~1, 
                   SPDF2, 
-                  cutoff=2202, 
-                  width= (2202/15)
+                  cutoff=2202, # ca. 50% der Max. Distanz
+                  width= (2202/15) #
                     )
-
-plot(var1, pch=4, col="black")
+?variogram()
+plot(var1,
+     main= "Omnidirektionales empirisches Variogramm",
+     pch=4, 
+     col="black"
+     ,omnidirectional=TRUE
+     )
 ```
-
+Als Cutoff wurde 2202 Meter gewählt. Das entspricht ca. 50% der maximalen Distanz der Punktpaare (4404.327 m, vgl. Aufg. 11 a).
+Die Klassenweite wurde so gesetzt, dass 15 Klassen entstehen. Das entspricht den Default-Einstellungen.
 
 
 ## 12 c)
@@ -92,18 +97,17 @@ Wofür stehen die ersten drei Variablen des erzeugten Objekts?
 
 ```{r}
 str(var1)
-?variogram()
+#?variogram()
 ```
 Klassen: gstatVariogram’ and 'data.frame'
+
 Mitfilfe  der ABfrage ?variogram():
 
-np: die Anzahl der Punktpaare für die Schätzung.
-the number of point pairs for this estimate; in case of a variogramCloud see below. Im Fall von cloud=TRUE die (ID)Nummern des Punktepaares, das zu einer Variogrammwolkenschätzung beigetragen hat.
+np: die Anzahl der Punktpaare für die Schätzung. Im Fall von cloud=TRUE die (ID)Nummern des Punktepaares, das zu einer Variogrammwolkenschätzung beigetragen hat.
 
-dist:
-durchschnittliche Entfernung aller Punktepaare die in die Schätzing der KLasse eingegangen sind.
+dist: durchschnittliche Entfernung aller Punktepaare die in die Schätzung der Klasse eingegangen sind.
 
-gamma: Wert der Stichprobenvariogramm-Schätzung
+gamma: Wert der Varianz für die Stichprobenvariogramm-Schätzung.
 
 ## 12 d)
 Fügen Sie ihrem empirischen Variogramm-Plot aus 12 b) ein passendes Modell hinzu.
@@ -113,21 +117,24 @@ Hinweis: Mit dem Befehl show.vgms listen Sie die in gstat verfügbaren, autorisi
 ```{r}
 # ?vgm()
 ?fit.variogram()
-?vgm()
+#?vgm()
 
-m1 <- vgm(psill = 100,
+m1 <- vgm(psill = 110,
           model = "Sph",
           #model = c("Nug", "Exp", "Log", "Gau"),
           #range = ,
-          nugget = 50, 
+          #kappa= 2,
+          nugget = 30, 
           cutoff= 2202)
 
 v_fit <- fit.variogram(object = var1,
                   model = m1,
-                  fit.sills = TRUE,
-                  fit.ranges = TRUE,
-                  fit.method = 0
+                  #fit.sills = TRUE,
+                  #fit.ranges = TRUE,
+                  fit.method = 0, #vgl. Gstat user's manual, p 42, tab. 4.2, <http://www.gstat.org/gstat.pdf>
+                  #fit.kappa = TRUE
                   )
+v_fit
 
 plot(var1, 
      v_fit,
@@ -135,18 +142,16 @@ plot(var1,
      ylim=c(0,175))
 
 
-
-
-# Verschiedene Anpassungen:
-# ?show.vgms
-# show.vgms()
-show.vgms(models = c("Exp", "Mat", "Gau"), nugget = 0.1)
-# show a set of Matern models with different smoothness:
-show.vgms(kappa.range = c(.1, .2, .5, 1, 2, 5, 10), max = 10)
-# show a set of Exponential class models with different shape parameter:
-show.vgms(kappa.range = c(.05, .1, .2, .5, 1, 1.5, 1.8, 1.9, 2), models = "Exc", max = 10)
-# show a set of models with different shape parameter of M. Stein's representation of the Matern:
-show.vgms(kappa.range = c(.01, .02, .05, .1, .2, .5, 1, 2, 5, 1000), models = "Ste", max = 2)
+# # Verschiedene Anpassungen:
+# # ?show.vgms
+# # show.vgms()
+# show.vgms(models = c("Exp", "Mat", "Gau"), nugget = 0.1)
+# # show a set of Matern models with different smoothness:
+# show.vgms(kappa.range = c(.1, .2, .5, 1, 2, 5, 10), max = 10)
+# # show a set of Exponential class models with different shape parameter:
+# show.vgms(kappa.range = c(.05, .1, .2, .5, 1, 1.5, 1.8, 1.9, 2), models = "Exc", max = 10)
+# # show a set of models with different shape parameter of M. Stein's representation of the Matern:
+# show.vgms(kappa.range = c(.01, .02, .05, .1, .2, .5, 1, 2, 5, 1000), models = "Ste", max = 2)
 ```
 
 
@@ -158,8 +163,8 @@ Wie bewerten Sie das autokorrelative Verhalten der Zielvariablen im Raum?
 ```{r}
 var_map <- variogram(Ca_exch~1, 
                   SPDF2, 
-                  cutoff= 4000, 
-                  width= 500,
+                  cutoff= 2202, 
+                  width= 2202/15,
                   map= TRUE
                   )
 
@@ -167,7 +172,30 @@ var_aniso <- variogram(Ca_exch~1, SPDF2, alpha=c(0,45,90,135))
 plot(var_map)
 plot(var_aniso)
 ```
+Aus @Cambardella.1994:
+"If the linear model has a slope that is close to zero, then the total
+variance is equal to the nugget variance and the variables
+are described as spatially independent and completely
+random. 
+[...]
+The nugget semivariance expressed as a percentage of the total semivariance enables comparison of the relative size of the nugget effect among soil properties [...]. We used this ratio to define
+distinct classes of spatial dependence for the soil variables
+as follows:
 
+if the ratio was <25%, the variable was considered strongly spatially dependent;
+if the ratio was between 25 and 75 %, the variable was considered moderately spatially dependent; 
+and if the ratio was >75%, the variable was considered weakly spatially dependent."
+
+Bereits aus der Punktwolke lässt sich erkennen, dass die Gemessenen Werte unabhängig von ihrer räumlichen Lage sind, bzw. ähnliche Werte auch nah beieinander liegen.
+
+semivarianz nugget: 30,  semivarianz sill: 140
+
+```{r}
+30/140
+```
+0.2142857 < 0.25
+
+Das Verhältnis von Nugget zu Sill weißt auf eine starke räumliche Abhängigkeit hin. Punkte die weiter als ca. 600m von einander entfernt sind haben keine Ähnlichkeit zueinander, da hier der Sill-Wert erreicht wird. Somit haben in der Gridkartierung bis zum 4. benachbarten Punkt einen ähnlichen Wert der Austauschbaren Ca-Ionen. Eine Anisotropie, also ein Richtungstrend ist nicht erkennbar. 
 
 
 # Literatur
