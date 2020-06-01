@@ -34,17 +34,17 @@ vereinzelter vertikaler Streifen, z.B. bei 300, 600 oder 750m.
 library(sp)
 library(gstat)
 
-# Methode 1
-SPDF1 <- ljz
-coordinate <- SpatialPoints(SPDF1[c("EAST", "NORTH")])
-coordRefSys <- CRS("+init=epsg:32650")
-SPDF1 <- SpatialPointsDataFrame(coords = coordinate,
-                               data = ljz,
-                               proj4string = coordRefSys # funktioniert nicht? Warum?
-                                )
-proj4string(SPDF1) <- CRS("+init=epsg:32650")
-
-spplot(obj = SPDF1, zcol= 7, cex = sqrt(SPDF1$Ca_exch)/10)
+# # Methode 1
+# SPDF1 <- ljz
+# coordinate <- SpatialPoints(SPDF1[c("EAST", "NORTH")])
+# coordRefSys <- CRS("+init=epsg:32650")
+# SPDF1 <- SpatialPointsDataFrame(coords = coordinate,
+#                                data = ljz,
+#                                proj4string = coordRefSys # funktioniert nicht? Warum?
+#                                 )
+# proj4string(SPDF1) <- CRS("+init=epsg:32650")
+# 
+# spplot(obj = SPDF1, zcol= 7, cex = sqrt(SPDF1$Ca_exch)/10)
 
 
 #Methode 2
@@ -81,7 +81,6 @@ var1 <- variogram(Ca_exch~1,
                     )
 
 plot(var1, pch=4, col="black")
-str(var1)
 ```
 
 
@@ -93,14 +92,18 @@ Wofür stehen die ersten drei Variablen des erzeugten Objekts?
 
 ```{r}
 str(var1)
+?variogram()
 ```
+Klassen: gstatVariogram’ and 'data.frame'
+Mitfilfe  der ABfrage ?variogram():
 
-Aus ?variogram()
-np: the number of point pairs for this estimate; in case of a variogramCloud see below
+np: die Anzahl der Punktpaare für die Schätzung.
+the number of point pairs for this estimate; in case of a variogramCloud see below. Im Fall von cloud=TRUE die (ID)Nummern des Punktepaares, das zu einer Variogrammwolkenschätzung beigetragen hat.
 
-dist: the average distance of all point pairs considered for this estimate
+dist:
+durchschnittliche Entfernung aller Punktepaare die in die Schätzing der KLasse eingegangen sind.
 
-gamma: the actual sample variogram estimate
+gamma: Wert der Stichprobenvariogramm-Schätzung
 
 ## 12 d)
 Fügen Sie ihrem empirischen Variogramm-Plot aus 12 b) ein passendes Modell hinzu.
@@ -109,26 +112,34 @@ Hinweis: Mit dem Befehl show.vgms listen Sie die in gstat verfügbaren, autorisi
 
 ```{r}
 # ?vgm()
-# ?fit.variogram()
+?fit.variogram()
+?vgm()
 
-m <- vgm(psill = 150,
-         model = c("Exp", "Mat", "Gau"),
-         range = 2202,
-         nugget = 50)
+m1 <- vgm(psill = 100,
+          model = "Sph",
+          #model = c("Nug", "Exp", "Log", "Gau"),
+          #range = ,
+          nugget = 50, 
+          cutoff= 2202)
 
-# v_fit <- fit.variogram(object = var1,
-#                        model = m,
-#                        fit.sills = ,
-#                        fit.ranges = ,
-#                        fit.method = ,
-#                          )
-#plot(v_fit)
+v_fit <- fit.variogram(object = var1,
+                  model = m1,
+                  fit.sills = TRUE,
+                  fit.ranges = TRUE,
+                  fit.method = 0
+                  )
 
+plot(var1, 
+     v_fit,
+     cutoff = 2202,
+     ylim=c(0,175))
+
+
+
+
+# Verschiedene Anpassungen:
 # ?show.vgms
 # show.vgms()
-
-
-
 show.vgms(models = c("Exp", "Mat", "Gau"), nugget = 0.1)
 # show a set of Matern models with different smoothness:
 show.vgms(kappa.range = c(.1, .2, .5, 1, 2, 5, 10), max = 10)
