@@ -108,7 +108,16 @@ Fügen Sie ihrem empirischen Variogramm-Plot aus 12 b) ein passendes Modell hinz
 Erläutern Sie kurz, wie Sie vorgegangen sind.
 Hinweis: Mit dem Befehl show.vgms listen Sie die in gstat verfügbaren, autorisierten Modelle auf.
 
-Sill (=140) und Nugget (=30) wurden geschätzt wodurch sich ein Partial Sill von 110 ergibt: psill= sill-nugget = 140-30 = 110
+Vorgehen: 
+
+1.) cutoff als 50% der Max. Distanz festlegen: 2202 m
+
+2.) Abschätzen von Sill und Nugget aus Variogramm-Graphik. Sill (=140) und Nugget (=30) wurden geschätzt wodurch sich ein Partial Sill von 110 ergibt: psill= sill-nugget = 140-30 = 110
+
+3.) Wahl eines Models in vgm(). Das sphärische Modell ("Sph") erzielt den besten fit.
+
+4.) Wahl von fit.method in fit.variogramm() um Modell weiter anzupassen.
+
 
 ```{r}
 #?vgm()
@@ -126,7 +135,9 @@ v_fit <- fit.variogram(object = var1,
                   model = m1,
                   #fit.sills = TRUE,
                   #fit.ranges = TRUE,
-                  fit.method = 0, #vgl. Gstat user's manual, p 42, tab. 4.2, <http://www.gstat.org/gstat.pdf>
+                  fit.method = 0,#vgl. Gstat user's manual, 
+                                 #p. 42, tab. 4.2,
+                                 #<http://www.gstat.org/gstat.pdf>
                   #fit.kappa = TRUE
                   )
 v_fit
@@ -135,6 +146,8 @@ plot(var1,
      v_fit,
      cutoff = 2202,
      ylim=c(0,175),
+     pch=4,
+     col="black",
      main="Variogramm Modell")
 
 
@@ -160,7 +173,7 @@ Wie bewerten Sie das autokorrelative Verhalten der Zielvariablen im Raum?
 var_map <- variogram(Ca_exch~1, 
                   SPDF, 
                   cutoff= 2202, 
-                  width= 2202/15,
+                  width= 150,
                   map= TRUE
                   )
 
@@ -186,7 +199,7 @@ if the ratio was <25%, the variable was considered strongly spatially dependent;
 if the ratio was between 25 and 75 %, the variable was considered moderately spatially dependent; 
 and if the ratio was >75%, the variable was considered weakly spatially dependent."
 
-Bereits aus der Punktwolke lässt sich erkennen, dass die Gemessenen Werte unabhängig von ihrer räumlichen Lage sind, bzw. ähnliche Werte auch nah beieinander liegen.
+Bereits aus der Punktwolke lässt sich erkennen, dass die gemessenen Werte unabhängig von ihrer räumlichen Lage sind, bzw. ähnliche Werte auch nah beieinander liegen.
 
 semivarianz nugget: 30,  semivarianz sill: 140
 
@@ -195,7 +208,7 @@ semivarianz nugget: 30,  semivarianz sill: 140
 ```
 0.2142857 < 0.25
 
-Das Verhältnis von Nugget zu Sill weißt auf eine starke räumliche Abhängigkeit hin. Punkte die weiter als ca. 600m von einander entfernt sind haben keine Ähnlichkeit zueinander, da hier der Sill-Wert erreicht wird. Somit haben in der Gridkartierung bis zum 4. benachbarten Punkt einen ähnlichen Wert der Austauschbaren Ca-Ionen. Eine Anisotropie, also ein Richtungstrend ist nicht erkennbar. 
+Das Verhältnis von Nugget zu Sill weißt auf eine starke räumliche Abhängigkeit hin. Punkte, die weiter als  die Range von 715 m von einander entfernt sind haben keine Ähnlichkeit zueinander, da hier der Sill-Wert erreicht wird. Somit haben in der Gridkartierung bis zum 4. benachbarten Punkt einen ähnlichen Wert der Austauschbaren Ca-Ionen. Eine Anisotropie, also ein Richtungstrend ist nicht erkennbar. 
 
 
 # Literatur
