@@ -34,34 +34,25 @@ vereinzelter vertikaler Streifen, z.B. bei 300, 600 oder 750m.
 library(sp)
 library(gstat)
 
-# # Methode 1
-# SPDF1 <- ljz
-# coordinate <- SpatialPoints(SPDF1[c("EAST", "NORTH")])
-# coordRefSys <- CRS("+init=epsg:32650")
-# SPDF1 <- SpatialPointsDataFrame(coords = coordinate,
-#                                data = ljz,
-#                                proj4string = coordRefSys # funktioniert nicht? Warum?
-#                                 )
-# proj4string(SPDF1) <- CRS("+init=epsg:32650")
-# 
-# spplot(obj = SPDF1, zcol= 7, cex = sqrt(SPDF1$Ca_exch)/10)
-
-
 #Methode 2
-SPDF2 <- ljz
-coordinates(SPDF2) <- ~ EAST+NORTH
-proj4string(SPDF2) <- CRS("+init=epsg:32650")
-spplot(obj = SPDF2, zcol= 5, cex = sqrt(SPDF2$Ca_exch)/10)
+SPDF <- ljz
+coordinates(SPDF) <- ~ EAST+NORTH
+proj4string(SPDF) <- CRS("+init=epsg:32650")
+#spplot(obj = SPDF, zcol= 5, cex = sqrt(SPDF$Ca_exch)/10)
 
 #?variogram()
 cloud <- variogram(Ca_exch~1,
-                   SPDF2, 
+                   SPDF, 
                    #cutoff= 2202, 
                    #width= 1000, 
-                   cloud = TRUE) 
+                   cloud = TRUE
+                   #cressie=TRUE
+                   )
 plot(cloud, pch=4, col="black")
 ```
-Die Häufung von Werten gleicher Abstände (150m)lässt sich durch die Beprobung in einem Raster erklären. Dadurch ergeben sich für die Abstände der Punktpaare Häufungen für Distanzen im Variogramm auf der x-Achse. 
+Die Häufung von Werten gleicher Abstände (150m)lässt sich durch die Beprobung in einem Raster erklären. Dadurch ergeben sich für die Abstände der Punktpaare Häufungen für Distanzen im Variogramm auf der x-Achse.
+
+Die Streeung der Varianzen ist über die verschiedenen Distanzen relativ gleichmäßig verteilt. Entweder ist die Ähnlichkeit zweier Werte unabhängig von ihrer Lage, oder sie müssen sehr nahe bei einander seiliegen um ähnliche Werte anzunehmen.
 
 
 ## 12 b)
@@ -74,11 +65,11 @@ von Punkten.
 
 ```{r}
 var1 <- variogram(Ca_exch~1, 
-                  SPDF2, 
+                  SPDF, 
                   cutoff=2202, # ca. 50% der Max. Distanz
-                  width= (2202/15) #
+                  width= 150 #entspricht Abstand der Proben des Rastersamplings.Sehr nahe am Defaultwert cuttoff/15=2202/15=146.8
                     )
-?variogram()
+
 plot(var1,
      main= "Omnidirektionales empirisches Variogramm",
      pch=4, 
@@ -114,15 +105,16 @@ Fügen Sie ihrem empirischen Variogramm-Plot aus 12 b) ein passendes Modell hinz
 Erläutern Sie kurz, wie Sie vorgegangen sind.
 Hinweis: Mit dem Befehl show.vgms listen Sie die in gstat verfügbaren, autorisierten Modelle auf.
 
+Sill (=140) und Nugget (=30) wurden geschätzt wodurch sich ein Partial Sill von 110 ergibt: psill= sill-nugget = 140-30 = 110
+
 ```{r}
-# ?vgm()
-?fit.variogram()
 #?vgm()
+#?fit.variogram()
 
 m1 <- vgm(psill = 110,
           model = "Sph",
           #model = c("Nug", "Exp", "Log", "Gau"),
-          #range = ,
+          #range = 450,
           #kappa= 2,
           nugget = 30, 
           cutoff= 2202)
@@ -142,7 +134,7 @@ plot(var1,
      ylim=c(0,175))
 
 
-# # Verschiedene Anpassungen:
+# # Betrachtung verschiedener Anpassungen:
 # # ?show.vgms
 # # show.vgms()
 # show.vgms(models = c("Exp", "Mat", "Gau"), nugget = 0.1)
@@ -162,7 +154,7 @@ Wie bewerten Sie das autokorrelative Verhalten der Zielvariablen im Raum?
 
 ```{r}
 var_map <- variogram(Ca_exch~1, 
-                  SPDF2, 
+                  SPDF, 
                   cutoff= 2202, 
                   width= 2202/15,
                   map= TRUE
