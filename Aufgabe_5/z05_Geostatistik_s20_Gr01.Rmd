@@ -112,11 +112,9 @@ Vorgehen:
 
 1.) cutoff als 50% der Max. Distanz festlegen: 2202 m
 
-2.) Abschätzen von Sill und Nugget aus Variogramm-Graphik. Sill (=140) und Nugget (=30) wurden geschätzt wodurch sich ein Partial Sill von 110 ergibt: psill= sill-nugget = 140-30 = 110
+2.) Wahl eines Models in vgm(). Das Exponentielle Modell ("Exp") erzielt beim visuellen EIndruck den besten fit, mit der geringsten Range.
 
-3.) Wahl eines Models in vgm(). Das sphärische Modell ("Sph") erzielt den besten fit.
-
-4.) Wahl von fit.method in fit.variogramm() um Modell weiter anzupassen.
+3.) Mit fit.variogramm() eine Funktion erstellen, die die räumliche ABhängigkeit der Ca-Ionen darstellt.
 
 
 ```{r}
