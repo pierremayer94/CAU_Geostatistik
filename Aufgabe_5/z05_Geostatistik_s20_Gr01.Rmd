@@ -123,19 +123,19 @@ Vorgehen:
 #?vgm()
 #?fit.variogram()
 
-m1 <- vgm(psill = 110,
-          model = "Sph",
+m1 <- vgm(#psill = 110,
+          model = "Exp",
           #model = c("Nug", "Exp", "Log", "Gau"),
-          #range = 450,
+          #range = 300,
           #kappa= 2,
-          nugget = 30, 
+          #nugget = 30, 
           cutoff= 2202)
 
 v_fit <- fit.variogram(object = var1,
                   model = m1,
                   #fit.sills = TRUE,
                   #fit.ranges = TRUE,
-                  fit.method = 0,#vgl. Gstat user's manual, 
+                  #fit.method = 6,#vgl. Gstat user's manual, 
                                  #p. 42, tab. 4.2,
                                  #<http://www.gstat.org/gstat.pdf>
                   #fit.kappa = TRUE
@@ -201,14 +201,11 @@ and if the ratio was >75%, the variable was considered weakly spatially dependen
 
 Bereits aus der Punktwolke lässt sich erkennen, dass die gemessenen Werte unabhängig von ihrer räumlichen Lage sind, bzw. ähnliche Werte auch nah beieinander liegen.
 
-semivarianz nugget: 30,  semivarianz sill: 140
+semivarianz nugget: 0,  semivarianz sill: 130, 0/130=0
 
-```{r}
-30/140
-```
-0.2142857 < 0.25
+0.0 < 0.25
 
-Das Verhältnis von Nugget zu Sill weißt auf eine starke räumliche Abhängigkeit hin. Punkte, die weiter als  die Range von 715 m von einander entfernt sind haben keine Ähnlichkeit zueinander, da hier der Sill-Wert erreicht wird. Somit haben in der Gridkartierung bis zum 4. benachbarten Punkt einen ähnlichen Wert der Austauschbaren Ca-Ionen. Eine Anisotropie, also ein Richtungstrend ist nicht erkennbar. 
+Das Verhältnis von Nugget zu Sill weißt auf eine starke räumliche Abhängigkeit hin. Punkte, die weiter als  die Range von 162 m von einander entfernt sind haben keine Ähnlichkeit zueinander, da hier der Sill-Wert erreicht wird. Somit haben in der Gridkartierung lediglich die benachbarten Punkte einen potentiell ähnlichen Wert der Austauschbaren Ca-Ionen. Eine Anisotropie, also ein Richtungstrend ist nicht erkennbar. 
 
 
 # Literatur
