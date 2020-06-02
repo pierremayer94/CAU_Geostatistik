@@ -79,7 +79,7 @@ plot(var1,
 ```
 Als Cutoff wurde 2202 Meter gewählt. Das entspricht ca. 50% der maximalen Distanz der Punktpaare (4404.327 m, vgl. Aufg. 11 a).
 
-Die Klassenweite wurde auf 150 Meter gesetzt, so dass 15 Klassen entstehen. Das entspricht dem Abstand der Beprobunspunkte im Rastersampling.Der Wert is sehr nahe am Default-Wert (cuttoff/15=2202/15=146.8).
+Die Klassenweite wurde auf 150 Meter gesetzt, so dass 15 Klassen entstehen. Das entspricht dem Abstand der Beprobunspunkte im Rastersampling. Der Wert is sehr nahe am Default-Wert (cuttoff/15=2202/15=146.8).
 
 
 ## 12 c)
@@ -97,9 +97,9 @@ Klassen: gstatVariogram’ and 'data.frame'
 
 Mitfilfe  der Abfrage ?variogram():
 
-np: die Anzahl der Punktpaare für die Schätzung. Im Fall von cloud=TRUE die (ID)Nummern des Punktepaares, das zu einer Variogrammwolkenschätzung beigetragen hat.
+np: Die Anzahl der Punktpaare für die Schätzung. Im Fall von cloud=TRUE die (ID)Nummern des Punktepaares, das zu einer Variogrammwolkenschätzung beigetragen hat.
 
-dist: durchschnittliche Entfernung aller Punktepaare die in die Schätzung der Klasse eingegangen sind.
+dist: Durchschnittliche Entfernung aller Punktepaare die in die Schätzung der Klasse eingegangen sind.
 
 gamma: Wert der Varianz für die Stichprobenvariogramm-Schätzung.
 
@@ -114,7 +114,7 @@ Vorgehen:
 
 2.) Wahl eines Models in vgm(). Das Exponentielle Modell ("Exp") erzielt beim visuellen EIndruck den besten fit, mit der geringsten Range.
 
-3.) Mit fit.variogramm() eine Funktion erstellen, die die räumliche ABhängigkeit der Ca-Ionen darstellt.
+3.) Mit fit.variogramm() eine Funktion erstellen, die die räumliche Abhängigkeit der Ca-Ionen darstellt.
 
 
 ```{r}
@@ -197,7 +197,7 @@ if the ratio was <25%, the variable was considered strongly spatially dependent;
 if the ratio was between 25 and 75 %, the variable was considered moderately spatially dependent; 
 and if the ratio was >75%, the variable was considered weakly spatially dependent."
 
-Bereits aus der Punktwolke lässt sich erkennen, dass die gemessenen Werte unabhängig von ihrer räumlichen Lage sind, bzw. ähnliche Werte auch nah beieinander liegen.
+Bereits aus der Punktwolke lässt sich erkennen, dass die gemessenen Werte unabhängig von ihrer räumlichen Lage sind, bzw. ähnliche Werte auch sehr nah beieinander liegen.
 
 semivarianz nugget: 0,  semivarianz sill: 130, 0/130=0
 
