@@ -52,7 +52,7 @@ plot(cloud, pch=4, col="black")
 ```
 Die Häufung von Werten gleicher Abstände (150m)lässt sich durch die Beprobung in einem Raster erklären. Dadurch ergeben sich für die Abstände der Punktpaare Häufungen für Distanzen im Variogramm auf der x-Achse.
 
-Die Streeung der Varianzen ist über die verschiedenen Distanzen relativ gleichmäßig verteilt. Entweder ist die Ähnlichkeit zweier Werte unabhängig von ihrer Lage, oder sie müssen sehr nahe bei einander seiliegen um ähnliche Werte anzunehmen.
+Die Streung der Varianzen ist über die verschiedenen Distanzen relativ gleichmäßig verteilt. Entweder ist die Ähnlichkeit zweier Werte unabhängig von ihrer Lage, oder sie müssen sehr nahe bei einander seiliegen um ähnliche Werte anzunehmen.
 
 
 ## 12 b)
@@ -67,7 +67,7 @@ von Punkten.
 var1 <- variogram(Ca_exch~1, 
                   SPDF, 
                   cutoff=2202, # ca. 50% der Max. Distanz
-                  width= 150 #entspricht Abstand der Proben des Rastersamplings.Sehr nahe am Defaultwert cuttoff/15=2202/15=146.8
+                  width= 150 
                     )
 
 plot(var1,
@@ -78,7 +78,8 @@ plot(var1,
      )
 ```
 Als Cutoff wurde 2202 Meter gewählt. Das entspricht ca. 50% der maximalen Distanz der Punktpaare (4404.327 m, vgl. Aufg. 11 a).
-Die Klassenweite wurde so gesetzt, dass 15 Klassen entstehen. Das entspricht den Default-Einstellungen.
+
+Die Klassenweite wurde auf 150 Meter gesetzt, so dass 15 Klassen entstehen. Das entspricht dem Abstand der Beprobunspunkte im Rastersampling.Der Wert is sehr nahe am Default-Wert (cuttoff/15=2202/15=146.8).
 
 
 ## 12 c)
@@ -90,9 +91,11 @@ Wofür stehen die ersten drei Variablen des erzeugten Objekts?
 str(var1)
 #?variogram()
 ```
+
+
 Klassen: gstatVariogram’ and 'data.frame'
 
-Mitfilfe  der ABfrage ?variogram():
+Mitfilfe  der Abfrage ?variogram():
 
 np: die Anzahl der Punktpaare für die Schätzung. Im Fall von cloud=TRUE die (ID)Nummern des Punktepaares, das zu einer Variogrammwolkenschätzung beigetragen hat.
 
@@ -131,7 +134,8 @@ v_fit
 plot(var1, 
      v_fit,
      cutoff = 2202,
-     ylim=c(0,175))
+     ylim=c(0,175),
+     main="Variogramm Modell")
 
 
 # # Betrachtung verschiedener Anpassungen:
@@ -160,10 +164,14 @@ var_map <- variogram(Ca_exch~1,
                   map= TRUE
                   )
 
-var_aniso <- variogram(Ca_exch~1, SPDF2, alpha=c(0,45,90,135))
-plot(var_map)
-plot(var_aniso)
+plot(var_map, main="Variogrammkarte")
 ```
+```{r}
+var_aniso <- variogram(Ca_exch~1, SPDF, alpha=c(0,45,90,135))
+plot(var_aniso, main="Betrachtung der Richtungsabhängigkeit")
+```
+
+
 Aus @Cambardella.1994:
 "If the linear model has a slope that is close to zero, then the total
 variance is equal to the nugget variance and the variables
