@@ -1,0 +1,275 @@
+---
+title: "Aufgabenzettel 06"
+author: "Gruppe 01"
+date: "09.06.2020"
+bibliography: bibliography.bib
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+#library(tinytex)
+getwd()
+list=ls()
+rm(list=ls())
+setwd("C:/docs/github/CAU_Geostatistik/Aufgabe_6")
+#file.edit("C:/docs/github/CAU_Geostatistik/z05_Geostatistik_s20_Gr01.Rmd")
+load("C:/docs/github/CAU_Geostatistik/Aufgabe_6/yingtan_20_ueb3.RData")
+```
+
+# Aufgabe 13 Ordinary Kriging
+
+Ordinary Kriging (OK) ist das am häufigsten verwendete Kriging-Verfahren
+zur Interpolation punktueller Daten in die Fläche. 
+Vom Prinzip her eine spezielle lineare Regressionstechnik, 
+berücksichtigt es räumliche Strukturen
+durch die Integration der Variogramme in den Berechnungsprozess.
+
+```{r}
+library(tidyverse)
+library(gstat)
+library(sp)
+
+
+
+SPDF <- ljz
+coordinates(SPDF) <- ~ EAST+NORTH
+proj4string(SPDF) <- CRS("+init=epsg:32650")
+
+cloud <- variogram(Ca_exch~1,
+                   SPDF, 
+                   #cutoff= 2202, 
+                   #width= 1000, 
+                   cloud = TRUE
+                   )
+
+var <- variogram(Ca_exch~1, 
+                  SPDF, 
+                  cutoff=2202, # ca. 50% der Max. Distanz
+                  width= 100 
+                    )
+
+m <- vgm(#psill = 110,
+          model = "Exp",
+          #model = c("Nug", "Exp", "Log", "Gau"),
+          #range = 300,
+          #kappa= 2,
+          #nugget = 2, 
+          cutoff= 2202)
+
+v_fit <- fit.variogram(object = var,
+                  model = m,
+                  #fit.sills = TRUE,
+                  #fit.ranges = TRUE,
+                  fit.method = 7,#vgl. Gstat user's manual, 
+                                 #p. 42, tab. 4.2,
+                                 #<http://www.gstat.org/gstat.pdf>
+                                 # 7 ordinary least squares
+                  #fit.kappa = TRUE,
+                  )
+
+
+
+plot(cloud, pch=4, col="black")
+
+plot(var,
+     main= "Omnidirektionales empirisches Variogramm",
+     pch=4, 
+     col="black"
+     ,omnidirectional=TRUE,
+     ylim=c(0,175)
+     )
+
+plot(var, 
+     #m1, 
+     v_fit,
+     cutoff = 2202,
+     ylim=c(0,175),
+     pch=4,
+     col="black",
+     main="Variogramm Modell",
+     #xlim=c(0, 2500),
+     )
+```
+
+
+## 13 a)
+
+Erstellen Sie ein reguläres Raster für die räumliche Interpolation.
+Entscheiden Sie sich für eine geeignete Pixelgröße und begründen Sie ihre Wahl.
+Erweitern Sie die bounding box des Objekts ljz,
+in x-Richtung jeweils um 180m und nach Norden und Süden um je 215m,
+damit auch das komplette, 10.5 km² große, Untersuchungsgebiet erfasst wird.
+Um ihr SpatialGrid zu erzeugen, nutzen Sie die Funktion GridTopology.
+
+
+Da die Beprobungspunkte aufgrund der Catenen nich streng nach einem Raster erfolgt ist empfiehlt sich nach @Hengl.2006 eine Pixelgröße p von $$p=0.25*\sqrt\frac{A}{N}$$
+wobei A gleich der Fläche des Untersuchungsgebietes in $m^2$ und N gleich der Gesamtzahl an Beobachtungen ist. 
+
+```{r}
+print(0.25*sqrt((10.5e+6)/length(SPDF)))
+print(0.0791*sqrt((10.5e+6)/length(SPDF)))
+```
+
+
+```{r}
+#Wilke, S. (2020): A practical guide to geospatial interpolation with R.
+#<https://swilke-geoscience.net/post/spatial_interpolation/>
+
+#Von Punkten zu Pixeln zu Rastern
+library(raster)
+library(rgdal)
+#?raster()
+
+#SpatialPointsDataFrame zu Raster
+#e <- extend()
+r <- raster(SPDF)
+  
+
+
+#Grid definieren
+g <- GridTopology(cellcentre.offset = c(490441, 3121290), #SPDF@bbox[,1]
+             cellsize = c(14,14), #c(14, 14)
+             cells.dim = c(70, 97)
+             )
+
+PixDF <- SpatialGrid(#points = ,
+                       #data = ,
+                       proj4string = CRS("+init=epsg:32650"),
+                       grid = g
+                       )
+
+#PixDF <- rasterize(SPDF, g, PixDF)
+
+
+
+
+
+
+# e <- extent(SPDF[,1:2])
+# r <- raster(e,resolution=45)
+# x <- rasterize(SPDF[,1:2], r, )
+
+
+#?bbox()
+#?attr()
+
+# SPDF
+# b <- bbox(SPDF)
+# b
+# b[1,1] <- b[1,1]-180;
+# b[1,2] <- b[1,2]+180;
+# b[2,1] <- b[2,1]-215;
+# b[2,2] <- b[2,2]+215;
+
+## Option 1 ?
+# bbox <- c(
+#   "xmin" = min(pts_NH4$X),
+#   "ymin" = min(pts_NH4$Y),
+#   "xmax" = max(pts_NH4$X),
+#   "ymax" = max(pts_NH4$Y)
+# )
+# 
+# grd_template <- expand.grid(
+#   X = seq(from = bbox["xmin"], to = bbox["xmax"], by = 20),
+#   Y = seq(from = bbox["ymin"], to = bbox["ymax"], by = 20) # 20 m resolution
+# )
+
+
+## Option 2
+# fran = franconia
+# new_bb = c(8, 48, 12, 50)
+# names(new_bb) = c("xmin", "ymin", "xmax", "ymax")
+# attr(new_bb, "class") = "bbox"
+# 
+# attr(st_geometry(fran), "bbox") = new_bb
+
+```
+
+
+## 13 b)
+
+Wenden Sie die Methode krige entsprechend des Ordinary Kriging an und
+interpolieren Sie die Konzentration der Ca-Ionen auf die Rasterzellen des in
+Aufgabe 13 a) erzeugten Objekts. Benutzen Sie ihr Variogrammmodell aus der
+vorangegangenen Übung und notieren Sie ihre R-Syntax im Protokoll.
+
+```{r}
+#library(gstat)
+#?krige()
+#as(object,'SpatialGridDataFrame')
+#krig <-krige(SPDF@data$Ca_exch~1,
+#             model= v_fit,
+             #locations = SPDF,
+             #data= PixDF,
+#             )
+
+
+# krig <- gstat::krige(formula = Ca_exch~1, #~x+y
+#                   locations = SPDF,
+#                   data= PixDF, 
+#                   model= v_fit
+#                   )
+
+
+```
+
+
+## 13 c)
+
+Welche zwei Daten-Attribute produziert die krige-Funktion und wofür
+stehen sie? 
+
+```{r}
+#str(krig)
+```
+pred: Vorhersage Wert in Einheit der Ausgangsgröße
+var: Varianz der Vorhersage
+
+## 13 d)
+
+Ermitteln Sie diejenigen Pixel in dem Vorhersagegrid der Zielgröße,
+für die die errechnete Kriging-Varianz den Wert der Gesamt-Varianz
+der Zielgröße überschreitet und definieren Sie diese als NoData. 
+
+```{r}
+var(SPDF@data$Ca_exch) #Varianz der Ca_exch Werte = 123.8529
+
+```
+
+
+## 13 e)
+
+Plotten Sie sowohl die vorhergesagten Ca-Ionenkonzentrationen als auch
+die zugehörigen Kriging-Varianzen mit Hilfe der Methode spplot.
+Maskieren Sie in der Abbildung der Vorhersagewerte die in d) ausgeschlossenen
+Pixel. Beschriften Sie vernünftig und verändern Sie die Farbskalen beider
+Graphiken, sodass ein gefälliger Druck in schwarz/weiß möglich ist.
+
+Hinweis: Mit Hilfe des Befehls ??Palettes erfragen Sie diverse Methoden 
+verschiedener Pakete zur Erstellung von Farbpaletten.
+Insbesondere das Paket „RColorBrewer“ könnte dabei in Verbindung
+mit der Website http://colorbrewer2.org/ von Interesse für Sie sein.
+
+```{r}
+#??Palettes
+library(lattice)
+library(RColorBrewer)
+
+# spplot(krig,
+#        main= "Interpolation austauschbarer Ca-Ionen"
+#        #,
+#         )
+```
+
+
+## 13 f)
+
+Interpretieren Sie kurz und knapp ihren Kriging-Varianz-Plot.
+Wieso ist die Kriging-Varianz als internes Gütemaß
+der Interpolation nur bedingt aussagekräftig?
+
+
+
+# Literatur

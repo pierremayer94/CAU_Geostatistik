@@ -28,6 +28,7 @@ Beschreiben Sie in ein, zwei Sätzen die Grundstruktur des Plots und
 erklären Sie ebenso präzise das Zustandekommen
 vereinzelter vertikaler Streifen, z.B. bei 300, 600 oder 750m.
 
+
 ```{r}
 #install.packages("gstat")
 #install.packages("sp")
@@ -133,21 +134,39 @@ v_fit <- fit.variogram(object = var1,
                   model = m1,
                   #fit.sills = TRUE,
                   #fit.ranges = TRUE,
-                  #fit.method = 6,#vgl. Gstat user's manual, 
+                  fit.method = 7,#vgl. Gstat user's manual, 
                                  #p. 42, tab. 4.2,
                                  #<http://www.gstat.org/gstat.pdf>
-                  #fit.kappa = TRUE
+                                 # 7 ordinary least squares
+                  #fit.kappa = TRUE,
                   )
 v_fit
 
 plot(var1, 
+     #m1, 
      v_fit,
      cutoff = 2202,
      ylim=c(0,175),
      pch=4,
      col="black",
-     main="Variogramm Modell")
+     main="Variogramm Modell",
+     #xlim=c(0, 2500),
+     )
 
+
+library("automap")
+
+v_fit2 <- autofitVariogram(formula = Ca_exch~1, 
+                 input_data = SPDF,
+                 model =  c("Sph", "Exp", "Gau", "Ste"), 
+                 #kappa = ,
+                 verbose = TRUE,
+                 #fix.values = #nugged, range, sill
+                 #GLS.model = ,
+                 #start_vals = 
+                   )
+
+plot(v_fit2)
 
 # # Betrachtung verschiedener Anpassungen:
 # # ?show.vgms
