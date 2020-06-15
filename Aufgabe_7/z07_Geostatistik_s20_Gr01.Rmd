@@ -1,0 +1,214 @@
+---
+title: "Aufgabe 07"
+author: "Gruppe 01"
+date: "16.06.2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+getwd()
+list=ls()
+rm(list=ls())
+setwd("C:/docs/github/CAU_Geostatistik/Aufgabe_7")
+#file.edit("C:/docs/github/CAU_Geostatistik/z05_Geostatistik_s20_Gr01.Rmd")
+load("C:/docs/github/CAU_Geostatistik/Aufgabe_7/yingtan_20_ueb3.RData")
+library(tidyverse)
+#library(tinytex)
+library(gstat)
+library(sp)
+```
+
+# Vorbereitung
+
+```{r}
+SPDF <- ljz
+coordinates(SPDF) <- ~ EAST+NORTH
+proj4string(SPDF) <- CRS("+init=epsg:32650")
+
+# Variogram
+cloud <- variogram(Ca_exch~1,
+                   SPDF, 
+                   #cutoff= 2202, 
+                   #width= 1000, 
+                   cloud = TRUE
+                   )
+
+var <- variogram(Ca_exch~1, 
+                  SPDF, 
+                  cutoff=2202, # ca. 50% der Max. Distanz
+                  width= 100 
+                    )
+
+m <- vgm(#psill = 110,
+          model = "Exp",
+          #model = c("Nug", "Exp", "Log", "Gau"),
+          #range = 300,
+          #kappa= 2,
+          #nugget = 2, 
+          cutoff= 2202)
+
+v_fit <- fit.variogram(object = var,
+                  model = m,
+                  #fit.sills = TRUE,
+                  #fit.ranges = TRUE,
+                  fit.method = 7,#vgl. Gstat user's manual, 
+                                 #p. 42, tab. 4.2,
+                                 #<http://www.gstat.org/gstat.pdf>
+                                 # 7 ordinary least squares
+                  #fit.kappa = TRUE,
+                  )
+
+
+# New Spatial Grid Data Frame for Kriging
+
+bb <- bbox(SPDF)
+bb[1,1] <- bb[1,1]-180
+bb[1,2] <- bb[1,2]+180
+bb[2,1] <- bb[2,1]-215
+bb[2,2] <- bb[2,2]+215
+
+
+GT <- GridTopology(cellcentre.offset = c(bb[1,1]+7, bb[2,1]+7), #+7 um Zelennmitte
+             cellsize = c(14, 14),
+             cells.dim = c(250, 340)) 
+
+coordRefSys <- CRS("+proj=utm +zone=50 +ellps=WGS84 +datum=WGS84")
+
+targetSPG <- SpatialGrid(grid = GT,
+                         proj4string = coordRefSys)
+
+# Kriging
+krig <- gstat::krige(SPDF@data$Ca_exch~1, 
+                     locations = SPDF,
+                     newdata = targetSPG, 
+                     model = v_fit)
+# NoData Bedingung
+
+krig@data$var1.pred[which(krig@data$var1.var > var(SPDF$Ca_exch) )] <- NA
+
+#krig@data$var1.pred <- replace(krig@data$var1.pred, krig@data$var1.var > var(SPDF$Ca_exch), NA) # Alternative NoData Umsetzung
+
+spplot(krig)
+```
+
+
+# Aufgabe 14
+
+## 14 a)
+Führen Sie mit der Methode krige.cv für die Ca-Ionen eine leave-one-outcross-validation durch. 
+Verwenden Sie das Variogrammmodell aus Aufg. 13 
+und notieren Sie ihre R-Syntax im Protokoll.
+
+Sehr gutes Tutorial der FU Berlin:
+
+<https://www.geo.fu-berlin.de/en/v/soga/Geodata-analysis/geostatistics/Geostatistical-interpolation-with-R/Mean-Annual-Rainfall-Germany/index.html>
+
+```{r}
+#?krige.cv
+LOOCV <- krige.cv(Ca_exch~1, #statt SPDF@data$Ca_exch~1
+         locations = SPDF, 
+         model= v_fit,
+         #maxdist = 2202
+         )
+```
+
+## 14 b)
+Vergleichen Sie die Struktur des mittels krige.cv generierten Objekts mit
+dem Ergebnis der krige-Funktion aus Aufg. 13. Welche Daten-Attribute sind
+hinzugekommen und wofür stehen sie? 
+
+```{r}
+#str(LOOCV)
+#str(krig)
+```
+
+Der SpatialPointsDataFram enthält in @data vier neue Felder:
+$ observed : 
+$ residual : 
+$ zscore   : 
+$ fold     : 
+
+
+## 14 c)
+Wie sähe das Vorhersageergebnis aus, wenn der Probenstandort während
+der Kreuzvalidierung nicht ausgeschlossen werden würde? Was ergäbe sich
+konsequenterweise bei der Fehlerberechnung? 
+
+
+
+# Aufgabe 15
+
+## 15 a)
+Berechnen Sie den RMSE für die austauschbaren Ca-Ionen
+
+```{r}
+RMSE <- function(residuals){
+  sqrt(sum((residuals)^2)/length(residuals))
+}
+
+RMSE(residuals = LOOCV@data$residual)
+```
+
+
+## 15 b)
+Was bedeuten die einzelnen Silben des Wortes RMSE und warum wird
+der Vorhersage-Fehler gerade so beschrieben?
+
+Root:
+
+Mean:
+
+Square:
+
+Error:
+
+
+#Aufgabe 16
+
+## 16 a)
+Erstellen Sie für ihre Modell-Residuen einen ansehnlichen Bubble-Plot
+und gehen sie der Frage nach, ob räumliche Muster erkennbar sind.
+
+```{r}
+bubble(LOOCV, "residual", main = "ordinary kriging Ca-exch LOOCV")
+```
+
+
+
+
+## 16 b)
+Plotten Sie die tatsächlichen Ca-Ionen-Konzentrationen gegen die vorhergesagten Werte. 
+Ergänzen Sie eine Ausgleichsgerade mit der Steigung eins
+und einem Verlauf durch den Ursprung.
+
+```{r}
+#R base scatterplot
+
+x <- SPDF$Ca_exch
+y <- LOOCV@data$var1.pred
+
+plot(x, y, main = "Main title",
+     xlab = "X axis title", ylab = "Y axis title",
+     pch = 19, frame = FALSE)
+
+# Add regression line
+reg <- lm(y ~ x, data = SPDF)
+abline(reg, col = "blue")
+
+s <- summary.lm(reg)
+b <- s$coefficients[1,1]
+a <- s$coefficients[2,1]
+
+text(x=80, y=40, labels="regression", col="blue",cex=0.6)
+
+cat(a,"x +", b, sep=" ", append=TRUE)
+
+
+```
+
+
+## 16 c)
+Bewerten Sie kurz das durchgeführte Interpolationsverfahren. Beziehen
+Sie sich auf den RMSE und ihre Diagnose-Plots.
+
