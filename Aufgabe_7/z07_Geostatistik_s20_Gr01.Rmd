@@ -11,12 +11,13 @@ getwd()
 list=ls()
 rm(list=ls())
 setwd("C:/docs/github/CAU_Geostatistik/Aufgabe_7")
-#file.edit("C:/docs/github/CAU_Geostatistik/z05_Geostatistik_s20_Gr01.Rmd")
-load("C:/docs/github/CAU_Geostatistik/Aufgabe_7/yingtan_20_ueb3.RData")
 library(tidyverse)
 #library(tinytex)
 library(gstat)
 library(sp)
+library(rgdal)
+#file.edit("C:/docs/github/CAU_Geostatistik/z05_Geostatistik_s20_Gr01.Rmd")
+load("C:/docs/github/CAU_Geostatistik/Aufgabe_7/yingtan_20_ueb3.RData")
 ```
 
 # Vorbereitung
@@ -24,7 +25,9 @@ library(sp)
 ```{r}
 SPDF <- ljz
 coordinates(SPDF) <- ~ EAST+NORTH
-proj4string(SPDF) <- CRS("+init=epsg:32650")
+proj4string(SPDF) <- CRS("+proj=utm +zone=50 +ellps=WGS84 +datum=WGS84")
+#proj4string(SPDF) <- CRS("+init=epsg:32650")
+set_thin_PROJ6_warnings(TRUE)
 
 # Variogram
 cloud <- variogram(Ca_exch~1,
@@ -79,7 +82,7 @@ targetSPG <- SpatialGrid(grid = GT,
                          proj4string = coordRefSys)
 
 # Kriging
-krig <- gstat::krige(SPDF@data$Ca_exch~1, 
+krig <- gstat::krige(Ca_exch~1, 
                      locations = SPDF,
                      newdata = targetSPG, 
                      model = v_fit)
@@ -172,6 +175,7 @@ und gehen sie der Frage nach, ob räumliche Muster erkennbar sind.
 
 ```{r}
 bubble(LOOCV, "residual", main = "ordinary kriging Ca-exch LOOCV")
+
 ```
 
 
@@ -195,11 +199,12 @@ plot(x, y, main = "Main title",
 # Add regression line
 reg <- lm(y ~ x, data = SPDF)
 abline(reg, col = "blue")
+abline(0, 1, col="red")
 
 s <- summary.lm(reg)
 b <- s$coefficients[1,1]
 a <- s$coefficients[2,1]
-
+cat(a,"x +", b, sep=" ", append=TRUE)
 text(x=80, y=40, labels="regression", col="blue",cex=0.6)
 
 cat(a,"x +", b, sep=" ", append=TRUE)
