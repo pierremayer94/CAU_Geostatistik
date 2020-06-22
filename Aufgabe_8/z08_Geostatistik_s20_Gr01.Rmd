@@ -72,10 +72,13 @@ raster.1 <- terrain(elevation,
                     )
 crs(raster.1) <- CRS("+init=epsg:32650")
 #str(raster.1)
-
 ```
 
-Begründung zu Wahl der Nachbarn: ...
+Begründung zu Wahl der Nachbarn: Nach Hilfe zu ?terrain():
+
+Das Argument "neighbors" gibt an, wie viele benachbarte Zellen zur Berechnung von Hangneigung und Hangausrichtung berücksichtigt werden. Wenn neighbors=4, so lässt sich flacheres Gelände besser analysieren. 
+Ist das Gebiet durch raues und unebenes Gelände gekennzeichnet, so wird eine Einstellung von neighbors=8 bevorzugt. Hierbei werden mehr benachbarte Zellen berücksichtigt, was wiederum die Auflösung und die Genauigkeit der Berechnung erhöht.
+
 
 ## 18 b)
 Unvermittelt teilt Ihr Kollege Ihnen mit, dass er soeben den
@@ -119,7 +122,9 @@ yingtan.stack <- stack(elevation, raster.1, convg, SWI)
 ```
 
 Unterschied RasterStack und RasterBrick:
-Die Objekttypen R RasterStack und RasterBrick können beide mehrere Bänder speichern. Wie sie jedes Band speichern, ist jedoch unterschiedlich. Die Bänder in einem RasterStack werden als "Links" zu Rasterdaten gespeichert, die sich auf dem PC befinden. Ein RasterBrick enthält alle Objekte, die innerhalb des eigentlichen R-Objekts gespeichert sind. In den meisten Fällen kann man mit einem RasterBrick auf die gleiche Weise arbeiten wie mit einem RasterStack. Allerdings ist eine RasterBrick oft effizienter und schneller zu verarbeiten - was bei der Arbeit mit größeren Dateien wichtig ist.
+Die Objekttypen R RasterStack und RasterBrick können beide mehrere Bänder speichern. Wie sie jedes Band speichern, ist jedoch unterschiedlich. Während die einzelnen Layer für das Rasterbrick aus einer gemeinsamen Datei stammen müssen, können in einem Rasterstack verschiedene Layer aus verschiedenen Dateien zusammengefasst werden.
+Die Bänder in einem RasterStack werden als "Links" zu Rasterdaten gespeichert, die sich auf dem PC befinden. Ein RasterBrick enthält alle Objekte, die innerhalb des eigentlichen R-Objekts gespeichert sind selbst. In den meisten Fällen kann man mit einem RasterBrick auf die gleiche Weise arbeiten wie mit einem RasterStack. Allerdings ist eine RasterBrick oft effizienter und schneller zu verarbeiten - was bei der Arbeit mit größeren Dateien wichtig ist. (<https://rspatial.org/raster/spatial/4-rasterdata.html>)
+
 
 ## 18 c)
 Ihnen fällt auf, dass Sie den Stack in weiser Voraussicht auf den kommenden Übungszettel
@@ -140,12 +145,17 @@ SGDF <- as(SGDF,"SpatialGridDataFrame") #"SpatialPixelsDataFrame"
 Machen Sie sich nun mit den Reliefparametern vertraut. Beschreiben Sie
 jeden Parameter kurz.
 
-Hangneigung/slope                       : 
-Hangneigungsrichtung/ slope direction   : 
-Terrain Ruggedness Index                : 
-Topographic Position Index              : 
-Roughness                               : 
-Flow Direction                          : 
+Hangneigung: Steigung der Oberfläche.
+
+Hangneigungsrichtung: Beschreibt in welche Richtung der Hang geneigt ist.
+
+Terrain Ruggedness Index: Mittelwert der absoluten Differenzen zwischen einer Zelle und der 8 umgebenen Zellen.
+
+Topographic Position Index: Differenz zwischen dem Wert einer Zelle und der 8 umgebenen Zellen.
+
+Roughness: Differenz von Maximum- und Minimumwert einer Zelle und der 8 umgebenen Zellen.
+
+Flow Direction: Fließrichtung von Wasser, bzw. wo dieses sich sammeln würde.
 
 
 # Aufgabe 19
@@ -162,15 +172,13 @@ load("C:/docs/github/CAU_Geostatistik/Aufgabe_8/yingtan_20_ueb3.RData")
 SPDF <- ljz
 coordinates(SPDF) <- ~ EAST+NORTH
 proj4string(SPDF) <- CRS("+init=epsg:32650")
-str(SPDF)
 
 # Werte hinzufügen
-ex <- extract(x = yingtan.stack, #nicht das richtige
+SPDF <- extract(x = yingtan.stack, #nicht das richtige
               y = SPDF,
-              )
-
+              sp=TRUE)
+#str(SPDF)
 ```
-
 
 
 ## 19 b)
@@ -178,6 +186,16 @@ Erzeugen Sie zu guter Letzt einen anschaulichen Plot,
 der die Lage der Punkte vor dem Höhenmodell zeigt.
 
 ```{r}
+library("lattice")
+library("latticeExtra")
 
+## display gridded data including sample point
+spplot(SGDF, "yingtan_elevation.asc", 
+       scales = list(draw = TRUE),
+       sp.layout = list("sp.points", SPDF, pch = 16, cex = 0.5, col = "black"),
+       main="Lage der Messpunkte vor dem DGM",
+       xlab="East",
+       ylab="North"
+       )
 ```
 
