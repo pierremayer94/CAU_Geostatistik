@@ -42,7 +42,8 @@ entsprechenden Funktion die Datei „yingtan_elevation.asc“ in Ihre Arbeitsumg
 und vergeben Sie das passende geographische Referenzsystem.
 
 ```{r}
-elevation <- read.asciigrid(fname = "yingtan_elevation.asc" ,proj4string = CRS("+init=epsg:32650"))
+elevation <- read.asciigrid(fname = "yingtan_elevation.asc",
+                            proj4string = CRS("+init=epsg:32650"))
 elevation <- raster(elevation)
 #str(elevation)
 #plot(elevation, main= "Elevation")
@@ -58,17 +59,10 @@ Nutzen Sie dazu die entsprechende Funktion des „raster“ Paketes.
 Begründen Sie die Wahl der Anzahl berücksichtigter Nachbarn.
 
 ```{r}
-#Hangneigung
-#Hangneigungsrichtung
-#Terrain Ruggedness Index
-#Topographic Position Index
-#Roughness
-#Flow Direction
 raster.1 <- terrain(elevation,
                     opt=c("slope", "aspect", "TPI", "TRI", "roughness", "flowdir"),
                     unit="degrees",
                     neighbors=4, #queens vs Rooks case
-                    #filename=
                     )
 crs(raster.1) <- CRS("+init=epsg:32650")
 #str(raster.1)
@@ -91,14 +85,6 @@ Höhenmodells in einem RasterStack. Beschreiben Sie den Unterschied zwischen ein
 ```{r}
 #Konvergenz-/Divergenz-Index
 convg <- read.csv2("convg.csv", header = TRUE, sep = ";")
-
-# convg <- rasterize(
-#                    x=convg$x,
-#                    y=convg$y,
-#                    field=convg$CONVG2,
-#                    background=NA
-#                     )
-
 convg <- rasterFromXYZ(convg,
                        #res=c(NA,NA),
                        crs=CRS("+init=epsg:32650"),
@@ -145,17 +131,18 @@ SGDF <- as(SGDF,"SpatialGridDataFrame") #"SpatialPixelsDataFrame"
 Machen Sie sich nun mit den Reliefparametern vertraut. Beschreiben Sie
 jeden Parameter kurz.
 
-Hangneigung: Steigung der Oberfläche.
+Hangneigung (Slope): Ist der Neigungswinkel zwischen einer Hangfläche und dem Geoid. Die Hangneigung wird in Grad, Prozent oder Radiant angegeben.
 
-Hangneigungsrichtung: Beschreibt in welche Richtung der Hang geneigt ist.
+Hangneigungsrichtung (Aspect): gibt die Richtung des stärksten Gefälles an. Diese wird in ihrer Himmelsrichtung in Grad angegeben. Die Darstellung erfolgt meist durch Klassifizierung. Die Hangneigungsrichtung wird auch Exposition genannt. <https://gisgeography.com/slope-aspect-microclimate-south-facing/> (Stand: Juni 2020).
 
-Terrain Ruggedness Index: Mittelwert der absoluten Differenzen zwischen einer Zelle und der 8 umgebenen Zellen.
+Terrain Ruggedness Index: Mittelwert der absoluten Differenzen zwischen einer Zelle und der 8 umgebenen Zellen. Die Höhenunterschiede werden quadriert und dann gemittelt.
 
-Topographic Position Index: Differenz zwischen dem Wert einer Zelle und der 8 umgebenen Zellen.
 
-Roughness: Differenz von Maximum- und Minimumwert einer Zelle und der 8 umgebenen Zellen.
+Topographic Position Index: Differenz zwischen dem Wert einer Zelle und der 8 umgebenen Zellen.Drückt die Höhenunterschiede zwischen einer Zentralzelle und den Umgebungszellen in einem festgelegten Radius aus. In unserem Fall waren dies wie beim TRI 8 umgebene Zellen. Der Unterschied liegt darin, dass die Differenzen nicht quadriert werden und daher auch negative Werteausprägungen annehmen kann.
 
-Flow Direction: Fließrichtung von Wasser, bzw. wo dieses sich sammeln würde.
+Rauigkeit (Roughness): Differenz von Maximum- und Minimumwert einer Zelle und der 8 umgebenen Zellen.
+
+Fließrichtung (Flow Direction): Fließrichtung von Wasser, bzw. wo dieses sich sammeln würde.Das Gefälle definiert dabei in welche der benachbarten Zellen entwässert wird. Diese Zellen sind als verschiedene (0-7) Potenzen von 2 definiert.
 
 
 # Aufgabe 19
