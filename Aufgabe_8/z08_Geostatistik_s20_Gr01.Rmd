@@ -131,7 +131,7 @@ Erzeugen Sie entsprechend eine Variable diesen Dateityps aus dem soeben erzeugte
 SGDF <- yingtan.stack
 SGDF <- as(SGDF,"SpatialGridDataFrame") #"SpatialPixelsDataFrame"
 
-str(SGDF)
+#str(SGDF)
 
 ```
 
@@ -165,10 +165,10 @@ proj4string(SPDF) <- CRS("+init=epsg:32650")
 str(SPDF)
 
 # Werte hinzufügen
-ex <- extract(x = yingtan.stack,
+ex <- extract(x = yingtan.stack, #nicht das richtige
               y = SPDF,
               )
-str(ex)
+
 ```
 
 
