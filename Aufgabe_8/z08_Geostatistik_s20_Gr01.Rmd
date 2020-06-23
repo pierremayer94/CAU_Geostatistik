@@ -66,6 +66,7 @@ raster.1 <- terrain(elevation,
                     )
 crs(raster.1) <- CRS("+init=epsg:32650")
 #str(raster.1)
+plot(raster.1)
 ```
 
 Begründung zu Wahl der Nachbarn: Nach Hilfe zu ?terrain():
@@ -105,6 +106,7 @@ crs(SWI) <- CRS("+init=epsg:32650")
 yingtan.stack <- stack(elevation, raster.1, convg, SWI)
 # test <- as.list(yingtan.stack)
 # test
+plot(yingtan.stack)
 ```
 
 Unterschied RasterStack und RasterBrick:
@@ -121,9 +123,7 @@ Erzeugen Sie entsprechend eine Variable diesen Dateityps aus dem soeben erzeugte
 #SpatialGridDataFrame
 SGDF <- yingtan.stack
 SGDF <- as(SGDF,"SpatialGridDataFrame") #"SpatialPixelsDataFrame"
-
 #str(SGDF)
-
 ```
 
 
@@ -161,7 +161,7 @@ coordinates(SPDF) <- ~ EAST+NORTH
 proj4string(SPDF) <- CRS("+init=epsg:32650")
 
 # Werte hinzufügen
-SPDF <- extract(x = yingtan.stack, #nicht das richtige
+SPDF <- extract(x = yingtan.stack,
               y = SPDF,
               sp=TRUE)
 #str(SPDF)
@@ -169,20 +169,20 @@ SPDF <- extract(x = yingtan.stack, #nicht das richtige
 
 
 ## 19 b)
-Erzeugen Sie zu guter Letzt einen anschaulichen Plot,
-der die Lage der Punkte vor dem Höhenmodell zeigt.
+Erzeugen Sie zu guter Letzt einen anschaulichen Plot, der die Lage der Punkte vor dem Höhenmodell zeigt Dartsellungshilfe: <http://www.nickeubank.com/wp-content/uploads/2015/10/RGIS3_MakingMaps_part1_mappingVectorData.html>
 
 ```{r}
 library("lattice")
-library("latticeExtra")
-
-## display gridded data including sample point
-spplot(SGDF, "yingtan_elevation.asc", 
-       scales = list(draw = TRUE),
-       sp.layout = list("sp.points", SPDF, pch = 16, cex = 0.5, col = "black"),
-       main="Lage der Messpunkte vor dem DGM",
-       xlab="East",
-       ylab="North"
-       )
+#library("latticeExtra")
+library(RColorBrewer)
+#Farbpalette
+my.palette <- brewer.pal(n = 9, name = "YlOrBr")
+#Messpunkte
+points.layer <- list("sp.points", SPDF, pch = 16, cex = 0.5, col = "black")
+#Plot
+spplot(SGDF, "yingtan_elevation.asc", scales = list(draw = TRUE),
+       sp.layout = points.layer,
+       main="Lage der Messpunkte vor dem DGM", xlab="East", ylab="North",
+       col.regions = my.palette, cuts = 8, col = "transparent")
 ```
 
