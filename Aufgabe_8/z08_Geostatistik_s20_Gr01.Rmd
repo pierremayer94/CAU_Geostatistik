@@ -64,8 +64,7 @@ raster.1 <- terrain(elevation,
                     unit="degrees",
                     neighbors=4, #queens vs Rooks case
                     )
-crs(raster.1) <- CRS("+init=epsg:32650")
-#str(raster.1)
+#crs(raster.1) <- CRS("+init=epsg:32650")
 plot(raster.1)
 ```
 
@@ -86,26 +85,17 @@ Höhenmodells in einem RasterStack. Beschreiben Sie den Unterschied zwischen ein
 ```{r}
 #Konvergenz-/Divergenz-Index
 convg <- read.csv2("convg.csv", header = TRUE, sep = ";")
-convg <- rasterFromXYZ(convg,
-                       #res=c(NA,NA),
-                       crs=CRS("+init=epsg:32650"),
-                       #digits=10
-                       )
-crs(convg) <- CRS("+init=epsg:32650")
+convg <- rasterFromXYZ(convg, crs=CRS("+init=epsg:32650"))
+#crs(convg) <- CRS("+init=epsg:32650")
 
 #Saga Wetness-Index
 SWI <- read.csv2("swi.csv", header = TRUE, sep = ";")
-SWI <- rasterFromXYZ(SWI,
-                       #res=c(NA,NA),
-                       crs=CRS("+init=epsg:32650"),
-                       #digits=10
-                       )
-crs(SWI) <- CRS("+init=epsg:32650")
+SWI <- rasterFromXYZ(SWI, crs=CRS("+init=epsg:32650"))
+#crs(SWI) <- CRS("+init=epsg:32650")
 
 #Rasterstack
 yingtan.stack <- stack(elevation, raster.1, convg, SWI)
-# test <- as.list(yingtan.stack)
-# test
+#test <- as.list(yingtan.stack); test
 plot(yingtan.stack)
 ```
 
