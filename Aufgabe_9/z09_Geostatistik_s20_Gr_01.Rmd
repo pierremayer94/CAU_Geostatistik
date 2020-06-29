@@ -1,0 +1,203 @@
+---
+title: "Aufgabe 09"
+author: "Gruppe 01"
+date: "30.06.2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+getwd()
+list=ls()
+rm(list=ls())
+setwd("C:/docs/github/CAU_Geostatistik/Aufgabe_9")
+# library(tidyverse)
+# #library(tinytex)
+# library(gstat)
+# library(sp)
+# library(rgdal)
+# library(raster)
+#file.edit("C:/docs/github/CAU_Geostatistik/z05_Geostatistik_s20_Gr01.Rmd")
+load("C:/docs/github/CAU_Geostatistik/Aufgabe_9/yingtan_20_ueb9.RData")
+```
+
+# Aufgabe 20
+
+## 20 a)
+Berechnen Sie - soweit möglich - geeignete Korrelationskoeffizienten für die austauschbaren Ca-Ionen (evtl. transformiert) mit sämtlichen Reliefgrößen
+```{r}
+SPDF <- ljz
+
+cor(x = SPDF@data$Ca_exch, y = SPDF@data$yingtan_elevation)
+
+cor(x = SPDF@data$Ca_exch, y = SPDF@data$tri)
+
+cor(x = SPDF@data$Ca_exch, y = SPDF@data$tpi)
+
+cor(x = SPDF@data$Ca_exch, y = SPDF@data$roughness)
+
+cor(x = SPDF@data$Ca_exch, y = SPDF@data$slope)
+
+cor(x = SPDF@data$Ca_exch, y = SPDF@data$aspect)
+
+cor(x = SPDF@data$Ca_exch, y = SPDF@data$flowdir)
+
+cor(x = SPDF@data$Ca_exch, y = SPDF@data$CONVG2)
+
+cor(x = SPDF@data$Ca_exch, y = SPDF@data$SAGAWI)
+```
+
+## 20 b)
+Erstellen Sie mit Hilfe der Methode scatterplotMatrix eine Scatterplot-Matrix mit den am besten korrelierenden Kovariablen. Stellen Sie die jeweiligen
+Histogramme in der Diagonalen dar.
+
+```{r}
+#install.packages("car")
+library(car)
+#?scatterplotMatrix()
+scatterplotMatrix(x = SPDF@data,
+                  formula=Ca_exch~yingtan_elevation+SAGAWI,
+                  data=SPDF,
+                  #regLine=TRUE
+                  #groups=,
+                  #use=
+                  )
+```
+
+
+## 20 c)
+Beurteilen Sie abschließend, welche Reliefparameter als potentielle Kovariablen für eine Modellierung in Frage kommen und welche sich eher nicht
+eignen. Begründen Sie ihre Einschätzung anhand der bisherigen Ergebnisse
+dieses Aufgabenblattes.
+
+
+
+
+# Aufgabe 21
+
+## 21 a)
+Führen Sie eine Variablenauswahl durch. Nutzen Sie die Rückwärtselimination der step-Funktion und beginnen Sie mit den Einflussgrößen, für die
+Sie sich in Aufg. 20c) entschieden haben.
+
+```{r}
+
+#?lm()
+linear <- lm(formula = Ca_exch~yingtan_elevation+SAGAWI,
+   data = SPDF
+   #na.action = ,
+   #method = ,
+   #model = ,
+   #x = ,
+   #y = ,
+   #qr = 
+    )
+
+#?step()
+step(object = linear, #lm model
+     #scope = , #defines the range of models examined in the stepwise search. This should be either a single formula, or a list containing components upper and lower, both formulae. See the details for how to specify the formulae and how they are used.
+     #scale = , default 0 --> scale estimated: see extractAIC
+     direction = "backward", 
+     trace = TRUE, #info printed during running
+     #keep = ,
+     #steps = , #maximum number of steps to be considered, default 1000
+     #k = ,
+     )
+
+
+```
+
+
+## 21 b)
+Wenden Sie die Methode summary auf das lm-Objekt aus Aufgabe a) an
+und beschreiben Sie in knappen Worten, wofür die dargestellten Statistiken
+stehen. Was sagen die Werte konkret aus?
+
+```{r}
+summary(linear)
+```
+
+
+Std. Error: 
+t value: 
+Pr(>|t|): 
+esidual standard error: 
+degrees of freedom: 
+Multiple R-squared: 
+Adjusted R-squared: 
+F-statistic: 
+p-value: 
+
+Notieren Sie das Bestimmtheitsmaß der resultierenden Regression. Aus welchen Kovariablen setzt sich das abschließende Regressionsmodell zusammen und sind diese signifikant?
+
+Bestimmtheitsmaß: R-squared, R^2 
+
+Kovariablen des abschließende Regressionsmodell:
+Signifaganz: Ja, da P-Wert <0.05
+
+
+## 21 c)
+Untersuchen Sie ihren Fit aus a) hinsichtlich
+• fehlender Normalverteilung der Residuen
+• Ausreißern und high-leverage points
+• Heteroskedastizität
+• nicht-linearer Regression.
+Nennen Sie alle Annahmeverletzungen, die Sie finden können. Begründen
+Sie ihre Auswahl
+
+```{r}
+plot(linear)
+```
+
+
+## 21 d)
+Führen Sie nun eine Vorhersage mit dem generierten Regressionsmodell
+durch. Nutzen Sie das Objekt „terrain“ des geladenen Workspace als ZielGrid. Ermitteln Sie anschließend den RMSE dieser Methode, indem Sie eine
+LOO-Kreuzvalidierung durchführen.
+
+```{r}
+var <- variogram(Ca_exch~yingtan_elevation+SAGAWI, 
+                  SPDF, 
+                  cutoff=2202, # ca. 50% der Max. Distanz
+                  width= 100 
+                    )
+
+m <- vgm(#psill = 110,
+          model = "Exp",
+          #model = c("Nug", "Exp", "Log", "Gau"),
+          #range = 300,
+          #kappa= 2,
+          #nugget = 2, 
+          cutoff= 2202)
+
+v_fit <- fit.variogram(object = var,
+                  model = m,
+                  #fit.sills = TRUE,
+                  #fit.ranges = TRUE,
+                  fit.method = 7,#vgl. Gstat user's manual, 
+                                 #p. 42, tab. 4.2,
+                                 #<http://www.gstat.org/gstat.pdf>
+                                 # 7 ordinary least squares
+                  #fit.kappa = TRUE,
+                  )
+
+krig <- gstat::krige(Ca_exch~yingtan_elevation+SAGAWI, 
+                     locations = SPDF,
+                     newdata = terrain, 
+                     model = v_fit)
+
+LOOCV <- krige.cv(Ca_exch~yingtan_elevation+SAGAWI, #statt SPDF@data$Ca_exch~1
+         locations = SPDF, 
+         model= v_fit,
+         #maxdist = 2202
+         )
+
+RMSE <- function(residuals){
+  sqrt(sum((residuals)^2)/length(residuals))
+}
+
+RMSE(residuals = LOOCV@data$residual)
+
+bubble(LOOCV, "residual", main = "ordinary kriging Ca-exch LOOCV")
+
+```
+
