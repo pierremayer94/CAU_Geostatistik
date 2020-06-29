@@ -11,12 +11,12 @@ getwd()
 list=ls()
 rm(list=ls())
 setwd("C:/docs/github/CAU_Geostatistik/Aufgabe_9")
-# library(tidyverse)
+library(tidyverse)
 # #library(tinytex)
-# library(gstat)
-# library(sp)
-# library(rgdal)
-# library(raster)
+library(gstat)
+library(sp)
+library(rgdal)
+library(raster)
 #file.edit("C:/docs/github/CAU_Geostatistik/z05_Geostatistik_s20_Gr01.Rmd")
 load("C:/docs/github/CAU_Geostatistik/Aufgabe_9/yingtan_20_ueb9.RData")
 ```
@@ -28,24 +28,19 @@ Berechnen Sie - soweit möglich - geeignete Korrelationskoeffizienten für die a
 ```{r}
 SPDF <- ljz
 
+#Wie geht das eleganter als nachfolgend?
+
 cor(x = SPDF@data$Ca_exch, y = SPDF@data$yingtan_elevation)
-
 cor(x = SPDF@data$Ca_exch, y = SPDF@data$tri)
-
 cor(x = SPDF@data$Ca_exch, y = SPDF@data$tpi)
-
 cor(x = SPDF@data$Ca_exch, y = SPDF@data$roughness)
-
 cor(x = SPDF@data$Ca_exch, y = SPDF@data$slope)
-
 cor(x = SPDF@data$Ca_exch, y = SPDF@data$aspect)
-
 cor(x = SPDF@data$Ca_exch, y = SPDF@data$flowdir)
-
 cor(x = SPDF@data$Ca_exch, y = SPDF@data$CONVG2)
-
 cor(x = SPDF@data$Ca_exch, y = SPDF@data$SAGAWI)
 ```
+Die Variable Ca wurde, obwohl sie nicht normalverteilt ist, nicht transformiert, da durch eine Transformierung keine wesentliche Annäherung an die Normalverteilung erreicht wurde. Die Korrelationskoeffizienten zeigen zu den meisten Reliefparametern keinen signifikanten Zusammenhang der austauschbaren Ca-Ionen zu den Reliefparametern. Zu der Demographie besteht ein leichter negativer Zusammenhang (-0,32) und zu der relativen Bodenfeuchte (SAGAWI) besteht ein leichter positiver Zusammenhang (0,32).
 
 ## 20 b)
 Erstellen Sie mit Hilfe der Methode scatterplotMatrix eine Scatterplot-Matrix mit den am besten korrelierenden Kovariablen. Stellen Sie die jeweiligen
@@ -55,9 +50,10 @@ Histogramme in der Diagonalen dar.
 #install.packages("car")
 library(car)
 #?scatterplotMatrix()
-scatterplotMatrix(x = SPDF@data,
-                  formula=Ca_exch~yingtan_elevation+SAGAWI,
+scatterplotMatrix(~Ca_exch + yingtan_elevation + SAGAWI,
+                  #Ca_exch~yingtan_elevation+SAGAWI,
                   data=SPDF,
+                  diagonal = TRUE,
                   #regLine=TRUE
                   #groups=,
                   #use=
@@ -70,7 +66,11 @@ Beurteilen Sie abschließend, welche Reliefparameter als potentielle Kovariablen
 eignen. Begründen Sie ihre Einschätzung anhand der bisherigen Ergebnisse
 dieses Aufgabenblattes.
 
+Die Höhe steht in einer negativen Korrelation zur Zielvariablen. Je mehr die Höhe zunimmt, desto geringer ist der Gehalt an Ca_exch. Der Saga Wetness Index hingegen korreliert positiv mit der Zielvariable. Je stärker der Index, umso höher der Gehalt an Ca_exch. Der Konvergenz/ Divergenz Index ist steht ebenfalls in einer negativen Korrelation zur Zielvariable. Ebenfalls auffällig ist die Normalverteilung der Werte für SAGAWI & CONVG2.
 
+Da sich die Werte der austauschbaren Ca-Ionen kaum bezüglich ihrer räumlichen Distanz (bezogen auf ihre geographische Lage zueinander) kaum ähneln, eignen sich die Koordinaten nicht für eine potenzielle Modellierung. Es scheint einen leichten Zusammenhang zwischen den austauschbaren Ca-Ionen und dem Höhenmodell sowie der relativen Bodenfeuchte (SAGAWI) zu geben. Deshalb eignen sich diese beiden Parameter als Kovariablen für eine Modellierung.
+
+Die Höhe steht in einer negativen Korrelation zur Zielvariablen. Je mehr die Höhe zunimmt, desto geringer ist der Gehalt an Ca_exch. Der Saga Wetness Index hingegen korreliert positiv mit der Zielvariable. Je stärker der Index, umso höher der Gehalt an Ca_exch. Der Konvergenz/ Divergenz Index ist steht ebenfalls in einer negativen Korrelation zur Zielvariable. Ebenfalls auffällig ist die Normalverteilung der Werte für SAGAWI & CONVG2.
 
 
 # Aufgabe 21
@@ -116,15 +116,38 @@ stehen. Was sagen die Werte konkret aus?
 summary(linear)
 ```
 
+Der Call zeigt an, welche Kovariablen verwendet wurden. Wir haben den Ca_exch
+mit Elevation und SAGAWI korreliert.
 
-Std. Error: 
-t value: 
-Pr(>|t|): 
-esidual standard error: 
+Residuals:
+Fehler zwischen Modellierung und tatsächlich beobachteten
+Werten. Minimumwert, Maximumwert, median Wert und das erste und dritte Quartil der Fehler wurden ausgegeben.
+Es beträgt der Interquartilabstand 12,357. Im Zusammenhang mit dem Maximalwert 76,5, könnte man annehmen, dass es besser wäre, wenn der Maximalwert geringer wäre.
+
+Coefficients: 
+Estimate beschreibt den zu verwendenden Faktor in unserer
+Regressionsgleichung: f(x) = -11,2069 -0,4121(elevation) +3,4462*(SAGAWI)
+
+Den Achenschnittpunkt mit der Y-Achse beschreibt intercept: -11,2069.
+Der Wetness-Index ist stärker gewichtet als die elevation.
+
+Std. Error: Std.-Error beschreibt die jeweilige Standartabweichung (hoch bei intercept). 
+
+t value: t-value gibt den Ergebnisswert des t-Testes an.
+
+Pr(>|t|): Pr-Wert ist zur Überprüfung der Nullhypothese. Das dazu zu verwendende
+Signifikanzniveu wird durch die * angezeigt.
+
+Residual standard error: er Residual Standard Error ist die Standartabweichung der Residuen. Hier wird auch die
+Anzahl der Freiheitsgrade angegeben (332).
+
 degrees of freedom: 
-Multiple R-squared: 
-Adjusted R-squared: 
+
+Multiple R-squared/Adjusted R-squared: Die Werte multiple R-squard und adjusted R-squard geben die jeweiligen Werte für das
+zentrierte und das unzentrierte R² an.
+
 F-statistic: 
+
 p-value: 
 
 Notieren Sie das Bestimmtheitsmaß der resultierenden Regression. Aus welchen Kovariablen setzt sich das abschließende Regressionsmodell zusammen und sind diese signifikant?
@@ -146,7 +169,48 @@ Sie ihre Auswahl
 
 ```{r}
 plot(linear)
+outlierTest(linear)
 ```
+
+• fehlender Normalverteilung der Residuen
+```{r}
+# Residuen
+res <- resid(linear)
+# Normalverteilung der Residuen
+shapiro.test(res)
+```
+Der W-Wert ist mit 0,89 zwar dicht an 1, aber der p-Wert ist wesentlich kleiner 0,05. Die Residuen sind nicht normalverteilt.
+
+• Ausreißern und high-leverage points
+```{r}
+# Verteilung der Residuen
+hist(res)
+boxplot(res)
+# Ausreißer
+out <- ifelse(res < (mean(res) - 2*sd(res)) | res > (mean(res) + 2*sd(res)), 1, 0)
+#out
+# high-leverage points
+leveragePlots(model = linear)
+```
+Werte > 20 werden als Ausreißer dargestellt. Die Werte 86 und 99 sind high leverage points.
+
+• Heteroskedastizität
+```{r}
+# Breusch-Pragan Test
+#install.packages("AER")
+library(AER)
+bptest(linear)
+ncvTest(linear)
+```
+
+• nicht-linearer Regression.
+```{r}
+# nicht-lineare Regression
+summary(linear)
+ceresPlots(linear)
+#<https://www.statmethods.net/stats/rdiagnostics.html>
+```
+R^2 = 0,14 -> mit dem Modell werden knapp 14% der Werte für austauschbare Ca-Ionen erklärt. Es scheint noch weitere Parameter zu geben, die Einfluss auf die Zielgröße haben.
 
 
 ## 21 d)
@@ -186,7 +250,7 @@ krig <- gstat::krige(Ca_exch~yingtan_elevation+SAGAWI,
                      model = v_fit)
 
 LOOCV <- krige.cv(Ca_exch~yingtan_elevation+SAGAWI, #statt SPDF@data$Ca_exch~1
-         locations = SPDF, 
+         locations = SPDF, #oder SPDF?
          model= v_fit,
          #maxdist = 2202
          )
