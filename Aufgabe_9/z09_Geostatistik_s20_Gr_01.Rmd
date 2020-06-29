@@ -219,6 +219,11 @@ durch. Nutzen Sie das Objekt „terrain“ des geladenen Workspace als ZielGrid.
 LOO-Kreuzvalidierung durchführen.
 
 ```{r}
+
+proj4string(terrain) <- CRS("+proj=utm +zone=50 +ellps=WGS84 +datum=WGS84")
+proj4string(SPDF) <- proj4string(terrain)
+
+  
 var <- variogram(Ca_exch~yingtan_elevation+SAGAWI, 
                   SPDF, 
                   cutoff=2202, # ca. 50% der Max. Distanz
@@ -263,5 +268,10 @@ RMSE(residuals = LOOCV@data$residual)
 
 bubble(LOOCV, "residual", main = "ordinary kriging Ca-exch LOOCV")
 
+krig@data$var1.pred[which(krig@data$var1.var > var(SPDF$Ca_exch) )] <- NA
+
+#krig@data$var1.pred <- replace(krig@data$var1.pred, krig@data$var1.var > var(SPDF$Ca_exch), NA) # Alternative NoData Umsetzung
+
+spplot(krig)
 ```
 
