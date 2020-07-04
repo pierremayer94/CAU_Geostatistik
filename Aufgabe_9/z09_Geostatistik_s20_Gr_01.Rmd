@@ -93,7 +93,7 @@ linear <- lm(formula = Ca_exch~yingtan_elevation+SAGAWI,
     )
 
 #?step()
-step(object = linear, #lm model
+linear <- step(object = linear, #lm model
      #scope = , #defines the range of models examined in the stepwise search. This should be either a single formula, or a list containing components upper and lower, both formulae. See the details for how to specify the formulae and how they are used.
      #scale = , default 0 --> scale estimated: see extractAIC
      direction = "backward", 
@@ -103,7 +103,7 @@ step(object = linear, #lm model
      #k = ,
      )
 
-
+linear
 ```
 
 
@@ -224,41 +224,52 @@ proj4string(terrain) <- CRS("+proj=utm +zone=50 +ellps=WGS84 +datum=WGS84")
 proj4string(SPDF) <- proj4string(terrain)
 
   
-var <- variogram(Ca_exch~yingtan_elevation+SAGAWI, 
-                  SPDF, 
-                  cutoff=2202, # ca. 50% der Max. Distanz
-                  width= 100 
-                    )
+# var <- variogram(Ca_exch~yingtan_elevation+SAGAWI, 
+#                   SPDF, 
+#                   cutoff=2202, # ca. 50% der Max. Distanz
+#                   width= 100 
+#                     )
+# 
+# m <- vgm(#psill = 110,
+#           model = "Exp", # model = linear?
+#           #model = c("Nug", "Exp", "Log", "Gau"),
+#           #range = 300,
+#           #kappa= 2,
+#           #nugget = 2, 
+#           cutoff= 2202) # model = linear?
+# 
+# v_fit <- fit.variogram(object = var,
+#                   model = m,
+#                   #fit.sills = TRUE,
+#                   #fit.ranges = TRUE,
+#                   fit.method = 7,#vgl. Gstat user's manual, 
+#                                  #p. 42, tab. 4.2,
+#                                  #<http://www.gstat.org/gstat.pdf>
+#                                  # 7 ordinary least squares
+#                   #fit.kappa = TRUE,
+#                   )
 
-m <- vgm(#psill = 110,
-          model = "Exp",
-          #model = c("Nug", "Exp", "Log", "Gau"),
-          #range = 300,
-          #kappa= 2,
-          #nugget = 2, 
-          cutoff= 2202)
 
-v_fit <- fit.variogram(object = var,
-                  model = m,
-                  #fit.sills = TRUE,
-                  #fit.ranges = TRUE,
-                  fit.method = 7,#vgl. Gstat user's manual, 
-                                 #p. 42, tab. 4.2,
-                                 #<http://www.gstat.org/gstat.pdf>
-                                 # 7 ordinary least squares
-                  #fit.kappa = TRUE,
-                  )
-
-krig <- gstat::krige(Ca_exch~yingtan_elevation+SAGAWI, 
+krig <- krige(formula = Ca_exch~yingtan_elevation+SAGAWI, 
                      locations = SPDF,
-                     newdata = terrain, 
-                     model = v_fit)
+                     newdata = terrain,
+                    # model=v_fit
+                     )
+
+# idw <- idw(formula = Ca_exch~1,
+#            locations = SPDF,
+#            newdata = terrain
+#            )
+
+
 
 LOOCV <- krige.cv(Ca_exch~yingtan_elevation+SAGAWI, #statt SPDF@data$Ca_exch~1
          locations = SPDF, #oder SPDF?
-         model= v_fit,
+         #model= v_fit,
          #maxdist = 2202
          )
+
+str(krig)
 
 RMSE <- function(residuals){
   sqrt(sum((residuals)^2)/length(residuals))

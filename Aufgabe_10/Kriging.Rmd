@@ -1,0 +1,108 @@
+---
+title: "Kriging"
+author: "Pierre Mayer"
+date: "7/4/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Kriging
+
+gegeben ist ...
+
+## IDW Inverse Distance Weighted
+```{r}
+krig <- krige(formula = Ca_exch~1, 
+                     locations = SPDF,
+                     newdata = terrain 
+                     )
+
+idw <- idw(formula = Ca_exch~1,
+           locations = SPDF,
+           newdata = terrain
+           )
+```
+[inverse distance weighted interpolation]
+Beide Formeln liefern das selbe Ergebnis.
+
+
+## Universal Kriging
+```{r}
+# Creating fitting variogram model
+var <- variogram(Ca_exch~yingtan_elevation+SAGAWI, 
+                  SPDF, 
+                  cutoff=2202, # ca. 50% der Max. Distanz
+                  width= 100 
+                    )
+
+m <- vgm(#psill = 110,
+          model = "Exp", # model = linear?
+          #model = c("Nug", "Exp", "Log", "Gau"),
+          #range = 300,
+          #kappa= 2,
+          #nugget = 2, 
+          cutoff= 2202) # model = linear?
+
+v_fit <- fit.variogram(object = var,
+                  model = m,
+                  #fit.sills = TRUE,
+                  #fit.ranges = TRUE,
+                  fit.method = 7,#vgl. Gstat user's manual, 
+                                 #p. 42, tab. 4.2,
+                                 #<http://www.gstat.org/gstat.pdf>
+                                 # 7 ordinary least squares
+                  #fit.kappa = TRUE,
+                  )
+
+
+krig <- krige(formula = Ca_exch~yingtan_elevation+SAGAWI, 
+              locations = SPDF,
+              newdata = terrain,
+              model=v_fit
+              )
+
+```
+[using universal kriging]
+
+
+
+## OK Ordinary Kriging = (kriging with no covariates)??
+```{r}
+krig <- krige(formula = Ca_exch~1,
+              locations = SPDF,
+              newdata = terrain,
+              model=v_fit
+              )
+
+```
+[ordinary or weighted least squares prediction]
+Regression Kriging
+
+## MLR MLR? Multible Lineare Regression?
+ordinary kriging (kriging with no covariates)
+```{r}
+lm()
+step()
+
+krig <- krige(formula = Ca_exch~yingtan_elevation+SAGAWI, #Hier vorhersage mit Covariablen
+                     locations = SPDF,
+                     newdata = terrain,
+                     )
+```
+
+
+
+## MLR + OK = KED Kriging with External Drift oder auch Regression Kriging RK
+```{r}
+krig <- krige(formula = Ca_exch~yingtan_elevation+SAGAWI,
+              locations = SPDF,
+              newdata = terrain,
+              model=v_fit
+              )
+# covariablen + model
+```
+
+

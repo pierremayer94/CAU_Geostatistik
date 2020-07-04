@@ -1,0 +1,231 @@
+---
+title: "Aufgabe 10"
+author: "Gruppe 01"
+date: "07.07.2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+getwd()
+list=ls()
+rm(list=ls())
+setwd("C:/docs/github/CAU_Geostatistik/Aufgabe_10")
+library(tidyverse)
+# #library(tinytex)
+library(gstat)
+library(sp)
+library(rgdal)
+library(raster)
+#file.edit("C:/docs/github/CAU_Geostatistik/z05_Geostatistik_s20_Gr01.Rmd")
+load("C:/docs/github/CAU_Geostatistik/Aufgabe_10/yingtan_20_ueb9.RData")
+```
+
+# Aufgabe 22 Inverse Distance Weighting 
+
+Laden Sie den Workspace in Ihrem Markdown Skript und führen Sie mit Hilfe der krige-Funktion eine IDW-Vorhersage der Ca-Ionen durch.
+Nutzen Sie das Objekt „terrain“ des geladenen Workspace als Ziel-Grid und plotten Sie ihr Ergebnis in gewohnt aussagekräftiger Manier.
+Ermitteln Sie außerdem den RMSE dieser Methode, indem Sie eine LOOKreuzvalidierung durchführen.
+
+```{r}
+# proj4string(terrain)
+# proj4string(ljz)
+
+proj4string(terrain) <- CRS("+proj=utm +zone=50 +ellps=WGS84 +datum=WGS84")
+proj4string(ljz) <- proj4string(terrain)
+
+
+SPDF <- ljz
+
+idw.kriging <- krige(formula = Ca_exch~1, 
+                     locations = SPDF,
+                     newdata = terrain
+                     )
+
+# str(idw.kriging)
+
+# idw <- idw(formula = Ca_exch~1,
+#            locations = SPDF,
+#            newdata = terrain
+#            )
+
+idw.LOOCV <- krige.cv(Ca_exch~yingtan_elevation+SAGAWI, #statt SPDF@data$Ca_exch~1
+         locations = SPDF, #oder SPDF?
+         #model= v_fit,
+         #maxdist = 2202
+         )
+
+#RMSE Function definieren
+RMSE <- function(residuals){
+  sqrt(sum((residuals)^2)/length(residuals))
+}
+
+idw.RMSE <- RMSE(residuals = idw.LOOCV@data$residual)
+
+#bubble(idw.LOOCV, "residual", main = "IDW kriging Ca-exch LOOCV")
+
+#idw.kriging@data$var1.pred[which(idw.kriging@data$var1.var > var(SPDF$Ca_exch) )] <- NA
+
+#krig@data$var1.pred <- replace(krig@data$var1.pred, krig@data$var1.var > var(SPDF$Ca_exch), NA) # Alternative NoData Umsetzung
+
+#spplot(idw.kriging)
+
+```
+
+
+# Aufgabe 23 Kriging with External Drift
+
+## 23 a)
+Leiten Sie für die Residuen der Regression aus Aufgabe 21 ein geeignetes
+Variogrammmodell ab. Vergleichen Sie die Charakteristik dieses Modells
+mit dem autokorrelativen Verhalten der Original-Zielgröße (s. Aufgabe 12).
+Erklären Sie die Unterschiede in knappen Worten. 
+
+```{r}
+## Modell aus Aufgabe 21
+
+# cloud <- variogram(linear,
+#                    SPDF, 
+#                    #cutoff= 2202, 
+#                    #width= 1000, 
+#                    cloud = TRUE
+#                    #cressie=TRUE
+#                    )
+# plot(cloud, pch=4, col="black")
+
+
+## Kriging aus Aufgabe 21 = MLR?
+linear <- lm(formula = Ca_exch~yingtan_elevation+SAGAWI, data = SPDF)
+linear <- step(object = linear, direction = "backward", trace = TRUE) #info printed during running
+linear
+
+mlr.kriging <- krige(formula = Ca_exch~yingtan_elevation+SAGAWI, 
+                     locations = SPDF,
+                     newdata = terrain,
+                    # model=v_fit
+                     )
+
+mlr.LOOCV <- krige.cv(Ca_exch~yingtan_elevation+SAGAWI, #statt SPDF@data$Ca_exch~1
+         locations = SPDF, #oder SPDF?
+         #model= v_fit,
+         #maxdist = 2202
+         )
+mlr.RMSE <- RMSE(residuals = mlr.LOOCV@data$residual)
+
+
+## Variogram aus Residuen des Kriging
+mlr.var <- variogram(residual~1, 
+                  mlr.LOOCV,
+                  cutoff=2202, # ca. 50% der Max. Distanz
+                  width = 100,
+                  #cloud = TRUE
+                    )
+
+mlr.m <- vgm(#psill = 110,
+          model = "Exp", # model = linear?
+          #model = c("Nug", "Exp", "Log", "Gau"),
+          #range = 300,
+          #kappa= 2,
+          #nugget = 2,
+          cutoff= 2202) # model = linear?
+
+mlr.v_fit <- fit.variogram(object = mlr.var,
+                  model = mlr.m,
+                  #fit.sills = TRUE,
+                  #fit.ranges = TRUE,
+                  fit.method = 7,#vgl. Gstat user's manual,
+                                 #p. 42, tab. 4.2,
+                                 #<http://www.gstat.org/gstat.pdf>
+                                 # 7 ordinary least squares
+                  #fit.kappa = TRUE,
+                  )
+
+plot(mlr.var, mlr.v_fit, cutoff=2500)
+
+```
+
+
+## 23 b)
+Wenden Sie die Methode krige entsprechend des KED an und interpolieren Sie die Konzentration der Ca-Ionen auf die Rasterzellen des Objekts „terrain“. Ermitteln Sie anschließend den RMSE dieser Methode.
+
+```{r}
+ked.kriging <- krige(formula = Ca_exch~yingtan_elevation+SAGAWI, 
+                    locations = SPDF,
+                    newdata = terrain,
+                    model=mlr.v_fit
+                    )
+
+ked.LOOCV <- krige.cv(Ca_exch~yingtan_elevation+SAGAWI, #statt SPDF@data$Ca_exch~1
+                      locations = SPDF, #oder SPDF?
+                      model= mlr.v_fit,
+                      #maxdist = 2202
+                       )
+
+ked.RMSE <- RMSE(residuals = ked.LOOCV@data$residual)
+```
+
+
+## 23 c)
+Vergleichen Sie das KED-Ergebnis mit den Resultaten von MLR, OK und IDW. Für welches Interpolationsverfahren würden Sie sich entscheiden? Begründen Sie ihre Wahl in ein, zwei Sätzen.
+
+```{r}
+# ordinary kriging
+ok.var <- variogram(Ca_exch~1, 
+                  SPDF, 
+                  cutoff=2202, # ca. 50% der Max. Distanz
+                  width= 100 
+                    )
+
+ok.m <- vgm(#psill = 110,
+          model = "Exp",
+          #model = c("Nug", "Exp", "Log", "Gau"),
+          #range = 300,
+          #kappa= 2,
+          #nugget = 2, 
+          cutoff= 2202)
+
+ok.v_fit <- fit.variogram(object = ok.var,
+                  model = ok.m,
+                  #fit.sills = TRUE,
+                  #fit.ranges = TRUE,
+                  fit.method = 7,#vgl. Gstat user's manual, 
+                                 #p. 42, tab. 4.2,
+                                 #<http://www.gstat.org/gstat.pdf>
+                                 # 7 ordinary least squares
+                  #fit.kappa = TRUE,
+                  )
+
+ok.kriging <- krige(formula = Ca_exch~1, 
+                    locations = SPDF,
+                    newdata = terrain,
+                    model=ok.v_fit
+                    )
+
+ok.LOOCV <- krige.cv(formula = Ca_exch~1, 
+                     locations = SPDF,
+                     model=ok.v_fit
+                     )
+
+ok.RMSE <- RMSE(residuals = ok.LOOCV@data$residual)
+
+```
+
+
+```{r}
+idw.RMSE
+ked.RMSE
+mlr.RMSE
+ok.RMSE
+```
+
+
+# Aufgabe 24
+Exportieren Sie ihr Prognoseergebnis aus Aufg. 23 b) im GeoTIFF-Format. 
+
+```{r}
+# str(ked.kriging)
+# str(ked.LOOCV)
+# data = ked.kriging@data$var1.pred
+# raster::writeRaster(data, "yourExportFilename.tif")
+```
+
