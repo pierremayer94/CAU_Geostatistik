@@ -32,37 +32,37 @@ Beide Formeln liefern das selbe Ergebnis.
 ## Universal Kriging
 ```{r}
 # Creating fitting variogram model
-var <- variogram(Ca_exch~yingtan_elevation+SAGAWI, 
-                  SPDF, 
-                  cutoff=2202, # ca. 50% der Max. Distanz
-                  width= 100 
-                    )
-
-m <- vgm(#psill = 110,
-          model = "Exp", # model = linear?
-          #model = c("Nug", "Exp", "Log", "Gau"),
-          #range = 300,
-          #kappa= 2,
-          #nugget = 2, 
-          cutoff= 2202) # model = linear?
-
-v_fit <- fit.variogram(object = var,
-                  model = m,
-                  #fit.sills = TRUE,
-                  #fit.ranges = TRUE,
-                  fit.method = 7,#vgl. Gstat user's manual, 
-                                 #p. 42, tab. 4.2,
-                                 #<http://www.gstat.org/gstat.pdf>
-                                 # 7 ordinary least squares
-                  #fit.kappa = TRUE,
-                  )
-
-
-krig <- krige(formula = Ca_exch~yingtan_elevation+SAGAWI, 
-              locations = SPDF,
-              newdata = terrain,
-              model=v_fit
-              )
+# var <- variogram(Ca_exch~yingtan_elevation+SAGAWI, 
+#                   SPDF, 
+#                   cutoff=2202, # ca. 50% der Max. Distanz
+#                   width= 100 
+#                     )
+# 
+# m <- vgm(#psill = 110,
+#           model = "Exp", # model = linear?
+#           #model = c("Nug", "Exp", "Log", "Gau"),
+#           #range = 300,
+#           #kappa= 2,
+#           #nugget = 2, 
+#           cutoff= 2202) # model = linear?
+# 
+# v_fit <- fit.variogram(object = var,
+#                   model = m,
+#                   #fit.sills = TRUE,
+#                   #fit.ranges = TRUE,
+#                   fit.method = 7,#vgl. Gstat user's manual, 
+#                                  #p. 42, tab. 4.2,
+#                                  #<http://www.gstat.org/gstat.pdf>
+#                                  # 7 ordinary least squares
+#                   #fit.kappa = TRUE,
+#                   )
+# 
+# 
+# krig <- krige(formula = Ca_exch~yingtan_elevation+SAGAWI, 
+#               locations = SPDF,
+#               newdata = terrain,
+#               model=v_fit
+#               )
 
 ```
 [using universal kriging]
@@ -71,6 +71,10 @@ krig <- krige(formula = Ca_exch~yingtan_elevation+SAGAWI,
 
 ## OK Ordinary Kriging = (kriging with no covariates)??
 ```{r}
+variogram()
+vgm()
+fit.variogram()
+
 krig <- krige(formula = Ca_exch~1,
               locations = SPDF,
               newdata = terrain,
@@ -95,12 +99,12 @@ krig <- krige(formula = Ca_exch~yingtan_elevation+SAGAWI, #Hier vorhersage mit C
 
 
 
-## MLR + OK = KED Kriging with External Drift oder auch Regression Kriging RK
+## MLR + OK = KED Kriging with External Drift oder auch Regression Kriging RK, Universal Kriging
 ```{r}
-krig <- krige(formula = Ca_exch~yingtan_elevation+SAGAWI,
+krig <- krige(formula = Ca_exch~yingtan_elevation+SAGAWI, #formel der mlr
               locations = SPDF,
               newdata = terrain,
-              model=v_fit
+              model= v_fit #variogram model der residuen der LOOCV der mlr/ok?
               )
 # covariablen + model
 ```

@@ -49,7 +49,7 @@ idw.kriging <- krige(formula = Ca_exch~1,
 #            newdata = terrain
 #            )
 
-idw.LOOCV <- krige.cv(Ca_exch~yingtan_elevation+SAGAWI, #statt SPDF@data$Ca_exch~1
+idw.LOOCV <- krige.cv(Ca_exch~1,#yingtan_elevation+SAGAWI, #statt SPDF@data$Ca_exch~1
          locations = SPDF, #oder SPDF?
          #model= v_fit,
          #maxdist = 2202
@@ -217,7 +217,6 @@ ked.RMSE
 mlr.RMSE
 ok.RMSE
 ```
-
 
 # Aufgabe 24
 Exportieren Sie ihr Prognoseergebnis aus Aufg. 23 b) im GeoTIFF-Format. 
