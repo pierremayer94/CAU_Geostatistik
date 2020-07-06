@@ -114,8 +114,8 @@ mlr.RMSE <- RMSE(residuals = mlr.LOOCV@data$residual)
 
 
 ## Variogram aus Residuen des Kriging
-mlr.var <- variogram(residual~1, 
-                  mlr.LOOCV,
+mlr.var <- variogram(Ca_exch~yingtan_elevation + SAGAWI,    #residual~1,
+                  SPDF,                                     #mlr.LOOCV,
                   cutoff=2202, # ca. 50% der Max. Distanz
                   width = 100,
                   #cloud = TRUE
