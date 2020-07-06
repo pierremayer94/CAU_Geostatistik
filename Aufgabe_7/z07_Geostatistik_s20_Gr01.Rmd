@@ -26,7 +26,7 @@ load("C:/docs/github/CAU_Geostatistik/Aufgabe_7/yingtan_20_ueb3.RData")
 SPDF <- ljz
 coordinates(SPDF) <- ~ EAST+NORTH
 proj4string(SPDF) <- CRS("+proj=utm +zone=50 +ellps=WGS84 +datum=WGS84")
-#proj4string(SPDF) <- CRS("+init=epsg:32650")
+# proj4string(SPDF) <- CRS("+init=epsg:32650")
 set_thin_PROJ6_warnings(TRUE)
 
 # Variogram
